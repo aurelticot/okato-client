@@ -17,8 +17,8 @@
     "messages:compile": "formatjs compile-folder --ast messages/ src/lib/lang/",
     "graphql:extract": "npx apollo client:download-schema schema.graphql --endpoint=http://localhost:9000/api/graphql",
     "graphql:generate": "npx apollo client:codegen types --localSchemaFile=schema.graphql --includes=src/**/*.ts --globalTypesFile=./src/lib/graphql/globalTypes.ts --target=typescript",
-    "prebuild": "npm run clean:build",
     "graphql": "npm run graphql:extract && npm run graphql:generate",
+    "prebuild": "npm run clean:build",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "start:dev": "react-scripts start",
@@ -38,7 +38,7 @@
     "url": "https://github.com/aurelticot/okato-client/issues"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^4.0.0",
+    "@apollo/client": "^3.2.2",
     "@formatjs/cli": "^2.13.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -53,7 +53,6 @@
     "@types/react-router-dom": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "2.34.0",
     "@typescript-eslint/parser": "2.34.0",
-    "apollo-boost": "^0.4.9",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-config-react": "^1.1.7",
