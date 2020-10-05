@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const MARKET = gql`
   query Market($id: ID!, $startDate: String!, $endDate: String!) {
