@@ -1,0 +1,11 @@
+{
+  "bookmark": {
+    "status": "hidden"
+  },
+  "reminder": {
+    "status": "hidden"
+  },
+  "timelineScroll": {
+    "status": "disabled"
+  }
+}

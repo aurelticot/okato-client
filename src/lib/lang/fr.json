@@ -1,0 +1,198 @@
+{
+  "AppDateToday": [
+    {
+      "type": 0,
+      "value": "Aujourd'hui"
+    }
+  ],
+  "MarketSelectionView.title": [
+    {
+      "type": 0,
+      "value": "Marchés"
+    }
+  ],
+  "NextMarketEvent": [
+    {
+      "options": {
+        "after_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "before_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "break": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ouvre"
+            }
+          ]
+        },
+        "close": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "close_special": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "open": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ouvre"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "status"
+    },
+    {
+      "type": 0,
+      "value": " dans "
+    },
+    {
+      "type": 1,
+      "value": "relativeTime"
+    }
+  ],
+  "SettingsView.title": [
+    {
+      "type": 0,
+      "value": "Paramètres"
+    }
+  ],
+  "settings.language.label": [
+    {
+      "type": 0,
+      "value": "Langue"
+    }
+  ],
+  "settings.language.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez une langue"
+    }
+  ],
+  "settings.language.value.en.label": [
+    {
+      "type": 0,
+      "value": "English"
+    }
+  ],
+  "settings.language.value.fr.label": [
+    {
+      "type": 0,
+      "value": "Français"
+    }
+  ],
+  "settings.language.value.system.label": [
+    {
+      "type": 0,
+      "value": "Préférence système"
+    }
+  ],
+  "settings.marketSort.label": [
+    {
+      "type": 0,
+      "value": "Tri des marchés"
+    }
+  ],
+  "settings.marketSort.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez une méthode"
+    }
+  ],
+  "settings.marketSort.value.alphabetically.label": [
+    {
+      "type": 0,
+      "value": "Alphabétique"
+    }
+  ],
+  "settings.marketSort.value.alphabeticallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Alphabétique (inverse)"
+    }
+  ],
+  "settings.marketSort.value.capitalisation.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation"
+    }
+  ],
+  "settings.marketSort.value.capitalisationReverse.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation (inverse)"
+    }
+  ],
+  "settings.marketSort.value.chronologically.label": [
+    {
+      "type": 0,
+      "value": "Chronologique"
+    }
+  ],
+  "settings.marketSort.value.chronologicallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Chronologique (inverse)"
+    }
+  ],
+  "settings.theme.label": [
+    {
+      "type": 0,
+      "value": "Thème"
+    }
+  ],
+  "settings.theme.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez un thème"
+    }
+  ],
+  "settings.theme.value.black.label": [
+    {
+      "type": 0,
+      "value": "Noir"
+    }
+  ],
+  "settings.theme.value.dark.label": [
+    {
+      "type": 0,
+      "value": "Foncé"
+    }
+  ],
+  "settings.theme.value.light.label": [
+    {
+      "type": 0,
+      "value": "Clair"
+    }
+  ],
+  "settings.theme.value.system.label": [
+    {
+      "type": 0,
+      "value": "Préférence système"
+    }
+  ]
+}

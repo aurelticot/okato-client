@@ -1,0 +1,198 @@
+{
+  "AppDateToday": [
+    {
+      "type": 0,
+      "value": "Today"
+    }
+  ],
+  "MarketSelectionView.title": [
+    {
+      "type": 0,
+      "value": "Markets"
+    }
+  ],
+  "NextMarketEvent": [
+    {
+      "options": {
+        "after_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Close"
+            }
+          ]
+        },
+        "before_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Close"
+            }
+          ]
+        },
+        "break": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Open"
+            }
+          ]
+        },
+        "close": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Close"
+            }
+          ]
+        },
+        "close_special": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Close"
+            }
+          ]
+        },
+        "open": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Open"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "status"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "relativeTime"
+    }
+  ],
+  "SettingsView.title": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
+  "settings.language.label": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
+  "settings.language.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a language"
+    }
+  ],
+  "settings.language.value.en.label": [
+    {
+      "type": 0,
+      "value": "English"
+    }
+  ],
+  "settings.language.value.fr.label": [
+    {
+      "type": 0,
+      "value": "Français"
+    }
+  ],
+  "settings.language.value.system.label": [
+    {
+      "type": 0,
+      "value": "System default"
+    }
+  ],
+  "settings.marketSort.label": [
+    {
+      "type": 0,
+      "value": "Market sorting"
+    }
+  ],
+  "settings.marketSort.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a sorting method"
+    }
+  ],
+  "settings.marketSort.value.alphabetically.label": [
+    {
+      "type": 0,
+      "value": "Alphabetically"
+    }
+  ],
+  "settings.marketSort.value.alphabeticallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Alphabetically (reverse)"
+    }
+  ],
+  "settings.marketSort.value.capitalisation.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation"
+    }
+  ],
+  "settings.marketSort.value.capitalisationReverse.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation (reverse)"
+    }
+  ],
+  "settings.marketSort.value.chronologically.label": [
+    {
+      "type": 0,
+      "value": "Chronologically"
+    }
+  ],
+  "settings.marketSort.value.chronologicallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Chronologically (reverse)"
+    }
+  ],
+  "settings.theme.label": [
+    {
+      "type": 0,
+      "value": "Theme"
+    }
+  ],
+  "settings.theme.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a theme"
+    }
+  ],
+  "settings.theme.value.black.label": [
+    {
+      "type": 0,
+      "value": "Black"
+    }
+  ],
+  "settings.theme.value.dark.label": [
+    {
+      "type": 0,
+      "value": "Dark"
+    }
+  ],
+  "settings.theme.value.light.label": [
+    {
+      "type": 0,
+      "value": "Light"
+    }
+  ],
+  "settings.theme.value.system.label": [
+    {
+      "type": 0,
+      "value": "System default"
+    }
+  ]
+}

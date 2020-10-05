@@ -1,0 +1,75 @@
+{
+  "settings.theme.label": {
+    "defaultMessage": "Thème"
+  },
+  "settings.theme.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez un thème"
+  },
+  "settings.theme.value.system.label": {
+    "defaultMessage": "Préférence système"
+  },
+  "settings.theme.value.black.label": {
+    "defaultMessage": "Noir"
+  },
+  "settings.theme.value.dark.label": {
+    "defaultMessage": "Foncé"
+  },
+  "settings.theme.value.light.label": {
+    "defaultMessage": "Clair"
+  },
+
+  "settings.language.label": {
+    "defaultMessage": "Langue"
+  },
+  "settings.language.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez une langue"
+  },
+  "settings.language.value.system.label": {
+    "defaultMessage": "Préférence système"
+  },
+  "settings.language.value.en.label": {
+    "defaultMessage": "English"
+  },
+  "settings.language.value.fr.label": {
+    "defaultMessage": "Français"
+  },
+
+  "settings.marketSort.label": {
+    "defaultMessage": "Tri des marchés"
+  },
+  "settings.marketSort.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez une méthode"
+  },
+  "settings.marketSort.value.capitalisation.label": {
+    "defaultMessage": "Capitalisation"
+  },
+  "settings.marketSort.value.alphabetically.label": {
+    "defaultMessage": "Alphabétique"
+  },
+  "settings.marketSort.value.chronologically.label": {
+    "defaultMessage": "Chronologique"
+  },
+  "settings.marketSort.value.capitalisationReverse.label": {
+    "defaultMessage": "Capitalisation (inverse)"
+  },
+  "settings.marketSort.value.alphabeticallyReverse.label": {
+    "defaultMessage": "Alphabétique (inverse)"
+  },
+  "settings.marketSort.value.chronologicallyReverse.label": {
+    "defaultMessage": "Chronologique (inverse)"
+  },
+
+  "SettingsView.title": {
+    "defaultMessage": "Paramètres"
+  },
+  "MarketSelectionView.title": {
+    "defaultMessage": "Marchés"
+  },
+  "AppDateToday": {
+    "defaultMessage": "Aujourd'hui"
+  },
+  "NextMarketEvent": {
+    "defaultMessage": "{status, select, open {Ouvre} break {Ouvre} close {Ferme} close_special {Ferme} before_market {Ferme} after_market {Ferme} } dans {relativeTime}",
+    "description": "next market event"
+  }
+}
