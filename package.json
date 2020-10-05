@@ -15,7 +15,10 @@
     "fix": "npm run format && npm run lint",
     "messages:extract": "formatjs extract 'src/**/*.ts*' --out-file messages/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "messages:compile": "formatjs compile-folder --ast messages/ src/lib/lang/",
+    "graphql:extract": "npx apollo client:download-schema schema.graphql --endpoint=http://localhost:9000/api/graphql",
+    "graphql:generate": "npx apollo client:codegen types --localSchemaFile=schema.graphql --includes=src/**/*.ts --globalTypesFile=./src/lib/graphql/globalTypes.ts --target=typescript",
     "prebuild": "npm run clean:build",
+    "graphql": "npm run graphql:extract && npm run graphql:generate",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "start:dev": "react-scripts start",
@@ -88,5 +91,8 @@
   },
   "engines": {
     "node": "14.13.0"
+  },
+  "devDependencies": {
+    "apollo": "^2.31.0"
   }
 }
