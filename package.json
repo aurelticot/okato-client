@@ -17,7 +17,7 @@
     "messages:compile": "formatjs compile-folder --ast messages/ src/lib/lang/",
     "prebuild": "npm run clean:build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "start:dev": "react-scripts start",
     "start": "npm run start:dev",
     "eject": "react-scripts eject"
