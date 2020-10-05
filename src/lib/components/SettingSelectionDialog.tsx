@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { useIntl } from "react-intl";
-import { SettingValue } from "../lib/types";
+import { SettingValue } from "../types";
 
 interface Props {
   title: string;

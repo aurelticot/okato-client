@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
-import { MarketSession } from "../lib/types";
+import { MarketSession } from "../types";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,5 +1,4 @@
 export * from "./AppDate";
-export * from "./ApplicationBar";
 export * from "./Clock";
 export * from "./MarketNextEvent";
 export * from "./MarketTitle";

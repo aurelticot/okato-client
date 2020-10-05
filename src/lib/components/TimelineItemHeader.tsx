@@ -5,8 +5,8 @@ import { MarketTitle } from "./MarketTitle";
 import { RealTimeClock } from "./RealTimeClock";
 import { MarketNextEvent } from "./MarketNextEvent";
 import { Clock } from "./Clock";
-import { Market, MarketStatus } from "../lib/types";
-import { useMarketStatus, useMarketNextEvent } from "../lib/hooks";
+import { Market, MarketStatus } from "../types";
+import { useMarketStatus, useMarketNextEvent } from "../hooks";
 
 const useStyles = makeStyles((theme) => ({
   timelineHeaderPlaceholder: {

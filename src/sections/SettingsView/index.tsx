@@ -13,9 +13,9 @@ import {
   SortByAlpha as SortByAlphaIcon,
 } from "@material-ui/icons";
 import { useIntl } from "react-intl";
-import { SettingKey, SettingValue } from "../lib/types";
-import { useUserSetting } from "../lib/hooks";
-import { SettingSelectionDialog } from "../components";
+import { SettingKey, SettingValue } from "../../lib/types";
+import { useUserSetting } from "../../lib/hooks";
+import { SettingSelectionDialog } from "../../lib/components";
 
 export const SettingsView = () => {
   interface DialogProps {

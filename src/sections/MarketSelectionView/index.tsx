@@ -9,9 +9,9 @@ import {
   Switch,
 } from "@material-ui/core";
 import { useIntl } from "react-intl";
-import { Market, SettingKey } from "../lib/types";
-import { useUserSetting } from "../lib/hooks";
-import { getMarketData } from "../lib/utils/APImock";
+import { Market, SettingKey } from "../../lib/types";
+import { useUserSetting } from "../../lib/hooks";
+import { getMarketData } from "../../lib/utils/APImock";
 
 export const MarketSelectionView = () => {
   const [allMarkets, setAllMarkets] = useState<Market[]>([]);

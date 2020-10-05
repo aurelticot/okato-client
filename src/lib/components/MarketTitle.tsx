@@ -8,8 +8,8 @@ import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
 } from "@material-ui/icons";
-import { Market, MarketStatus } from "../lib/types";
-import { useFeature, useMarketStatus } from "../lib/hooks";
+import { Market, MarketStatus } from "../types";
+import { useFeature, useMarketStatus } from "../hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {

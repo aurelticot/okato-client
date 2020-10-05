@@ -2,15 +2,19 @@ import React from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { config } from "../config";
-import { Market, SettingKey } from "../lib/types";
+import { config } from "../../config";
+import { Market, SettingKey } from "../../lib/types";
 import {
   getMarketSortingFunction,
   getMarketSortingMethodByString,
-} from "../lib/utils";
-import { getMarketData } from "../lib/utils/APImock";
-import { useUserSetting, useBaseTime } from "../lib/hooks";
-import { TimelineTime, TimelineItem, TimelineRuler } from "../components";
+} from "../../lib/utils";
+import { getMarketData } from "../../lib/utils/APImock";
+import { useUserSetting, useBaseTime } from "../../lib/hooks";
+import {
+  TimelineTime,
+  TimelineItem,
+  TimelineRuler,
+} from "../../lib/components";
 
 const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
 const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;

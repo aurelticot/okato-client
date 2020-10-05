@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import { Box, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { MarketSession, MarketStatus, TimelineSegment } from "../lib/types";
-import { resolveTimelineSegments } from "../lib/utils";
+import { MarketSession, MarketStatus, TimelineSegment } from "../types";
+import { resolveTimelineSegments } from "../utils";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
