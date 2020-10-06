@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   List,
@@ -9,25 +9,31 @@ import {
   Switch,
 } from "@material-ui/core";
 import { useIntl } from "react-intl";
-import { Market, SettingKey } from "../../lib/types";
+import { SettingKey } from "../../lib/types";
 import { useUserSetting } from "../../lib/hooks";
-import { getMarketData } from "../../lib/utils/APImock";
+import { useQuery } from "@apollo/client";
+import { MARKETS } from "../../lib/graphql/queries";
+import {
+  Markets as MarketsData,
+  MarketsVariables,
+} from "../../lib/graphql/queries/Markets/types/Markets";
+import { MarketSort } from "../../lib/graphql/globalTypes";
+
+const PAGE_LIMIT = 10;
 
 export const MarketSelectionView = () => {
-  const [allMarkets, setAllMarkets] = useState<Market[]>([]);
   const [marketSelection, setMarketSelection] = useUserSetting(
     SettingKey.MarketSelection
   );
+  const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
+    variables: {
+      sort: MarketSort.ALPHABETICALLY,
+      page: 1,
+      limit: PAGE_LIMIT,
+    },
+  });
 
-  useEffect(() => {
-    getMarketData().then((marketsData) => {
-      setAllMarkets(
-        marketsData.sort((marketA, marketB) =>
-          marketA.name.localeCompare(marketB.name)
-        )
-      );
-    });
-  }, []);
+  const markets = data ? data.markets : null;
 
   const handleToggle = (value: string) => () => {
     const currentIndex = marketSelection.indexOf(value);
@@ -54,27 +60,30 @@ export const MarketSelectionView = () => {
           </ListSubheader>
         }
       >
-        {allMarkets.map((market) => {
-          return (
-            <ListItem key={market.code}>
-              <ListItemText
-                id={`switch-list-label-${market.code}`}
-                primary={market.name}
-                secondary={market.city}
-              />
-              <ListItemSecondaryAction>
-                <Switch
-                  edge="end"
-                  onChange={handleToggle(market.code)}
-                  checked={marketSelection.includes(market.code)}
-                  inputProps={{
-                    "aria-labelledby": `switch-list-label-${market.code}`,
-                  }}
+        {markets &&
+          markets.result.map((market) => {
+            const itemId = `switch-list-label-${market.code}`;
+            return (
+              <ListItem key={market.code}>
+                <ListItemText
+                  id={itemId}
+                  primary={market.name}
+                  secondary={market.city}
                 />
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
+                <ListItemSecondaryAction>
+                  <Switch
+                    edge="end"
+                    color="primary"
+                    onChange={handleToggle(market.code)}
+                    checked={marketSelection.includes(market.code)}
+                    inputProps={{
+                      "aria-labelledby": itemId,
+                    }}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
       </List>
     </Box>
   );
