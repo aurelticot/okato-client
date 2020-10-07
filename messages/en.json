@@ -69,7 +69,7 @@
     "defaultMessage": "Today"
   },
   "NextMarketEvent": {
-    "defaultMessage": "{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}",
+    "defaultMessage": "{status, select, OPEN {Open} CLOSE {Close}} in {relativeTime}",
     "description": "next market event"
   }
 }
