@@ -7,12 +7,7 @@
 // START Enums and Input Objects
 //==============================================================
 
-export enum MarketMainStatus {
-  CLOSE = "CLOSE",
-  OPEN = "OPEN",
-}
-
-export enum MarketSort {
+export enum MarketSortingMethod {
   ALPHABETICALLY = "ALPHABETICALLY",
   ALPHABETICALLY_REVERSE = "ALPHABETICALLY_REVERSE",
   CAPITALISATION = "CAPITALISATION",

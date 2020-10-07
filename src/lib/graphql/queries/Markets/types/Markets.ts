@@ -3,11 +3,20 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { MarketSort } from "./../../../globalTypes";
+import { MarketSortingMethod, MarketStatus } from "./../../../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Markets
 // ====================================================
+
+export interface Markets_markets_result_sessions {
+  __typename: "MarketSession";
+  date: string;
+  startTime: string;
+  endTime: string;
+  mainStatus: MarketStatus;
+  status: MarketStatus;
+}
 
 export interface Markets_markets_result {
   __typename: "Market";
@@ -19,6 +28,7 @@ export interface Markets_markets_result {
   longitude: number;
   timezone: string;
   capitalisation: number | null;
+  sessions: Markets_markets_result_sessions[];
 }
 
 export interface Markets_markets {
@@ -32,7 +42,10 @@ export interface Markets {
 }
 
 export interface MarketsVariables {
-  sort: MarketSort;
+  sort?: MarketSortingMethod | null;
   limit: number;
   page: number;
+  startDate: string;
+  endDate: string;
+  withSessions?: boolean | null;
 }

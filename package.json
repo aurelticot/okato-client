@@ -16,7 +16,7 @@
     "messages:extract": "formatjs extract 'src/**/*.ts*' --out-file messages/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "messages:compile": "formatjs compile-folder --ast messages/ src/lib/lang/",
     "graphql:extract": "npx apollo client:download-schema schema.graphql --endpoint=http://localhost:9000/api/graphql",
-    "graphql:generate": "npx apollo client:codegen types --localSchemaFile=schema.graphql --includes=src/**/*.ts --globalTypesFile=./src/lib/graphql/globalTypes.ts --target=typescript",
+    "graphql:generate": "npx apollo client:codegen types --localSchemaFile=schema.graphql --includes=src/**/*.ts --globalTypesFile=./src/lib/types/globalTypes.ts --target=typescript",
     "graphql": "npm run graphql:extract && npm run graphql:generate",
     "prebuild": "npm run clean:build",
     "build": "react-scripts build",
