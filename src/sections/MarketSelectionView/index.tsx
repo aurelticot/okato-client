@@ -17,7 +17,7 @@ import {
   Markets as MarketsData,
   MarketsVariables,
 } from "../../lib/graphql/queries/Markets/types/Markets";
-import { MarketSortingMethod } from "../../lib/graphql/globalTypes";
+import { MarketSortingMethod } from "../../lib/types/globalTypes";
 
 const PAGE_LIMIT = 10;
 
