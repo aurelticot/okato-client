@@ -11,7 +11,7 @@ const defaultUserSettings: UserSettings = {
   [SettingKey.Theme]: "system",
   [SettingKey.Language]: "system",
   [SettingKey.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
-  [SettingKey.MarketSort]: MarketSortingMethod.Chronologically,
+  [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
 };
 
 export const config = {

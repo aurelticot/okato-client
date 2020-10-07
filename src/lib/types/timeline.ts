@@ -1,4 +1,4 @@
-import { MarketStatus } from "./markets";
+import { MarketStatus } from "./globalTypes";
 
 export interface TimelineSegment {
   start: number;

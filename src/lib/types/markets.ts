@@ -1,9 +1,11 @@
+import { MarketStatus } from "./globalTypes";
+
 export interface Market {
   code: string;
   name: string;
   city: string;
   longitude: number;
-  capitalisation: number;
+  capitalisation: number | null;
   timezone: string;
   hasReminder: boolean;
   isBookmarked: boolean;
@@ -11,25 +13,9 @@ export interface Market {
 }
 
 export interface MarketSession {
-  startTime: Date;
-  endTime: Date;
+  date: string;
+  startTime: string;
+  endTime: string;
+  mainStatus: MarketStatus;
   status: MarketStatus;
-}
-
-export enum MarketStatus {
-  Opened = "open",
-  Closed = "close",
-  ClosedSpecial = "close_special",
-  Break = "break",
-  BeforeMarket = "before_market",
-  AfterMarket = "after_market",
-}
-
-export enum MarketSortingMethod {
-  Capitalisation = "capitalisation",
-  CapitalisationReverse = "capitalisation-reverse",
-  Alphabetically = "alphabetically",
-  AlphabeticallyReverse = "alphabetically-reverse",
-  Chronologically = "chronologically",
-  ChronologicallyReverse = "chronologically-reverse",
 }

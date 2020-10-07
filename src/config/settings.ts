@@ -28,29 +28,29 @@ export const settings: Settings = {
     localizedLabelKey: "settings.marketSort.label",
     values: [
       {
-        key: MarketSortingMethod.Capitalisation,
+        key: MarketSortingMethod.CAPITALISATION,
         localizedLabelKey: "settings.marketSort.value.capitalisation.label",
       },
       {
-        key: MarketSortingMethod.Alphabetically,
+        key: MarketSortingMethod.ALPHABETICALLY,
         localizedLabelKey: "settings.marketSort.value.alphabetically.label",
       },
       {
-        key: MarketSortingMethod.Chronologically,
+        key: MarketSortingMethod.CHRONOLOGICALLY,
         localizedLabelKey: "settings.marketSort.value.chronologically.label",
       },
       {
-        key: MarketSortingMethod.CapitalisationReverse,
+        key: MarketSortingMethod.CAPITALISATION_REVERSE,
         localizedLabelKey:
           "settings.marketSort.value.capitalisationReverse.label",
       },
       {
-        key: MarketSortingMethod.AlphabeticallyReverse,
+        key: MarketSortingMethod.ALPHABETICALLY_REVERSE,
         localizedLabelKey:
           "settings.marketSort.value.alphabeticallyReverse.label",
       },
       {
-        key: MarketSortingMethod.ChronologicallyReverse,
+        key: MarketSortingMethod.CHRONOLOGICALLY_REVERSE,
         localizedLabelKey:
           "settings.marketSort.value.chronologicallyReverse.label",
       },
