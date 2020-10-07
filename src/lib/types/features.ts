@@ -1,9 +1,9 @@
 import { getFeatureStatusFromString } from "../utils/featureUtils";
 
 export enum FeatureStatus {
-  Enabled = "enabled",
-  Disabled = "disabled",
-  Hidden = "hidden",
+  ENABLED = "ENABLED",
+  DISABLED = "DISABLED",
+  HIDDEN = "HIDDEN",
 }
 
 export interface Features {
@@ -22,14 +22,14 @@ export class Feature {
   }
 
   public isHidden(): boolean {
-    return this._status === FeatureStatus.Hidden;
+    return this._status === FeatureStatus.HIDDEN;
   }
 
   public isDisabled(): boolean {
-    return this._status === FeatureStatus.Disabled;
+    return this._status === FeatureStatus.DISABLED;
   }
 
   public isEnabled(): boolean {
-    return this._status === FeatureStatus.Enabled;
+    return this._status === FeatureStatus.ENABLED;
   }
 }
