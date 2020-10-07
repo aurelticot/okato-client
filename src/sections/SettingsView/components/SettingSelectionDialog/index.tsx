@@ -7,14 +7,14 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { useIntl } from "react-intl";
-import { SettingValue } from "../types";
+import { SettingValue } from "../../../../lib/types";
 
 interface Props {
   title: string;
-  open: boolean;
+  selectedValue: string;
   values: SettingValue[];
-  selectedValue: string | string[];
-  onClose: (value: string | string[]) => void;
+  open: boolean;
+  onClose: (value: string) => void;
 }
 
 export const SettingSelectionDialog = (props: Props) => {

@@ -3,23 +3,22 @@ import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { config } from "../../config";
-import { Market, SettingKey } from "../../lib/types";
-import {
-  getMarketSortingFunction,
-  getMarketSortingMethodByString,
-} from "../../lib/utils";
-import { getMarketData } from "../../lib/utils/APImock";
+import { SettingKey } from "../../lib/types";
+import { getMarketSortingFunction } from "../../lib/utils";
 import { useUserSetting, useBaseTime } from "../../lib/hooks";
+import { TimelineTime, TimelineItem, TimelineRuler } from "./components";
+import { useQuery } from "@apollo/client";
+import { MARKETS } from "../../lib/graphql/queries";
 import {
-  TimelineTime,
-  TimelineItem,
-  TimelineRuler,
-} from "../../lib/components";
+  Markets as MarketsData,
+  MarketsVariables,
+  Markets_markets_result as Market,
+} from "../../lib/graphql/queries/Markets/types/Markets";
 
 const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
 const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((_theme) => ({
   root: {
     marginBottom: "56px",
     position: "relative",
@@ -33,25 +32,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const PAGE_LIMIT = 10;
+
 export const TimelineView = () => {
   const [selectedMarkets] = useUserSetting(SettingKey.MarketSelection);
   const [marketSort] = useUserSetting(SettingKey.MarketSort);
+  const [time, setTime] = useBaseTime();
   const [markets, setMarkets] = React.useState<Market[]>([]);
-  const sortMethod = getMarketSortingFunction(
-    getMarketSortingMethodByString(marketSort)
-  );
+
+  const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
+    variables: {
+      limit: PAGE_LIMIT,
+      page: 1,
+      startDate: DateTime.local()
+        .minus({ day: config.daysRequestedInPast })
+        .toFormat("yyyy-MM-dd"),
+      endDate: DateTime.local()
+        .plus({ day: config.daysRequestedInFuture })
+        .toFormat("yyyy-MM-dd"),
+      withSessions: true,
+    },
+  });
 
   React.useEffect(() => {
-    getMarketData().then((marketsData) => {
-      setMarkets(
-        marketsData.filter((market) => {
-          return selectedMarkets.includes(market.code) ? true : false;
-        })
-      );
-    });
-  }, [selectedMarkets]);
+    //console.debug(`markets total: ${data?.markets.total}`);
+    //console.debug(`markets result:`);
+    //console.debug(data?.markets.result);
+    const sortMethod = getMarketSortingFunction(marketSort);
+    const preparedMarkets = data
+      ? data.markets.result
+          .filter((market) => {
+            return selectedMarkets.includes(market.code) ? true : false;
+          })
+          .sort((a, b) => sortMethod<Market>(a, b))
+      : [];
+    setMarkets(preparedMarkets);
+  }, [data, selectedMarkets, marketSort]);
 
-  const [time, setTime] = useBaseTime();
   const containerRef = React.useRef<HTMLDivElement>();
 
   const handleScroll = React.useCallback(() => {
@@ -114,9 +131,13 @@ export const TimelineView = () => {
       >
         <Box className={classes.timelines}>
           <TimelineRuler />
-          {[...markets].sort(sortMethod).map((market) => {
+          {[...markets].map((market) => {
             return (
-              <TimelineItem key={market.code} time={time} market={market} />
+              <TimelineItem
+                key={market.code}
+                time={time}
+                market={{ ...market, hasReminder: false, isBookmarked: false }}
+              />
             );
           })}
         </Box>

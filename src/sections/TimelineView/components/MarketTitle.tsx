@@ -8,8 +8,8 @@ import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
 } from "@material-ui/icons";
-import { Market, MarketStatus } from "../types";
-import { useFeature, useMarketStatus } from "../hooks";
+import { Market, MarketStatus } from "../../../lib/types";
+import { useFeature, useMarketStatus } from "../../../lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +56,7 @@ export const MarketTitle = (props: Props) => {
         </IconButton>
       )}
       <Box>{market.name}</Box>
-      {status === MarketStatus.Opened ? (
+      {status === MarketStatus.OPEN ? (
         <FullCircle className={classes.statusIcon} />
       ) : (
         <HollowedCircle className={classes.statusIcon} />

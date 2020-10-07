@@ -2,9 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, IconButton } from "@material-ui/core";
 import { Refresh as RefreshIcon } from "@material-ui/icons";
-import { AppDate } from "./AppDate";
-import { RealTimeClock } from "./RealTimeClock";
-import { Clock } from "./Clock";
+import { AppDate } from "../../../lib/components/AppDate";
+import { RealTimeClock } from "../../../lib/components/RealTimeClock";
+import { Clock } from "../../../lib/components/Clock";
 
 const useStyles = makeStyles((_theme) => ({
   root: {

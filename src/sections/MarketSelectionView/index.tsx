@@ -17,19 +17,22 @@ import {
   Markets as MarketsData,
   MarketsVariables,
 } from "../../lib/graphql/queries/Markets/types/Markets";
-import { MarketSort } from "../../lib/graphql/globalTypes";
+import { MarketSortingMethod } from "../../lib/graphql/globalTypes";
 
 const PAGE_LIMIT = 10;
 
 export const MarketSelectionView = () => {
-  const [marketSelection, setMarketSelection] = useUserSetting(
+  const [marketSelection, setMarketSelection] = useUserSetting<string[]>(
     SettingKey.MarketSelection
   );
   const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
     variables: {
-      sort: MarketSort.ALPHABETICALLY,
+      sort: MarketSortingMethod.ALPHABETICALLY,
       page: 1,
       limit: PAGE_LIMIT,
+      startDate: "",
+      endDate: "",
+      withSessions: false,
     },
   });
 

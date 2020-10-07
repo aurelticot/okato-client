@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
-import { MarketSession } from "../types";
+import { MarketSession } from "../../../lib/types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,17 +12,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useRelativeTime = (time: Date): string | null => {
+const useRelativeTime = (tagetDate: DateTime): string | null => {
   const [relativeTime, setRelativeTime] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = DateTime.local();
-      const later = DateTime.fromJSDate(time);
-      if (now > later) {
+      if (now > tagetDate) {
         setRelativeTime(null);
       } else {
-        const interval = Interval.fromDateTimes(now, later);
+        const interval = Interval.fromDateTimes(now, tagetDate);
         const hourCount = interval.length("hour");
         if (hourCount > 1) {
           setRelativeTime(`${Math.floor(hourCount)}h`);
@@ -45,16 +44,17 @@ interface Props {
 }
 
 export const MarketNextEvent = ({ nextEvent }: Props) => {
-  const { status, startTime } = nextEvent;
+  const { mainStatus, startTime, date } = nextEvent;
   const classes = useStyles();
   const i18n = useIntl();
 
-  const relativeTime = useRelativeTime(startTime);
+  const startTimeObject = DateTime.fromISO(`${date}T${startTime}`);
+  const relativeTime = useRelativeTime(startTimeObject);
 
-  if ((!startTime && !status) || relativeTime === null) {
+  if ((!startTime && !mainStatus) || relativeTime === null) {
     return null;
   }
-
+  const status = mainStatus;
   return (
     <Box className={classes.root}>
       {i18n.formatMessage(
@@ -62,7 +62,7 @@ export const MarketNextEvent = ({ nextEvent }: Props) => {
           id: "NextMarketEvent",
           description: "next market event",
           defaultMessage:
-            "{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}",
+            "{status, select, OPEN {Open} CLOSE {Close}} in {relativeTime}",
         },
         { status, relativeTime }
       )}
