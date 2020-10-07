@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import { Box, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { MarketSession, MarketStatus, TimelineSegment } from "../lib/types";
-import { resolveTimelineSegments } from "../lib/utils";
+import {
+  MarketSession,
+  MarketStatus,
+  TimelineSegment,
+} from "../../../lib/types";
+import { resolveTimelineSegments } from "../../../lib/utils";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -107,17 +111,17 @@ const defineSegmentClass = (
   classes: Record<string, string>
 ): string => {
   switch (status) {
-    case MarketStatus.Opened:
+    case MarketStatus.OPEN:
       return classes.open;
-    case MarketStatus.Break:
+    case MarketStatus.BREAK:
       return classes.break;
-    case MarketStatus.Closed:
+    case MarketStatus.CLOSE:
       return classes.close;
-    case MarketStatus.ClosedSpecial:
+    case MarketStatus.CLOSE_SPECIAL:
       return classes.closeSpecial;
-    case MarketStatus.BeforeMarket:
+    case MarketStatus.BEFORE_MARKET:
       return classes.beforeMarket;
-    case MarketStatus.AfterMarket:
+    case MarketStatus.AFTER_MARKET:
       return classes.afterMarket;
     default:
       return classes.close;

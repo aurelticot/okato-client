@@ -2,8 +2,49 @@ import React from "react";
 import ReactDOM from "react-dom";
 import AppContext from "./contexts/AppContext";
 import { CssBaseline } from "@material-ui/core";
-import { App } from "./containers/App";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
+import {
+  ApplicationBar,
+  MarketSelectionView,
+  SettingsView,
+  TimelineView,
+} from "./sections";
 import * as serviceWorker from "./serviceWorker";
+
+const useStyles = makeStyles((_theme) => ({
+  root: {
+    padding: "10px",
+    fontSize: "1.1em",
+  },
+}));
+
+const App = () => {
+  const classes = useStyles();
+
+  return (
+    <Router>
+      <Box className={classes.root}>
+        <Switch>
+          <Route path="/" exact>
+            <TimelineView />
+          </Route>
+          <Route path="/timeline">
+            <TimelineView />
+          </Route>
+          <Route path="/settings">
+            <SettingsView />
+          </Route>
+          <Route path="/selection">
+            <MarketSelectionView />
+          </Route>
+        </Switch>
+        <ApplicationBar />
+      </Box>
+    </Router>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +56,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

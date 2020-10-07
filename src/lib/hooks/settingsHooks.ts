@@ -5,22 +5,19 @@ import { config } from "../../config";
 
 const { settings, defaultUserSettings } = config;
 
-export const useUserSetting = (key: SettingKey) => {
+export const useUserSetting = <T extends string | string[] = string>(
+  key: SettingKey
+) => {
   const { userSettings, setUserSetting } = useContext(UserSettingsContext);
   const definition = settings[key];
-  const defaultValue = defaultUserSettings[key];
-  const userSetting = userSettings[key];
+  const defaultValue = defaultUserSettings[key] as T;
+  const userSetting = userSettings[key] as T;
 
-  function setter(value: string | string[]): void {
+  function setter(value: T): void {
     setUserSetting(key, value);
   }
 
-  const returnedObject: [
-    string | string[],
-    (value: string | string[]) => void,
-    SettingDefinition,
-    string | string[]
-  ] = [
+  const returnedObject: [T, (value: T) => void, SettingDefinition, T] = [
     userSetting ? userSetting : defaultValue,
     setter,
     definition,

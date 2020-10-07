@@ -14,7 +14,7 @@
   "NextMarketEvent": [
     {
       "options": {
-        "after_market": {
+        "CLOSE": {
           "value": [
             {
               "type": 0,
@@ -22,39 +22,7 @@
             }
           ]
         },
-        "before_market": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Ferme"
-            }
-          ]
-        },
-        "break": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Ouvre"
-            }
-          ]
-        },
-        "close": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Ferme"
-            }
-          ]
-        },
-        "close_special": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Ferme"
-            }
-          ]
-        },
-        "open": {
+        "OPEN": {
           "value": [
             {
               "type": 0,

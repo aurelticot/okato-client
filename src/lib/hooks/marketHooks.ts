@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 import { Market, MarketSession, MarketStatus } from "../types";
-import {
-  getMarketNextEvent,
-  getMarketMainStatus,
-  getMarketStatus,
-} from "../utils";
+import { getMarketNextEvent, getMarketStatus } from "../utils";
 
 export const useMarketStatus = (
   market: Market,
   useMain = false,
   baseTime: Date | null
 ): MarketStatus => {
-  const [status, setStatus] = useState<MarketStatus>(MarketStatus.Closed);
+  const [status, setStatus] = useState<MarketStatus>(MarketStatus.CLOSE);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const currentStatus = getMarketStatus(baseTime || new Date(), market);
-      setStatus(useMain ? getMarketMainStatus(currentStatus) : currentStatus);
+      const currentStatus = getMarketStatus(
+        baseTime || new Date(),
+        market,
+        useMain
+      );
+      setStatus(currentStatus);
     }, 1000);
     return function () {
       clearInterval(timer);

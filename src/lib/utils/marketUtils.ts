@@ -6,81 +6,95 @@ import {
   MarketSession,
 } from "../types";
 
-export const sortMarketAlphabetically = (marketA: Market, marketB: Market) => {
+interface ComparableMarket {
+  name: string;
+  longitude: number;
+  capitalisation?: number | null;
+}
+
+export const sortMarketAlphabetically = <TData extends ComparableMarket>(
+  marketA: TData,
+  marketB: TData
+) => {
   return marketA.name.localeCompare(marketB.name);
 };
 
-export const sortMarketAlphabeticallyReverse = (
-  marketA: Market,
-  marketB: Market
+export const sortMarketAlphabeticallyReverse = <TData extends ComparableMarket>(
+  marketA: TData,
+  marketB: TData
 ) => {
-  return sortMarketAlphabetically(marketB, marketA);
+  return sortMarketAlphabetically<TData>(marketB, marketA);
 };
 
-export const sortMarketChronologically = (marketA: Market, marketB: Market) => {
+export const sortMarketChronologically = <TData extends ComparableMarket>(
+  marketA: TData,
+  marketB: TData
+) => {
   return marketB.longitude - marketA.longitude;
 };
 
-export const sortMarketChronologicallyReverse = (
-  marketA: Market,
-  marketB: Market
+export const sortMarketChronologicallyReverse = <
+  TData extends ComparableMarket
+>(
+  marketA: TData,
+  marketB: TData
 ) => {
-  return sortMarketChronologically(marketB, marketA);
+  return sortMarketChronologically<TData>(marketB, marketA);
 };
 
-export const sortMarketByCapitalisation = (
-  marketA: Market,
-  marketB: Market
+export const sortMarketByCapitalisation = <TData extends ComparableMarket>(
+  marketA: TData,
+  marketB: TData
 ) => {
-  return marketB.capitalisation - marketA.capitalisation;
+  return (marketB.capitalisation || 0) - (marketA.capitalisation || 0);
 };
 
-export const sortMarketByCapitalisationReverse = (
-  marketA: Market,
-  marketB: Market
+export const sortMarketByCapitalisationReverse = <
+  TData extends ComparableMarket
+>(
+  marketA: TData,
+  marketB: TData
 ) => {
-  return sortMarketByCapitalisation(marketB, marketA);
+  return sortMarketByCapitalisation<TData>(marketB, marketA);
 };
 
-export const getMarketSortingMethodByString = (
-  sortingMethodString: string | string[]
-) => {
-  const methodToCheck = Array.isArray(sortingMethodString)
-    ? sortingMethodString[0]
-    : sortingMethodString;
-  switch (methodToCheck) {
-    case MarketSortingMethod.Alphabetically:
-      return MarketSortingMethod.Alphabetically;
-    case MarketSortingMethod.AlphabeticallyReverse:
-      return MarketSortingMethod.AlphabeticallyReverse;
-    case MarketSortingMethod.Chronologically:
-      return MarketSortingMethod.Chronologically;
-    case MarketSortingMethod.ChronologicallyReverse:
-      return MarketSortingMethod.ChronologicallyReverse;
-    case MarketSortingMethod.Capitalisation:
-      return MarketSortingMethod.Capitalisation;
-    case MarketSortingMethod.CapitalisationReverse:
-      return MarketSortingMethod.CapitalisationReverse;
+export const getMarketSortingMethodByString = (sortingMethodString: string) => {
+  switch (sortingMethodString) {
+    case MarketSortingMethod.ALPHABETICALLY:
+      return MarketSortingMethod.ALPHABETICALLY;
+    case MarketSortingMethod.ALPHABETICALLY_REVERSE:
+      return MarketSortingMethod.ALPHABETICALLY_REVERSE;
+    case MarketSortingMethod.CHRONOLOGICALLY:
+      return MarketSortingMethod.CHRONOLOGICALLY;
+    case MarketSortingMethod.CHRONOLOGICALLY_REVERSE:
+      return MarketSortingMethod.CHRONOLOGICALLY_REVERSE;
+    case MarketSortingMethod.CAPITALISATION:
+      return MarketSortingMethod.CAPITALISATION;
+    case MarketSortingMethod.CAPITALISATION_REVERSE:
+      return MarketSortingMethod.CAPITALISATION_REVERSE;
     default:
-      return MarketSortingMethod.Capitalisation;
+      return MarketSortingMethod.CAPITALISATION;
   }
 };
 
 export const getMarketSortingFunction = (
-  sortingMethod: MarketSortingMethod
-): ((marketA: Market, marketB: Market) => number) => {
+  sortingMethod: MarketSortingMethod | string
+): (<TData extends ComparableMarket>(
+  marketA: TData,
+  marketB: TData
+) => number) => {
   switch (sortingMethod) {
-    case MarketSortingMethod.Alphabetically:
+    case MarketSortingMethod.ALPHABETICALLY:
       return sortMarketAlphabetically;
-    case MarketSortingMethod.AlphabeticallyReverse:
+    case MarketSortingMethod.ALPHABETICALLY_REVERSE:
       return sortMarketAlphabeticallyReverse;
-    case MarketSortingMethod.Chronologically:
+    case MarketSortingMethod.CHRONOLOGICALLY:
       return sortMarketChronologically;
-    case MarketSortingMethod.ChronologicallyReverse:
+    case MarketSortingMethod.CHRONOLOGICALLY_REVERSE:
       return sortMarketChronologicallyReverse;
-    case MarketSortingMethod.Capitalisation:
+    case MarketSortingMethod.CAPITALISATION:
       return sortMarketByCapitalisation;
-    case MarketSortingMethod.CapitalisationReverse:
+    case MarketSortingMethod.CAPITALISATION_REVERSE:
       return sortMarketByCapitalisationReverse;
     default:
       return sortMarketByCapitalisation;
@@ -89,55 +103,62 @@ export const getMarketSortingFunction = (
 
 export const getMarketStatusFromString = (status: string): MarketStatus => {
   switch (status) {
-    case "open":
-      return MarketStatus.Opened;
-    case "break":
-      return MarketStatus.Break;
-    case "before_market":
-      return MarketStatus.BeforeMarket;
-    case "after_market":
-      return MarketStatus.AfterMarket;
-    case "close":
-      return MarketStatus.Closed;
-    case "close_special":
-      return MarketStatus.ClosedSpecial;
+    case MarketStatus.OPEN:
+      return MarketStatus.OPEN;
+    case MarketStatus.BREAK:
+      return MarketStatus.BREAK;
+    case MarketStatus.BEFORE_MARKET:
+      return MarketStatus.BEFORE_MARKET;
+    case MarketStatus.AFTER_MARKET:
+      return MarketStatus.AFTER_MARKET;
+    case MarketStatus.CLOSE:
+      return MarketStatus.CLOSE;
+    case MarketStatus.CLOSE_SPECIAL:
+      return MarketStatus.CLOSE_SPECIAL;
     default:
-      return MarketStatus.Closed;
+      return MarketStatus.CLOSE;
   }
 };
 
-export const getMarketMainStatus = (status: MarketStatus): MarketStatus => {
+export const getMarketMainStatusFromStatus = (
+  status: MarketStatus
+): MarketStatus => {
   switch (status) {
-    case MarketStatus.Opened:
-    case MarketStatus.Break:
-      return MarketStatus.Opened;
-    case MarketStatus.ClosedSpecial:
-    case MarketStatus.Closed:
-    case MarketStatus.BeforeMarket:
-    case MarketStatus.AfterMarket:
+    case MarketStatus.OPEN:
+    case MarketStatus.BREAK:
+      return MarketStatus.OPEN;
+    case MarketStatus.CLOSE_SPECIAL:
+    case MarketStatus.CLOSE:
+    case MarketStatus.BEFORE_MARKET:
+    case MarketStatus.AFTER_MARKET:
     default:
-      return MarketStatus.Closed;
+      return MarketStatus.CLOSE;
   }
 };
 
 export const getMarketStatus = (
   baseDate: Date,
-  market: Market
+  market: Market,
+  useMain = false
 ): MarketStatus => {
   const { timezone, sessions } = market;
   const baseTime = DateTime.fromJSDate(baseDate, { zone: timezone });
-  return sessions.reduce<MarketStatus>((value, session) => {
-    const sessionStart = DateTime.fromJSDate(session.startTime, {
-      zone: timezone,
-    });
-    const sessionEnd = DateTime.fromJSDate(session.endTime, {
+  const status = sessions.reduce<MarketStatus>((value, session) => {
+    const sessionStart = DateTime.fromISO(
+      `${session.date}T${session.startTime}`,
+      {
+        zone: timezone,
+      }
+    );
+    const sessionEnd = DateTime.fromISO(`${session.date}T${session.endTime}`, {
       zone: timezone,
     }).endOf("minute");
     if (sessionStart <= baseTime && sessionEnd >= baseTime) {
       return session.status;
     }
     return value;
-  }, MarketStatus.Closed);
+  }, MarketStatus.CLOSE);
+  return useMain ? getMarketMainStatusFromStatus(status) : status;
 };
 
 export const getMarketNextEvent = (
@@ -150,13 +171,16 @@ export const getMarketNextEvent = (
   const baseTime = DateTime.fromJSDate(baseDate, { zone: timezone });
   const nextSessions = sessions
     .filter((session) => {
-      const sessionStartTime = DateTime.fromJSDate(session.startTime, {
-        zone: timezone,
-      });
+      const sessionStartTime = DateTime.fromISO(
+        `${session.date}T${session.startTime}`,
+        {
+          zone: timezone,
+        }
+      );
       const differentSubStatus = currentStatus !== session.status;
       const differentMainStatus =
-        getMarketMainStatus(currentStatus) !==
-        getMarketMainStatus(session.status);
+        getMarketMainStatusFromStatus(currentStatus) !==
+        getMarketMainStatusFromStatus(session.status);
       const differentStatus = useMain
         ? differentMainStatus
         : differentSubStatus;
@@ -164,7 +188,10 @@ export const getMarketNextEvent = (
       return sessionAfterBase && differentStatus;
     })
     .sort((sessionA, sessionB) => {
-      return sessionA.startTime.getTime() - sessionB.startTime.getTime();
+      return (
+        DateTime.fromISO(sessionA.startTime).toMillis() -
+        DateTime.fromISO(sessionB.startTime).toMillis()
+      );
     });
   return nextSessions[0];
 };

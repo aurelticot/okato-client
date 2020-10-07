@@ -2,11 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Divider } from "@material-ui/core";
 import { MarketTitle } from "./MarketTitle";
-import { RealTimeClock } from "./RealTimeClock";
+import { RealTimeClock } from "../../../lib/components/RealTimeClock";
 import { MarketNextEvent } from "./MarketNextEvent";
-import { Clock } from "./Clock";
-import { Market, MarketStatus } from "../lib/types";
-import { useMarketStatus, useMarketNextEvent } from "../lib/hooks";
+import { Clock } from "../../../lib/components/Clock";
+import { Market, MarketStatus } from "../../../lib/types";
+import { useMarketStatus, useMarketNextEvent } from "../../../lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   timelineHeaderPlaceholder: {
@@ -49,14 +49,14 @@ const defineMarketStatusClass = (
   classes: Record<string, string>
 ): string => {
   switch (status) {
-    case MarketStatus.Opened:
-    case MarketStatus.Break:
+    case MarketStatus.OPEN:
+    case MarketStatus.BREAK:
       return classes.marketOpen;
-    case MarketStatus.Closed:
-    case MarketStatus.ClosedSpecial:
+    case MarketStatus.CLOSE:
+    case MarketStatus.CLOSE_SPECIAL:
       return classes.marketClosed;
-    case MarketStatus.BeforeMarket:
-    case MarketStatus.AfterMarket:
+    case MarketStatus.BEFORE_MARKET:
+    case MarketStatus.AFTER_MARKET:
       return classes.marketAfterBeforeHour;
     default:
       return ``;
@@ -113,9 +113,7 @@ export const TimelineItemHeader = (props: Props) => {
           display="flex"
           justifyContent="flex-end"
         >
-          {nextEvent !== null && !time && (
-            <MarketNextEvent nextEvent={nextEvent} />
-          )}
+          {nextEvent && !time && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>
     </Box>
