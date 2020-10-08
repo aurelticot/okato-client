@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { MarketSession, TimelineSegment } from "../types";
+import { MarketSession, MarketStatus, TimelineSegment } from "../types";
 import { config } from "../../config";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
@@ -7,13 +7,13 @@ const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const cleanTimelineSegments = (
   segments: TimelineSegment[]
 ): TimelineSegment[] => {
+  const size = segments.length;
   const returnedSegments: TimelineSegment[] = [...segments]
     .sort((a, b) => {
       return a.start - b.start;
     })
-    .map((segment: TimelineSegment, index, array) => {
+    .map((segment, index, array) => {
       let duration = segment.duration;
-      const size = array.length;
 
       const nextIndex = index + 1;
       if (nextIndex < size) {
@@ -38,28 +38,85 @@ const cleanTimelineSegments = (
   return returnedSegments;
 };
 
+const fillGapTimelineSegments = (
+  segments: TimelineSegment[],
+  timelineSize: number
+): TimelineSegment[] => {
+  const size = segments.length;
+  const completedSegments: TimelineSegment[] = [];
+
+  segments
+    .sort((a, b) => {
+      return a.start - b.start;
+    })
+    // eslint-disable-next-line array-callback-return
+    .map((segment, index, array) => {
+      const { start, duration } = segment;
+      const end = start + duration;
+      if (index === 0 && start !== 0) {
+        completedSegments.push({
+          start: 0,
+          duration: start,
+          status: MarketStatus.CLOSE,
+        });
+      }
+
+      const nextIndex = index + 1;
+      if (nextIndex < size) {
+        const nextSegment = array[nextIndex];
+        if (end !== nextSegment.start) {
+          completedSegments.push({
+            start: end,
+            duration: nextSegment.start - end,
+            status: MarketStatus.CLOSE,
+          });
+        }
+      } else if (end !== timelineSize) {
+        completedSegments.push({
+          start: end,
+          duration: timelineSize - end,
+          status: MarketStatus.CLOSE,
+        });
+      }
+
+      completedSegments.push(segment);
+    });
+
+  return completedSegments.sort((a, b) => {
+    return a.start - b.start;
+  });
+};
+
 export const resolveTimelineSegments = (
   time: DateTime,
   timezone: string,
   sessions: MarketSession[]
 ): TimelineSegment[] => {
-  const timelineStart = time.minus({
-    days: daysInPast,
-    hours: timelineVisiblePeriod / 2,
-  });
-  const timelineEnd = time.plus({
-    days: daysInFuture,
-    hours: timelineVisiblePeriod / 2,
-  });
+  const timelineStart = time
+    .minus({
+      days: daysInPast,
+      hours: timelineVisiblePeriod / 2,
+    })
+    .startOf("minute");
+  const timelineEnd = time
+    .plus({
+      days: daysInFuture,
+      hours: timelineVisiblePeriod / 2,
+    })
+    .startOf("minute");
+  const timelineSize = timelineEnd.diff(timelineStart).as("minutes");
 
   const segments = sessions
     .filter((session) => {
       const { date, startTime, endTime } = session;
+      const sessionStartTime = DateTime.fromISO(`${date}T${startTime}`, {
+        zone: timezone,
+      }).startOf("minute");
+      const sessionEndTime = DateTime.fromISO(`${date}T${endTime}`, {
+        zone: timezone,
+      }).startOf("minute");
       return !(
-        DateTime.fromISO(`${date}T${startTime}`, { zone: timezone }) >
-          timelineEnd ||
-        DateTime.fromISO(`${date}T${endTime}`, { zone: timezone }) <
-          timelineStart
+        sessionEndTime < timelineStart || sessionStartTime > timelineEnd
       );
     })
     .map((session) => {
@@ -83,5 +140,6 @@ export const resolveTimelineSegments = (
       };
     });
 
-  return cleanTimelineSegments(segments);
+  const completedSegments = fillGapTimelineSegments(segments, timelineSize);
+  return cleanTimelineSegments(completedSegments);
 };
