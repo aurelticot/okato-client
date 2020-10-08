@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { config } from "../../config";
 import { SettingKey } from "../../lib/types";
+import { dateFormat } from "../../lib/constants";
 import { getMarketSortingFunction } from "../../lib/utils";
 import { useUserSetting, useBaseTime } from "../../lib/hooks";
 import { TimelineTime, TimelineItem, TimelineRuler } from "./components";
@@ -15,8 +16,17 @@ import {
   Markets_markets_result as Market,
 } from "../../lib/graphql/queries/Markets/types/Markets";
 
-const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
-const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;
+const {
+  daysInFuture,
+  daysInPast,
+  timelineVisiblePeriod,
+  daysRequestedInFuture,
+  daysRequestedInPast,
+} = config;
+
+const timelineTotalhours =
+  (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
+const timelineTotalSizeInSeconds = timelineTotalhours * 60 * 60;
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -28,7 +38,7 @@ const useStyles = makeStyles((_theme) => ({
     overflow: "auto",
   },
   timelines: {
-    width: `${timelineTotalDays * 100}%`,
+    width: `${(timelineTotalhours * 100) / timelineVisiblePeriod}%`,
   },
 }));
 
@@ -45,19 +55,19 @@ export const TimelineView = () => {
       limit: PAGE_LIMIT,
       page: 1,
       startDate: DateTime.local()
-        .minus({ day: config.daysRequestedInPast })
-        .toFormat("yyyy-MM-dd"),
+        .minus({ days: daysRequestedInPast, hours: timelineVisiblePeriod / 2 })
+        .startOf("minute")
+        .toFormat(dateFormat),
       endDate: DateTime.local()
-        .plus({ day: config.daysRequestedInFuture })
-        .toFormat("yyyy-MM-dd"),
+        .plus({ days: daysRequestedInFuture, hours: timelineVisiblePeriod / 2 })
+        .minus({ minute: 1 })
+        .endOf("minute")
+        .toFormat(dateFormat),
       withSessions: true,
     },
   });
 
   React.useEffect(() => {
-    //console.debug(`markets total: ${data?.markets.total}`);
-    //console.debug(`markets result:`);
-    //console.debug(data?.markets.result);
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets = data
       ? data.markets.result
@@ -134,7 +144,7 @@ export const TimelineView = () => {
           {[...markets].map((market) => {
             return (
               <TimelineItem
-                key={market.code}
+                key={market.id}
                 time={time}
                 market={{ ...market, hasReminder: false, isBookmarked: false }}
               />
