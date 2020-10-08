@@ -80,6 +80,7 @@ const useSegments = (
     sessions
   );
   const [segments, setSegments] = useState<TimelineSegment[]>(initialSegments);
+
   const updateSegments = () => {
     const newNow = DateTime.local().setZone(timezone);
     const newSegments: TimelineSegment[] = resolveTimelineSegments(
@@ -89,6 +90,7 @@ const useSegments = (
     );
     setSegments(newSegments);
   };
+
   useEffect(() => {
     const timer = setInterval(() => {
       updateSegments();
