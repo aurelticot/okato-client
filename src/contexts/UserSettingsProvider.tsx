@@ -2,14 +2,36 @@ import React, { PropsWithChildren, useState, useEffect, useMemo } from "react";
 import { config } from "../config";
 import { UserSettings } from "../lib/types";
 
-const { defaultUserSettings } = config;
+const { defaultUserSettings, settings } = config;
 
 const userSettingsLocalStorageKey = "userSettings";
 
-const initialUserSettings: UserSettings =
-  (localStorage
-    ? JSON.parse(localStorage.getItem(userSettingsLocalStorageKey) as string)
-    : defaultUserSettings) || defaultUserSettings;
+const storedUserSettings: UserSettings = localStorage
+  ? JSON.parse(localStorage.getItem(userSettingsLocalStorageKey) as string)
+  : null;
+
+const initialUserSettings = storedUserSettings
+  ? Object.assign(
+      {},
+      ...Object.entries(storedUserSettings).map(
+        ([settingKey, userSettingValue]) => {
+          const settingDefinition = settings[settingKey];
+          if (!settingDefinition) {
+            return { [settingKey]: userSettingValue };
+          }
+          const correctValue =
+            settingDefinition.values.filter(
+              (value) => value.key === userSettingValue
+            ).length > 0;
+          return {
+            [settingKey]: correctValue
+              ? userSettingValue
+              : defaultUserSettings[settingKey],
+          };
+        }
+      )
+    )
+  : defaultUserSettings;
 
 export const UserSettingsContext = React.createContext({
   userSettings: initialUserSettings,
