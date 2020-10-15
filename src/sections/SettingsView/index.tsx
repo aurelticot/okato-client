@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { List, ListSubheader, Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { useIntl } from "react-intl";
 import {
   SettingSelectionDialog,
@@ -8,6 +9,12 @@ import {
   ThemeSettingItem,
 } from "./components";
 import { SettingDialogConfiguration } from "./types";
+
+const useStyles = makeStyles((_theme) => ({
+  root: {
+    marginBottom: "56px",
+  },
+}));
 
 const emptyDialogProps: SettingDialogConfiguration = {
   title: "",
@@ -41,8 +48,9 @@ export const SettingsView = () => {
     description: "Title of the Settings view",
   });
 
+  const classes = useStyles();
   return (
-    <Box>
+    <Box className={classes.root}>
       <List subheader={<ListSubheader>{settingsViewTitle}</ListSubheader>}>
         <ThemeSettingItem onClick={openDialog} />
         <LanguageSettingItem onClick={openDialog} />

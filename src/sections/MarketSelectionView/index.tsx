@@ -8,6 +8,7 @@ import {
   ListItemSecondaryAction,
   Switch,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { useIntl } from "react-intl";
 import { SettingKey } from "../../lib/types";
 import { useUserSetting } from "../../lib/hooks";
@@ -18,6 +19,12 @@ import {
   MarketsVariables,
 } from "../../lib/graphql/queries/Markets/types/Markets";
 import { MarketSortingMethod } from "../../lib/types/globalTypes";
+
+const useStyles = makeStyles((_theme) => ({
+  root: {
+    marginBottom: "56px",
+  },
+}));
 
 const PAGE_LIMIT = 10;
 
@@ -51,8 +58,9 @@ export const MarketSelectionView = () => {
 
   const i18n = useIntl();
 
+  const classes = useStyles();
   return (
-    <Box>
+    <Box className={classes.root}>
       <List
         subheader={
           <ListSubheader>
