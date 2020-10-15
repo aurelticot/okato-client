@@ -3,9 +3,12 @@ import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { config } from "../../config";
-import { SettingKey } from "../../lib/types";
+import { Market, MarketSession, SettingKey } from "../../lib/types";
 import { dateFormat } from "../../lib/constants";
-import { getMarketSortingFunction } from "../../lib/utils";
+import {
+  getMarketSortingFunction,
+  fillBlankWithClosedSessions,
+} from "../../lib/utils";
 import { useUserSetting, useBaseTime } from "../../lib/hooks";
 import { TimelineTime, TimelineItem, TimelineRuler } from "./components";
 import { useQuery } from "@apollo/client";
@@ -13,7 +16,6 @@ import { MARKETS } from "../../lib/graphql/queries";
 import {
   Markets as MarketsData,
   MarketsVariables,
-  Markets_markets_result as Market,
 } from "../../lib/graphql/queries/Markets/types/Markets";
 
 const {
@@ -27,6 +29,13 @@ const {
 const timelineTotalhours =
   (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
 const timelineTotalSizeInSeconds = timelineTotalhours * 60 * 60;
+
+const requestedStartDate = DateTime.local()
+  .minus({ days: daysRequestedInPast, hours: timelineVisiblePeriod / 2 })
+  .startOf("minute");
+const requestedEndDate = DateTime.local()
+  .plus({ days: daysRequestedInFuture, hours: timelineVisiblePeriod / 2 })
+  .startOf("minute");
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -54,25 +63,61 @@ export const TimelineView = () => {
     variables: {
       limit: PAGE_LIMIT,
       page: 1,
-      startDate: DateTime.local()
-        .minus({ days: daysRequestedInPast, hours: timelineVisiblePeriod / 2 })
-        .startOf("minute")
-        .toFormat(dateFormat),
-      endDate: DateTime.local()
-        .plus({ days: daysRequestedInFuture, hours: timelineVisiblePeriod / 2 })
-        .minus({ minute: 1 })
-        .endOf("minute")
-        .toFormat(dateFormat),
+      startDate: requestedStartDate.toFormat(dateFormat),
+      endDate: requestedEndDate.toFormat(dateFormat),
       withSessions: true,
     },
   });
 
   React.useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
-    const preparedMarkets = data
+    const preparedMarkets: Market[] = data
       ? data.markets.result
           .filter((market) => {
             return selectedMarkets.includes(market.code) ? true : false;
+          })
+          .map(
+            (market): Market => {
+              const { timezone } = market;
+              const preparedSessions: MarketSession[] = market.sessions
+                .map(
+                  (session): MarketSession => ({
+                    start: DateTime.fromISO(
+                      `${session.date}T${session.startTime}`,
+                      { zone: timezone }
+                    )
+                      .startOf("minute")
+                      .toJSDate(),
+                    end: DateTime.fromISO(
+                      `${session.date}T${session.endTime}`,
+                      { zone: timezone }
+                    )
+                      .endOf("minute")
+                      .toJSDate(),
+                    mainStatus: session.mainStatus,
+                    status: session.status,
+                  })
+                )
+                .sort(
+                  (sessionA, sessionB) =>
+                    sessionB.start.getTime() - sessionA.start.getTime()
+                );
+              return {
+                ...market,
+                sessions: preparedSessions,
+                hasReminder: false,
+                isBookmarked: false,
+              };
+            }
+          )
+          .map((market) => {
+            const { sessions } = market;
+            const preparedSessions = fillBlankWithClosedSessions(
+              sessions,
+              requestedStartDate.toJSDate(),
+              requestedEndDate.toJSDate()
+            );
+            return { ...market, sessions: preparedSessions };
           })
           .sort((a, b) => sortMethod<Market>(a, b))
       : [];

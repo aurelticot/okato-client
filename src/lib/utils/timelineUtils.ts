@@ -108,11 +108,11 @@ export const resolveTimelineSegments = (
 
   const segments = sessions
     .filter((session) => {
-      const { date, startTime, endTime } = session;
-      const sessionStartTime = DateTime.fromISO(`${date}T${startTime}`, {
+      const { start, end } = session;
+      const sessionStartTime = DateTime.fromJSDate(start, {
         zone: timezone,
       }).startOf("minute");
-      const sessionEndTime = DateTime.fromISO(`${date}T${endTime}`, {
+      const sessionEndTime = DateTime.fromJSDate(end, {
         zone: timezone,
       }).startOf("minute");
       return !(
@@ -120,14 +120,14 @@ export const resolveTimelineSegments = (
       );
     })
     .map((session) => {
-      const { date, startTime, endTime, status } = session;
-      let sessionStartTime = DateTime.fromISO(`${date}T${startTime}`, {
+      const { start, end, status } = session;
+      let sessionStartTime = DateTime.fromJSDate(start, {
         zone: timezone,
       });
       if (sessionStartTime < timelineStart) {
         sessionStartTime = timelineStart;
       }
-      let sessionEndTime = DateTime.fromISO(`${date}T${endTime}`, {
+      let sessionEndTime = DateTime.fromJSDate(end, {
         zone: timezone,
       });
       if (sessionEndTime > timelineEnd) {

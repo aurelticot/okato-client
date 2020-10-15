@@ -1,6 +1,7 @@
 import { MarketStatus } from "./globalTypes";
 
 export interface Market {
+  id: string;
   code: string;
   name: string;
   city: string;
@@ -13,9 +14,8 @@ export interface Market {
 }
 
 export interface MarketSession {
-  date: string;
-  startTime: string;
-  endTime: string;
+  start: Date;
+  end: Date;
   mainStatus: MarketStatus;
   status: MarketStatus;
 }

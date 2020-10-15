@@ -44,14 +44,14 @@ interface Props {
 }
 
 export const MarketNextEvent = ({ nextEvent }: Props) => {
-  const { mainStatus, startTime, date } = nextEvent;
+  const { mainStatus, start } = nextEvent;
   const classes = useStyles();
   const i18n = useIntl();
 
-  const startTimeObject = DateTime.fromISO(`${date}T${startTime}`);
+  const startTimeObject = DateTime.fromJSDate(start);
   const relativeTime = useRelativeTime(startTimeObject);
 
-  if ((!startTime && !mainStatus) || relativeTime === null) {
+  if ((!start && !mainStatus) || relativeTime === null) {
     return null;
   }
   const status = mainStatus;

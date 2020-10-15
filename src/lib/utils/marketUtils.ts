@@ -144,13 +144,10 @@ export const getMarketStatus = (
   const { timezone, sessions } = market;
   const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
   const status = sessions.reduce<MarketStatus>((value, session) => {
-    const sessionStart = DateTime.fromISO(
-      `${session.date}T${session.startTime}`,
-      {
-        zone: timezone,
-      }
-    ).startOf("minute");
-    const sessionEnd = DateTime.fromISO(`${session.date}T${session.endTime}`, {
+    const sessionStart = DateTime.fromJSDate(session.start, {
+      zone: timezone,
+    }).startOf("minute");
+    const sessionEnd = DateTime.fromJSDate(session.end, {
       zone: timezone,
     }).endOf("minute");
     if (sessionStart <= adjustedBaseTime && sessionEnd >= adjustedBaseTime) {
@@ -159,6 +156,89 @@ export const getMarketStatus = (
     return value;
   }, MarketStatus.CLOSE);
   return useMain ? getMarketMainStatusFromStatus(status) : status;
+};
+
+export const fillBlankWithClosedSessions = (
+  sessions: MarketSession[],
+  startDate: Date,
+  endDate: Date
+): MarketSession[] => {
+  const completeSessions: MarketSession[] = [];
+  const size = sessions.length;
+  const overallStartDate = DateTime.fromJSDate(startDate);
+  const overallEndDate = DateTime.fromJSDate(endDate);
+
+  sessions
+    .sort((sessionA, sessionB) => {
+      return sessionA.start.getTime() - sessionB.start.getTime();
+    })
+    .map((session, index, array) => {
+      const { start, end } = session;
+      const sessionStartDate = DateTime.fromJSDate(start);
+      const sessionEndDate = DateTime.fromJSDate(end);
+
+      if (index === 0 && sessionStartDate > overallStartDate) {
+        completeSessions.push({
+          start: overallStartDate.toJSDate(),
+          end: sessionStartDate.toJSDate(),
+          mainStatus: MarketStatus.CLOSE,
+          status: MarketStatus.CLOSE,
+        });
+      }
+      completeSessions.push(session);
+
+      const nextIndex = index + 1;
+      if (nextIndex < size) {
+        const { start: nextSessionStart } = array[nextIndex];
+        const nextSessionStartDate = DateTime.fromJSDate(nextSessionStart);
+        if (sessionEndDate < nextSessionStartDate.minus({ seconds: 1 })) {
+          completeSessions.push({
+            start: sessionEndDate
+              .plus({ minutes: 1 })
+              .startOf("minute")
+              .toJSDate(),
+            end: nextSessionStartDate
+              .minus({ minutes: 1 })
+              .endOf("minute")
+              .toJSDate(),
+            mainStatus: MarketStatus.CLOSE,
+            status: MarketStatus.CLOSE,
+          });
+        }
+      } else if (sessionEndDate < overallEndDate) {
+        completeSessions.push({
+          start: sessionEndDate.toJSDate(),
+          end: overallEndDate.toJSDate(),
+          mainStatus: MarketStatus.CLOSE,
+          status: MarketStatus.CLOSE,
+        });
+      }
+
+      return session;
+    });
+  return completeSessions;
+};
+
+export const getCurrentSession = (
+  baseTime: Date,
+  market: Market
+): MarketSession | null => {
+  const { timezone, sessions } = market;
+  const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
+
+  return [...sessions]
+    .sort(
+      (sessionA, sessionB) =>
+        sessionA.start.getTime() - sessionB.start.getTime()
+    )
+    .reduce<MarketSession | null>((value, session) => {
+      const { start, end } = session;
+      const startDate = DateTime.fromJSDate(start);
+      const endDate = DateTime.fromJSDate(end);
+      return startDate < adjustedBaseTime && adjustedBaseTime < endDate
+        ? session
+        : value;
+    }, null);
 };
 
 export const getMarketNextEvent = (
@@ -171,12 +251,9 @@ export const getMarketNextEvent = (
   const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
   const nextSessions = sessions
     .filter((session) => {
-      const sessionStartTime = DateTime.fromISO(
-        `${session.date}T${session.startTime}`,
-        {
-          zone: timezone,
-        }
-      ).startOf("minute");
+      const sessionStartDate = DateTime.fromJSDate(session.start, {
+        zone: timezone,
+      }).startOf("minute");
       const differentSubStatus = currentStatus !== session.status;
       const differentMainStatus =
         getMarketMainStatusFromStatus(currentStatus) !==
@@ -184,14 +261,12 @@ export const getMarketNextEvent = (
       const differentStatus = useMain
         ? differentMainStatus
         : differentSubStatus;
-      const sessionAfterBase = sessionStartTime > adjustedBaseTime;
+      const sessionAfterBase = sessionStartDate > adjustedBaseTime;
       return sessionAfterBase && differentStatus;
     })
-    .sort((sessionA, sessionB) => {
-      return (
-        DateTime.fromISO(sessionA.startTime).toMillis() -
-        DateTime.fromISO(sessionB.startTime).toMillis()
-      );
-    });
+    .sort(
+      (sessionA, sessionB) =>
+        sessionA.start.getTime() - sessionB.start.getTime()
+    );
   return nextSessions[0];
 };
