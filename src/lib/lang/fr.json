@@ -1,8 +1,20 @@
 {
-  "AppDateToday": [
+  "AppDate.today": [
     {
       "type": 0,
       "value": "Aujourd'hui"
+    }
+  ],
+  "AppDate.tomorrow": [
+    {
+      "type": 0,
+      "value": "Demain"
+    }
+  ],
+  "AppDate.yesterday": [
+    {
+      "type": 0,
+      "value": "Hier"
     }
   ],
   "MarketSelectionView.title": [

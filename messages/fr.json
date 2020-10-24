@@ -65,8 +65,14 @@
   "MarketSelectionView.title": {
     "defaultMessage": "Marchés"
   },
-  "AppDateToday": {
+  "AppDate.today": {
     "defaultMessage": "Aujourd'hui"
+  },
+  "AppDate.tomorrow": {
+    "defaultMessage": "Demain"
+  },
+  "AppDate.yesterday": {
+    "defaultMessage": "Hier"
   },
   "NextMarketEvent": {
     "defaultMessage": "{status, select, OPEN {Ouvre} CLOSE {Ferme}} dans {relativeTime}",
