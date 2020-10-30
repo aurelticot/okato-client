@@ -79,7 +79,7 @@ const resolveHourRulerSegment = (
   const segments: HourRulerSegment[] = [];
 
   let cursor = start.startOf("hour");
-  // eslint-disable-next-line no-loops/no-loops
+  // eslint-disable-next-line
   while (cursor < end) {
     const nextCursor = cursor.plus({ hour: 1 });
     const segmentStart = cursor < start ? start : cursor;
@@ -104,7 +104,7 @@ const resolveDayRulerSegments = (
   const segments: DayRulerSegment[] = [];
 
   let dayCursor = start.startOf("day");
-  // eslint-disable-next-line no-loops/no-loops
+  // eslint-disable-next-line
   while (dayCursor < end) {
     const nextDayCursor = dayCursor.plus({ day: 1 });
     const segmentStart = dayCursor < start ? start : dayCursor;
