@@ -1,3 +1,4 @@
+import { initRaygun } from "./lib/utils";
 import React from "react";
 import ReactDOM from "react-dom";
 import AppContext from "./contexts/AppContext";
@@ -12,6 +13,8 @@ import {
   TimelineView,
 } from "./sections";
 import * as serviceWorker from "./serviceWorker";
+
+initRaygun();
 
 const useStyles = makeStyles((_theme) => ({
   root: {
