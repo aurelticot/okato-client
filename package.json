@@ -48,6 +48,7 @@
     "@types/jest": "^24.9.1",
     "@types/luxon": "^1.25.0",
     "@types/node": "^12.12.62",
+    "@types/raygun4js": "^2.13.6",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
