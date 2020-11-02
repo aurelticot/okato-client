@@ -87,6 +87,13 @@ const fillGapTimelineSegments = (
   });
 };
 
+/**
+ * get the size of the timeline in minutes.
+ */
+export const getTimelineSize = (): number => {
+  return ((daysInFuture + daysInPast) * 24 + timelineVisiblePeriod) * 60;
+};
+
 export const resolveTimelineSegments = (
   time: DateTime,
   timezone: string,
@@ -104,7 +111,7 @@ export const resolveTimelineSegments = (
       hours: timelineVisiblePeriod / 2,
     })
     .startOf("minute");
-  const timelineSize = timelineEnd.diff(timelineStart).as("minutes");
+  const timelineSize = getTimelineSize();
 
   const segments = sessions
     .filter((session) => {
