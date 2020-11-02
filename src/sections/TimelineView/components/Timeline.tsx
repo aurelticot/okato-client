@@ -7,7 +7,7 @@ import {
   MarketStatus,
   TimelineSegment,
 } from "../../../lib/types";
-import { resolveTimelineSegments } from "../../../lib/utils";
+import { getTimelineSize, resolveTimelineSegments } from "../../../lib/utils";
 import { useFrequency } from "../../../lib/hooks";
 
 const useStyles = makeStyles((_theme) => ({
@@ -69,6 +69,8 @@ const useMarketStatusStyles = makeStyles((theme) => ({
       "repeating-linear-gradient(-75deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
 }));
+
+const timelineSize = getTimelineSize();
 
 const useSegments = (
   sessions: MarketSession[],
@@ -142,7 +144,7 @@ export const Timeline = (props: Props) => {
       <Paper
         square
         className={`${classes.segment} ${segmentClass}`}
-        style={{ flexGrow: duration }}
+        style={{ width: `${(duration * 100) / timelineSize}%` }}
         key={index}
       />
     );

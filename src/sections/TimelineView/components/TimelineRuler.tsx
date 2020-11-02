@@ -5,8 +5,10 @@ import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { config } from "../../../config";
 import { useFrequency } from "../../../lib/hooks";
 import { oneMinuteInMillis } from "../../../lib/constants";
+import { getTimelineSize } from "../../../lib/utils";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
+const timelineSize = getTimelineSize();
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -167,12 +169,14 @@ export const TimelineRuler = () => {
         <Divider orientation="vertical" className={classes.timeMarker} />
       </Box> */}
       <Box className={classes.ruler}>
-        {segments.map((daySegment, index) => {
+        {segments.map((daySegment) => {
           return (
             <Box
               key={daySegment.start}
               className={classes.daySegment}
-              style={{ flexGrow: daySegment.duration }}
+              style={{
+                width: `${(daySegment.duration * 100) / timelineSize}%`,
+              }}
             >
               <Box className={classes.daySegmentContent}>{daySegment.date}</Box>
               <Box className={classes.hourSegmentsContainer}>
@@ -181,7 +185,11 @@ export const TimelineRuler = () => {
                     <Box
                       key={hourSegment.start}
                       className={classes.hourSegment}
-                      style={{ flexGrow: hourSegment.duration }}
+                      style={{
+                        width: `${
+                          (hourSegment.duration * 100) / daySegment.duration
+                        }%`,
+                      }}
                     >
                       <Box className={classes.hourSegmentContent}>
                         {upSM && hourSegment.time}
