@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { DateTime } from "luxon";
 import { Box, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import {
   TimelineSegment,
 } from "../../../lib/types";
 import { resolveTimelineSegments } from "../../../lib/utils";
+import { useFrequency } from "../../../lib/hooks";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -73,6 +74,7 @@ const useSegments = (
   sessions: MarketSession[],
   timezone: string
 ): TimelineSegment[] => {
+  const time = useFrequency(10000);
   const now = DateTime.local().setZone(timezone);
   const initialSegments: TimelineSegment[] = resolveTimelineSegments(
     now,
@@ -81,7 +83,7 @@ const useSegments = (
   );
   const [segments, setSegments] = useState<TimelineSegment[]>(initialSegments);
 
-  const updateSegments = () => {
+  const updateSegments = useCallback(() => {
     const newNow = DateTime.local().setZone(timezone);
     const newSegments: TimelineSegment[] = resolveTimelineSegments(
       newNow,
@@ -89,16 +91,11 @@ const useSegments = (
       sessions
     );
     setSegments(newSegments);
-  };
+  }, [sessions, timezone]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      updateSegments();
-    }, 60000);
-    return function () {
-      clearInterval(timer);
-    };
-  });
+    updateSegments();
+  }, [updateSegments, time]);
   return segments;
 };
 

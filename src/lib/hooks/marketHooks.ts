@@ -1,27 +1,21 @@
 import { useState, useEffect } from "react";
+import { oneMinuteInMillis } from "../constants";
 import { Market, MarketSession, MarketStatus } from "../types";
 import { getMarketNextEvent, getMarketStatus } from "../utils";
+import { useFrequency } from "./timeHooks";
 
 export const useMarketStatus = (
   market: Market,
   useMain = false,
   baseTime: Date | null
 ): MarketStatus => {
+  const time = useFrequency(oneMinuteInMillis);
   const [status, setStatus] = useState<MarketStatus>(MarketStatus.CLOSE);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const currentStatus = getMarketStatus(
-        baseTime || new Date(),
-        market,
-        useMain
-      );
-      setStatus(currentStatus);
-    }, 1000);
-    return function () {
-      clearInterval(timer);
-    };
-  });
+    const currentStatus = getMarketStatus(baseTime || time, market, useMain);
+    setStatus(currentStatus);
+  }, [time, market, baseTime, useMain]);
   return status;
 };
 
@@ -30,15 +24,11 @@ export const useMarketNextEvent = (
   useMain = false,
   baseTime?: Date
 ): MarketSession | null => {
+  const time = useFrequency(oneMinuteInMillis);
   const [nextEvent, setNextEvent] = useState<MarketSession | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setNextEvent(getMarketNextEvent(baseTime || new Date(), market, useMain));
-    }, 1000);
-    return function () {
-      clearInterval(timer);
-    };
-  });
+    setNextEvent(getMarketNextEvent(baseTime || time, market, useMain));
+  }, [time, market, baseTime, useMain]);
   return nextEvent;
 };

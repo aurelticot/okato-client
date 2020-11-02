@@ -12,7 +12,7 @@ interface Props {
 export const RealTimeClock = (props: Props) => {
   const { timezone, displayTimezone, displayDayDiff, displaySeconds } = props;
 
-  const time = useRealTime(timezone);
+  const time = useRealTime();
 
   return (
     <Clock

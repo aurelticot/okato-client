@@ -4,6 +4,8 @@ import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "../../../lib/types";
+import { oneMinuteInMillis } from "../../../lib/constants";
+import { useFrequency } from "../../../lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,29 +14,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useRelativeTime = (tagetDate: DateTime): string | null => {
+const useRelativeTime = (targetDate: DateTime): string | null => {
+  const time = useFrequency(oneMinuteInMillis);
   const [relativeTime, setRelativeTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const now = DateTime.local();
-      if (now > tagetDate) {
-        setRelativeTime(null);
+    const now = DateTime.local();
+    if (now > targetDate) {
+      setRelativeTime(null);
+    } else {
+      const interval = Interval.fromDateTimes(now, targetDate);
+      const hourCount = interval.length("hour");
+      if (hourCount > 1) {
+        setRelativeTime(`${Math.floor(hourCount)}h`);
       } else {
-        const interval = Interval.fromDateTimes(now, tagetDate);
-        const hourCount = interval.length("hour");
-        if (hourCount > 1) {
-          setRelativeTime(`${Math.floor(hourCount)}h`);
-        } else {
-          const minuteCount = interval.length("minute");
-          setRelativeTime(`${Math.floor(minuteCount + 1)}m`);
-        }
+        const minuteCount = interval.length("minute");
+        setRelativeTime(`${Math.floor(minuteCount + 1)}m`);
       }
-    }, 1000);
-    return function () {
-      clearInterval(timer);
-    };
-  });
+    }
+  }, [time, targetDate]);
 
   return relativeTime;
 };

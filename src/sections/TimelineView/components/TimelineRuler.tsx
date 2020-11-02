@@ -3,6 +3,8 @@ import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { config } from "../../../config";
+import { useFrequency } from "../../../lib/hooks";
+import { oneMinuteInMillis } from "../../../lib/constants";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 
@@ -142,6 +144,7 @@ const resolveRulerSegments = (): DayRulerSegment[] => {
 };
 
 export const TimelineRuler = () => {
+  const time = useFrequency(oneMinuteInMillis);
   const initialSegments = resolveRulerSegments();
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
 
@@ -151,13 +154,8 @@ export const TimelineRuler = () => {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      updateSegment();
-    }, 60000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, [updateSegment]);
+    updateSegment();
+  }, [updateSegment, time]);
 
   const theme = useTheme();
   const upSM = useMediaQuery(theme.breakpoints.up("sm"));
