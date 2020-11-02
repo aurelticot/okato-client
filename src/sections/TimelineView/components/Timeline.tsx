@@ -7,7 +7,10 @@ import {
   MarketStatus,
   TimelineSegment,
 } from "../../../lib/types";
-import { getTimelineSize, resolveTimelineSegments } from "../../../lib/utils";
+import {
+  getTimelineSizeInMinutes,
+  resolveTimelineSegments,
+} from "../../../lib/utils";
 import { useFrequency } from "../../../lib/hooks";
 
 const useStyles = makeStyles((_theme) => ({
@@ -70,7 +73,7 @@ const useMarketStatusStyles = makeStyles((theme) => ({
   },
 }));
 
-const timelineSize = getTimelineSize();
+const timelineSize = getTimelineSizeInMinutes();
 
 const useSegments = (
   sessions: MarketSession[],

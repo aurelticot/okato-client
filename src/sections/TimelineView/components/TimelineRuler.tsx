@@ -5,10 +5,10 @@ import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { config } from "../../../config";
 import { useFrequency } from "../../../lib/hooks";
 import { oneMinuteInMillis } from "../../../lib/constants";
-import { getTimelineSize } from "../../../lib/utils";
+import { getTimelineSizeInMinutes } from "../../../lib/utils";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
-const timelineSize = getTimelineSize();
+const timelineSize = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles(() => ({
   root: {

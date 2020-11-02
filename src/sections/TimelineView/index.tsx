@@ -8,6 +8,8 @@ import { dateFormat } from "../../lib/constants";
 import {
   getMarketSortingFunction,
   fillBlankWithClosedSessions,
+  getTimelineSizeInHours,
+  getTimelineSizeInSeconds,
 } from "../../lib/utils";
 import { useUserSetting, useBaseTime } from "../../lib/hooks";
 import { TimelineTime, TimelineItem, TimelineRuler } from "./components";
@@ -19,16 +21,13 @@ import {
 } from "../../lib/graphql/queries/Markets/types/Markets";
 
 const {
-  daysInFuture,
-  daysInPast,
   timelineVisiblePeriod,
   daysRequestedInFuture,
   daysRequestedInPast,
 } = config;
 
-const timelineTotalhours =
-  (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
-const timelineTotalSizeInSeconds = timelineTotalhours * 60 * 60;
+const timelineTotalhours = getTimelineSizeInHours();
+const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
 
 const requestedStartDate = DateTime.local()
   .minus({ days: daysRequestedInPast, hours: timelineVisiblePeriod / 2 })
