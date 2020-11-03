@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export const useSavedState = (
   key: string,
@@ -59,4 +59,27 @@ export const useBaseTime = (): [Date | null, (value: Date | null) => void] => {
   }, [key, time]);
 
   return [time, setTime];
+};
+
+interface Size {
+  width?: number;
+  height?: number;
+}
+
+export const useWindowSize = () => {
+  const [size, setSize] = useState<Size>({});
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return size;
 };
