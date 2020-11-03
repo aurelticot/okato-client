@@ -42,6 +42,7 @@ export interface Markets {
 }
 
 export interface MarketsVariables {
+  selection?: string[] | null;
   sort?: MarketSortingMethod | null;
   limit: number;
   page: number;

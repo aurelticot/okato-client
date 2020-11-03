@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 
 export const MARKETS = gql`
   query Markets(
+    $selection: [ID!]
     $sort: MarketSortingMethod
     $limit: Int!
     $page: Int!
@@ -9,7 +10,7 @@ export const MARKETS = gql`
     $endDate: String!
     $withSessions: Boolean = true
   ) {
-    markets(sort: $sort, limit: $limit, page: $page) {
+    markets(selection: $selection, sort: $sort, limit: $limit, page: $page) {
       total
       result {
         id

@@ -32,12 +32,15 @@ const requestedEndDate = DateTime.local()
 const PAGE_LIMIT = 10;
 
 export const TimelineView: React.FunctionComponent<{}> = () => {
-  const [selectedMarkets] = useUserSetting(SettingKey.MarketSelection);
+  const [selectedMarkets] = useUserSetting<string[]>(
+    SettingKey.MarketSelection
+  );
   const [marketSort] = useUserSetting(SettingKey.MarketSort);
   const [markets, setMarkets] = React.useState<Market[]>([]);
 
   const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
     variables: {
+      selection: selectedMarkets,
       limit: PAGE_LIMIT,
       page: 1,
       startDate: requestedStartDate.toFormat(dateFormat),

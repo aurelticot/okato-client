@@ -79,7 +79,7 @@ enum MarketSortingMethod {
 
 type Query {
   market(id: ID!): Market!
-  markets(sort: MarketSortingMethod = CHRONOLOGICALLY, limit: Int!, page: Int!): Markets!
+  markets(sort: MarketSortingMethod = CHRONOLOGICALLY, limit: Int!, page: Int!, selection: [ID!]): Markets!
 }
 
 enum CacheControlScope {
