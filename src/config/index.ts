@@ -20,9 +20,9 @@ const enableCrashReporting = !!(
 );
 
 const timelineVisiblePeriod = 24;
-const daysInPast = 2;
+const daysInPast = 3;
 const daysRequestedInPast = daysInPast + 1;
-const daysInFuture = 2;
+const daysInFuture = daysInPast;
 const daysRequestedInFuture = daysInFuture + 1;
 
 const defaultUserSettings: UserSettings = {
