@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
@@ -8,7 +8,7 @@ import {
   getTimelineSizeInHours,
   getTimelineSizeInSeconds,
 } from "../../../../lib/utils";
-import { useBaseTime } from "../../../../lib/hooks";
+import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
 import { TimelinesList } from "../TimelinesList";
 import { TimelineTime } from "../TimelineTime";
 
@@ -40,11 +40,14 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
 }) => {
   const [baseTime, setBaseTime] = useBaseTime();
 
+  const { width } = useWindowSize();
+  const resizing = React.useRef(false);
+
   const containerRef = React.useRef<HTMLDivElement>();
 
   const handleScroll = React.useCallback(() => {
     const containerElement = containerRef.current;
-    if (!containerElement) {
+    if (!containerElement || resizing.current) {
       return;
     }
     const timelineSize = containerElement.scrollWidth;
@@ -68,11 +71,7 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
 
   const initialScroll = React.useRef(true);
 
-  React.useLayoutEffect(() => {
-    if (!initialScroll.current && baseTime) {
-      return;
-    }
-    initialScroll.current = false;
+  const resfreshPosition = useCallback(() => {
     const containerElement = containerRef.current;
     if (!containerElement) {
       return;
@@ -90,6 +89,25 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     containerElement.scrollLeft =
       middleTimeline + timeDiff - middleContainerViewport;
   }, [baseTime]);
+
+  React.useLayoutEffect(() => {
+    if (!initialScroll.current && baseTime) {
+      return;
+    }
+    initialScroll.current = false;
+    resfreshPosition();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseTime]);
+
+  React.useLayoutEffect(() => {
+    resizing.current = true;
+    resfreshPosition();
+    const timer = setTimeout(() => {
+      resizing.current = false;
+    }, 500);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
 
   const classes = useStyles();
   return (
