@@ -1,0 +1,112 @@
+import React from "react";
+import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { DateTime } from "luxon";
+import { config } from "../../../../config";
+import { Market } from "../../../../lib/types";
+import {
+  getTimelineSizeInHours,
+  getTimelineSizeInSeconds,
+} from "../../../../lib/utils";
+import { useBaseTime } from "../../../../lib/hooks";
+import { TimelinesList } from "../TimelinesList";
+import { TimelineTime } from "../TimelineTime";
+
+const { timelineVisiblePeriod } = config;
+
+const timelineTotalhours = getTimelineSizeInHours();
+const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
+
+const useStyles = makeStyles((_theme) => ({
+  root: {
+    marginBottom: "56px",
+    position: "relative",
+  },
+  container: {
+    width: "100%",
+    overflow: "auto",
+  },
+  innerContainer: {
+    width: `${(timelineTotalhours * 100) / timelineVisiblePeriod}%`,
+  },
+}));
+
+interface Props {
+  markets: Market[];
+}
+
+export const TimelinesContainer: React.FunctionComponent<Props> = ({
+  markets,
+}) => {
+  const [baseTime, setBaseTime] = useBaseTime();
+
+  const containerRef = React.useRef<HTMLDivElement>();
+
+  const handleScroll = React.useCallback(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement) {
+      return;
+    }
+    const timelineSize = containerElement.scrollWidth;
+    const middleTimelineViewport = containerElement.clientWidth / 2;
+    const middleTimeline = timelineSize / 2;
+    const timeDiff =
+      containerElement.scrollLeft - middleTimeline + middleTimelineViewport;
+    const timeDiffInSec =
+      (timeDiff * timelineTotalSizeInSeconds) / timelineSize;
+    if (Math.abs(timeDiffInSec) < 60) {
+      return;
+    }
+    const now = DateTime.local();
+    const targetTime = now.plus({ seconds: timeDiffInSec });
+    setBaseTime(targetTime.toJSDate());
+  }, [setBaseTime]);
+
+  const handleBackToRealTime = React.useCallback(() => {
+    setBaseTime(null);
+  }, [setBaseTime]);
+
+  const initialScroll = React.useRef(true);
+
+  React.useLayoutEffect(() => {
+    if (!initialScroll.current && baseTime) {
+      return;
+    }
+    initialScroll.current = false;
+    const containerElement = containerRef.current;
+    if (!containerElement) {
+      return;
+    }
+    const timelineSize = containerElement.scrollWidth;
+    const middleContainerViewport = containerElement.clientWidth / 2;
+    const middleTimeline = timelineSize / 2;
+    let timeDiff = 0;
+    if (baseTime) {
+      const now = DateTime.fromJSDate(new Date());
+      const targetTime = DateTime.fromJSDate(baseTime);
+      const timeDiffInSec = targetTime.diff(now).as("seconds");
+      timeDiff = (timeDiffInSec * timelineSize) / timelineTotalSizeInSeconds;
+    }
+    containerElement.scrollLeft =
+      middleTimeline + timeDiff - middleContainerViewport;
+  }, [baseTime]);
+
+  const classes = useStyles();
+  return (
+    <Box className={classes.root}>
+      <TimelineTime
+        time={baseTime}
+        onClickBackToRealTime={handleBackToRealTime}
+      />
+      <Box
+        className={classes.container}
+        onScroll={handleScroll}
+        {...{ ref: containerRef }}
+      >
+        <Box className={classes.innerContainer}>
+          <TimelinesList baseTime={baseTime} markets={markets} />
+        </Box>
+      </Box>
+    </Box>
+  );
+};
