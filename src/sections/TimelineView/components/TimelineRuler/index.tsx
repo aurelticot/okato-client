@@ -2,30 +2,19 @@ import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, useMediaQuery, useTheme } from "@material-ui/core";
-import { config } from "../../../config";
-import { useFrequency } from "../../../lib/hooks";
-import { oneMinuteInMillis } from "../../../lib/constants";
-import { getTimelineSizeInMinutes } from "../../../lib/utils";
+import { config } from "../../../../config";
+import { useFrequency } from "../../../../lib/hooks";
+import { oneMinuteInMillis } from "../../../../lib/constants";
+import { getTimelineSizeInMinutes } from "../../../../lib/utils";
+import { TimelineTime } from "../TimelineTime";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const timelineSize = getTimelineSizeInMinutes();
 
-const useStyles = makeStyles(() => ({
-  root: {
-    position: "relative",
-    margin: "10px 0 10px 0",
-  },
-  timeMarkerContainer: {
-    position: "absolute",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-  },
-  timeMarker: {
-    height: "1em",
-    zIndex: 10,
-    width: "3px",
-    opacity: "100%",
+const useStyles = makeStyles((theme) => ({
+  rulerTimeWrapper: {
+    background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 20%, ${theme.palette.background.default} 80%, rgba(255,255,255,0) 100%)`,
+    padding: "0 30px",
   },
   ruler: {
     display: "flex",
@@ -145,7 +134,13 @@ const resolveRulerSegments = (): DayRulerSegment[] => {
   return resolveDayRulerSegments(timelineStart, timelineEnd);
 };
 
-export const TimelineRuler = () => {
+interface Props {
+  baseTime: Date | null;
+  onClickBackToRealTime: () => void;
+}
+
+export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
+  const { baseTime, onClickBackToRealTime } = props;
   const time = useFrequency(oneMinuteInMillis);
   const initialSegments = resolveRulerSegments();
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
@@ -160,14 +155,26 @@ export const TimelineRuler = () => {
   }, [updateSegment, time]);
 
   const theme = useTheme();
-  const upSM = useMediaQuery(theme.breakpoints.up("sm"));
+  const aboveSM = useMediaQuery(theme.breakpoints.up("sm"));
 
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      {/* <Box className={classes.timeMarkerContainer}>
-        <Divider orientation="vertical" className={classes.timeMarker} />
-      </Box> */}
+    <Box>
+      <Box
+        style={{
+          position: "absolute",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Box className={classes.rulerTimeWrapper}>
+          <TimelineTime
+            time={baseTime}
+            onClickBackToRealTime={onClickBackToRealTime}
+          />
+        </Box>
+      </Box>
       <Box className={classes.ruler}>
         {segments.map((daySegment) => {
           return (
@@ -192,7 +199,7 @@ export const TimelineRuler = () => {
                       }}
                     >
                       <Box className={classes.hourSegmentContent}>
-                        {upSM && hourSegment.time}
+                        {aboveSM && hourSegment.time}
                       </Box>
                     </Box>
                   );

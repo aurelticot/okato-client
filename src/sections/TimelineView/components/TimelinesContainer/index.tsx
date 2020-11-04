@@ -10,7 +10,6 @@ import {
 } from "../../../../lib/utils";
 import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
 import { TimelinesList } from "../TimelinesList";
-import { TimelineTime } from "../TimelineTime";
 
 const { timelineVisiblePeriod } = config;
 
@@ -112,17 +111,17 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-      <TimelineTime
-        time={baseTime}
-        onClickBackToRealTime={handleBackToRealTime}
-      />
       <Box
         className={classes.container}
         onScroll={handleScroll}
         {...{ ref: containerRef }}
       >
         <Box className={classes.innerContainer}>
-          <TimelinesList baseTime={baseTime} markets={markets} />
+          <TimelinesList
+            markets={markets}
+            baseTime={baseTime}
+            onClickBackToRealTime={handleBackToRealTime}
+          />
         </Box>
       </Box>
     </Box>

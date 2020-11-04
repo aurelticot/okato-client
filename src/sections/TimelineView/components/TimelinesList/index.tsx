@@ -1,29 +1,51 @@
 import React from "react";
+import { List, ListItem } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Market } from "../../../../lib/types";
 import { TimelineItem } from "../TimelineItem";
 import { TimelineRuler } from "../TimelineRuler";
 
+const useStyles = makeStyles(() => ({
+  timelineList: {
+    position: "inherit",
+  },
+  timelineListItem: {
+    padding: "8px 0 8px 0",
+    position: "inherit",
+    display: "block",
+  },
+}));
+
 interface Props {
-  baseTime: Date | null;
   markets: Market[];
+  baseTime: Date | null;
+  onClickBackToRealTime: () => void;
 }
 
 export const TimelinesList: React.FunctionComponent<Props> = ({
   baseTime,
   markets,
+  onClickBackToRealTime,
 }) => {
+  const classes = useStyles();
   return (
-    <>
-      <TimelineRuler />
+    <List className={classes.timelineList}>
+      <ListItem key={`_ruler`} className={classes.timelineListItem}>
+        <TimelineRuler
+          baseTime={baseTime}
+          onClickBackToRealTime={onClickBackToRealTime}
+        />
+      </ListItem>
       {markets.map((market) => {
         return (
-          <TimelineItem
-            key={market.id}
-            time={baseTime}
-            market={{ ...market, hasReminder: false, isBookmarked: false }}
-          />
+          <ListItem key={market.id} className={classes.timelineListItem}>
+            <TimelineItem
+              time={baseTime}
+              market={{ ...market, hasReminder: false, isBookmarked: false }}
+            />
+          </ListItem>
         );
       })}
-    </>
+    </List>
   );
 };
