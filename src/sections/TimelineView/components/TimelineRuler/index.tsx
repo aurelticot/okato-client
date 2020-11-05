@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   ruler: {
     display: "flex",
+    color: theme.palette.grey[600],
   },
   daySegment: {
     boxSizing: "border-box",
