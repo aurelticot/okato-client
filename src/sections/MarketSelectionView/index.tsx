@@ -20,9 +20,9 @@ import {
 } from "../../lib/graphql/queries/Markets/types/Markets";
 import { MarketSortingMethod } from "../../lib/types/globalTypes";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: "56px",
+    marginBottom: theme.mixins.toolbar.minHeight,
   },
 }));
 

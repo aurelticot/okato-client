@@ -5,12 +5,12 @@ import { Market } from "../../../../lib/types";
 import { TimelineItem } from "../TimelineItem";
 import { TimelineRuler } from "../TimelineRuler";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   timelineList: {
     position: "inherit",
   },
   timelineListItem: {
-    padding: "8px 0 8px 0",
+    padding: `${theme.spacing(1)}px 0`,
     position: "inherit",
     display: "block",
   },

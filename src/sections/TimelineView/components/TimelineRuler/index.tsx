@@ -1,12 +1,13 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, useMediaQuery, useTheme, Typography } from "@material-ui/core";
 import { config } from "../../../../config";
 import { useFrequency } from "../../../../lib/hooks";
 import { oneMinuteInMillis } from "../../../../lib/constants";
 import { getTimelineSizeInMinutes } from "../../../../lib/utils";
 import { TimelineTime } from "../TimelineTime";
+import { useIntl } from "react-intl";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const timelineSize = getTimelineSizeInMinutes();
@@ -23,13 +24,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[600],
   },
   daySegment: {
-    boxSizing: "border-box",
-    borderLeft: "1px solid grey",
+    borderLeft: `1px solid ${theme.palette.grey[600]}`,
+    paddingBottom: theme.spacing(0.5),
   },
   daySegmentContent: {
-    boxSizing: "border-box",
-    paddingLeft: theme.spacing(1),
-    fontSize: "1em",
+    paddingLeft: theme.spacing(0.5),
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -38,20 +37,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   hourSegment: {
-    "boxSizing": "border-box",
-    "borderLeft": "1px solid grey",
+    "borderLeft": `1px solid ${theme.palette.grey[600]}`,
     "&:first-child": {
       borderLeft: "none",
     },
   },
   hourSegmentContent: {
-    boxSizing: "border-box",
-    padding: "0 0 0 2px",
-    fontSize: "1em",
+    paddingLeft: theme.spacing(0.5),
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    minHeight: "22px",
   },
 }));
 
@@ -65,7 +60,7 @@ interface HourRulerSegment extends Segment {
 }
 
 interface DayRulerSegment extends Segment {
-  date: string;
+  date: Date;
   hourSegments: HourRulerSegment[];
 }
 
@@ -110,7 +105,7 @@ const resolveDayRulerSegments = (
     segments.push({
       start: segmentStart.diff(start).as("minutes"),
       duration: segmentEnd.diff(segmentStart).as("minutes"),
-      date: segmentStart.toISODate(),
+      date: segmentStart.toJSDate(),
       hourSegments: resolveHourRulerSegment(segmentStart, segmentEnd),
     });
 
@@ -159,8 +154,9 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   }, [updateSegment, time]);
 
   const theme = useTheme();
-  const aboveSM = useMediaQuery(theme.breakpoints.up("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
 
+  const i18n = useIntl();
   const classes = useStyles();
   return (
     <Box>
@@ -180,7 +176,10 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                 width: `${(daySegment.duration * 100) / timelineSize}%`,
               }}
             >
-              <Box className={classes.daySegmentContent}>{daySegment.date}</Box>
+              <Typography className={classes.daySegmentContent}>
+                {i18n.formatDate(daySegment.date)}
+              </Typography>
+
               <Box className={classes.hourSegmentsContainer}>
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
@@ -193,9 +192,9 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                         }%`,
                       }}
                     >
-                      <Box className={classes.hourSegmentContent}>
-                        {aboveSM && hourSegment.time}
-                      </Box>
+                      <Typography className={classes.hourSegmentContent}>
+                        {smUp ? hourSegment.time : "\u00A0"}
+                      </Typography>
                     </Box>
                   );
                 })}

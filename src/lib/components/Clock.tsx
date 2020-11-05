@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -13,17 +13,18 @@ const useStyles = makeStyles((_theme) => ({
     justifyContent: "center",
   },
   timezone: {
-    fontSize: "0.6em",
+    textTransform: "uppercase",
+    fontSize: "0.6rem",
     position: "absolute",
     bottom: "3px",
-    left: "5em",
+    left: "4.5em",
     width: "4em",
   },
   dayDiff: {
-    fontSize: "0.6em",
+    fontSize: "0.6rem",
     position: "absolute",
     bottom: "3px",
-    right: "4.7em",
+    right: "4.4em",
     width: "1em",
   },
 }));
@@ -65,19 +66,21 @@ export const Clock = (props: Props) => {
   return (
     <Box className={classes.root}>
       {displayDayDiff && displayedDayDiff && (
-        <Box className={classes.dayDiff}>{displayedDayDiff}</Box>
+        <Typography className={classes.dayDiff}>{displayedDayDiff}</Typography>
       )}
       <Box className={classes.time}>
-        <Box>{workingTime.toFormat("HH")}</Box>
-        <Box>:</Box>
-        <Box>{workingTime.toFormat("mm")}</Box>
-        {displaySeconds && <Box>:</Box>}
-        {displaySeconds && <Box>{workingTime.toFormat("ss")}</Box>}
+        <Typography>{workingTime.toFormat("HH")}</Typography>
+        <Typography>:</Typography>
+        <Typography>{workingTime.toFormat("mm")}</Typography>
+        {displaySeconds && <Typography>:</Typography>}
+        {displaySeconds && (
+          <Typography>{workingTime.toFormat("ss")}</Typography>
+        )}
       </Box>
       {displayTimezone && (
-        <Box className={classes.timezone}>{`GMT${workingTime.toFormat(
+        <Typography className={classes.timezone}>{`GMT${workingTime.toFormat(
           "Z"
-        )}`}</Box>
+        )}`}</Typography>
       )}
     </Box>
   );

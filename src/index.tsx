@@ -16,10 +16,9 @@ import * as serviceWorker from "./serviceWorker";
 
 initRaygun();
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "10px",
-    fontSize: "1.1em",
+    padding: theme.spacing(1),
   },
 }));
 

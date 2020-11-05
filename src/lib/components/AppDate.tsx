@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { useIntl } from "react-intl";
 import { useRealTime } from "../hooks";
 import { DateTime } from "luxon";
@@ -18,14 +18,14 @@ export const AppDate: React.FC<AppDateProps> = ({ time }) => {
   });
 
   if (!time) {
-    return <Box>{labelToday}</Box>;
+    return <Typography>{labelToday}</Typography>;
   }
 
   const realDateTime = DateTime.fromJSDate(realtime);
   const dateTime = DateTime.fromJSDate(time);
 
   if (dateTime.hasSame(realDateTime, "day")) {
-    return <Box>{labelToday}</Box>;
+    return <Typography>{labelToday}</Typography>;
   }
 
   const labelTomorrow = i18n.formatMessage({
@@ -38,12 +38,12 @@ export const AppDate: React.FC<AppDateProps> = ({ time }) => {
   });
 
   if (dateTime.hasSame(realDateTime.plus({ day: 1 }), "day")) {
-    return <Box>{labelTomorrow}</Box>;
+    return <Typography>{labelTomorrow}</Typography>;
   }
 
   if (dateTime.hasSame(realDateTime.minus({ day: 1 }), "day")) {
-    return <Box>{labelYesterday}</Box>;
+    return <Typography>{labelYesterday}</Typography>;
   }
 
-  return <Box>{i18n.formatDate(time)}</Box>;
+  return <Typography>{i18n.formatDate(time)}</Typography>;
 };

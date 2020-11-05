@@ -16,9 +16,9 @@ const { timelineVisiblePeriod } = config;
 const timelineTotalhours = getTimelineSizeInHours();
 const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: "56px",
+    marginBottom: theme.mixins.toolbar.minHeight,
     position: "relative",
   },
   container: {

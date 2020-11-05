@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "../../../lib/types";
@@ -9,7 +9,7 @@ import { useFrequency } from "../../../lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    fontSize: "0.8em",
+    fontSize: "0.8rem",
     color: theme.palette.text.secondary,
   },
 }));
@@ -54,7 +54,7 @@ export const MarketNextEvent = ({ nextEvent }: Props) => {
   }
   const status = mainStatus;
   return (
-    <Box className={classes.root}>
+    <Typography className={classes.root}>
       {i18n.formatMessage(
         {
           id: "NextMarketEvent",
@@ -64,6 +64,6 @@ export const MarketNextEvent = ({ nextEvent }: Props) => {
         },
         { status, relativeTime }
       )}
-    </Box>
+    </Typography>
   );
 };
