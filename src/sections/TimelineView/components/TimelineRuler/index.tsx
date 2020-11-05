@@ -12,9 +12,11 @@ const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const timelineSize = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles((theme) => ({
-  rulerTimeWrapper: {
-    background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 20%, ${theme.palette.background.default} 80%, rgba(255,255,255,0) 100%)`,
-    padding: "0 30px",
+  rulerTimeContainer: {
+    position: "absolute",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
   },
   ruler: {
     display: "flex",
@@ -25,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   daySegmentContent: {
     boxSizing: "border-box",
-    padding: "2px 0 5px 4px",
-    fontSize: "0.7em",
+    paddingLeft: theme.spacing(1),
+    fontSize: "1em",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -43,11 +45,12 @@ const useStyles = makeStyles((theme) => ({
   },
   hourSegmentContent: {
     boxSizing: "border-box",
-    padding: "4px 0 0 2px",
-    fontSize: "0.7em",
+    padding: "0 0 0 2px",
+    fontSize: "1em",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    minHeight: "22px",
   },
 }));
 
@@ -160,20 +163,11 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   return (
     <Box>
-      <Box
-        style={{
-          position: "absolute",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Box className={classes.rulerTimeWrapper}>
-          <TimelineTime
-            time={baseTime}
-            onClickBackToRealTime={onClickBackToRealTime}
-          />
-        </Box>
+      <Box className={classes.rulerTimeContainer}>
+        <TimelineTime
+          time={baseTime}
+          onClickBackToRealTime={onClickBackToRealTime}
+        />
       </Box>
       <Box className={classes.ruler}>
         {segments.map((daySegment) => {

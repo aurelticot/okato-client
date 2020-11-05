@@ -1,26 +1,42 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, IconButton } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Refresh as RefreshIcon } from "@material-ui/icons";
 import { AppDate } from "../../../lib/components/AppDate";
 import { RealTimeClock } from "../../../lib/components/RealTimeClock";
 import { Clock } from "../../../lib/components/Clock";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    alignItems: "stretch",
   },
   timeContainer: {
+    backgroundColor: theme.palette.background.default,
+    padding: `0 ${theme.spacing(1.5)}px`,
     position: "relative",
+  },
+  timeContainerButton: {
+    cursor: "pointer",
+  },
+  timeWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-  refreshButton: {
+  refreshIndicator: {
     position: "absolute",
-    right: "-48px",
+    top: "25%",
+    left: "0px",
+  },
+  shadowBorder: {
+    width: theme.spacing(3),
+  },
+  shadowBorderLeft: {
+    background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
+  },
+  shadowBorderRight: {
+    background: `linear-gradient(270deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
   },
 }));
 
@@ -35,20 +51,24 @@ export const TimelineTime = (props: Props) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.timeContainer}>
-        <AppDate time={time} />
-        {!time && <RealTimeClock />}
+      <Box className={`${classes.shadowBorder} ${classes.shadowBorderLeft}`} />
+      <Box
+        className={`${classes.timeContainer} ${
+          time ? classes.timeContainerButton : ""
+        }`}
+        onClick={onClickBackToRealTime}
+      >
         {time && (
-          <>
-            <Clock time={time} />
-            <Box className={classes.refreshButton}>
-              <IconButton onClick={onClickBackToRealTime}>
-                <RefreshIcon />
-              </IconButton>
-            </Box>
-          </>
+          <Box className={classes.refreshIndicator}>
+            <RefreshIcon style={{ fontSize: "0.8rem" }} />
+          </Box>
         )}
+        <Box className={classes.timeWrapper}>
+          <AppDate time={time} />
+          {time ? <Clock time={time} /> : <RealTimeClock />}
+        </Box>
       </Box>
+      <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
     </Box>
   );
 };
