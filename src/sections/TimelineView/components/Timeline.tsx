@@ -16,7 +16,7 @@ import { useFrequency } from "../../../lib/hooks";
 
 const timelineSize = getTimelineSizeInMinutes();
 const visibleTimelineSize = getTimelienVisibleSizeInMinutes();
-const timelineSizeRatioOnVisible = 12;
+const timelineSizeRatioOnVisible = 8;
 const timelineSizeRatioOnTotal =
   (timelineSizeRatioOnVisible * visibleTimelineSize) / timelineSize;
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     left: "calc(50% - 1px)",
     zIndex: 10,
     height: "0",
-    paddingBottom: `clamp(3em ,${timelineSizeRatioOnVisible}%, 8em)`,
+    paddingBottom: `clamp(3em ,${timelineSizeRatioOnVisible}%, 6em)`,
   },
   nowTimeMarker: {
     position: "absolute",
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "flex",
     height: "0",
-    paddingBottom: `clamp(3em ,${timelineSizeRatioOnTotal}%, 8em)`,
+    paddingBottom: `clamp(3em ,${timelineSizeRatioOnTotal}%, 6em)`,
+    boxShadow: theme.shadows[3],
   },
   segment: {
     minHeight: "100%",
