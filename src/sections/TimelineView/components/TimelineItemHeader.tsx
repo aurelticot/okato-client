@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   timelineHeaderWrapper: {
     width: "100%",
+    padding: `0 ${theme.spacing(1)}px`,
     position: "absolute",
     display: "flex",
     justifyContent: "space-between",

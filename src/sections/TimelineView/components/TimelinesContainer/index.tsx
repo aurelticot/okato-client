@@ -10,6 +10,7 @@ import {
 } from "../../../../lib/utils";
 import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
 import { TimelinesList } from "../TimelinesList";
+import zIndex from "@material-ui/core/styles/zIndex";
 
 const { timelineVisiblePeriod } = config;
 
@@ -20,6 +21,24 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.mixins.toolbar.minHeight,
     position: "relative",
+  },
+  shadowBorder: {
+    width: theme.spacing(1),
+    position: "absolute",
+    minHeight: "100%",
+    zIndex: 100,
+  },
+  shadowBorderLeft: {
+    top: "0",
+    left: "0",
+    // backgroundColor: "red",
+    background: `linear-gradient(270deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
+  },
+  shadowBorderRight: {
+    top: "0",
+    right: "0",
+    // backgroundColor: "blue",
+    background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
   },
   container: {
     width: "100%",
@@ -111,6 +130,8 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
   const classes = useStyles();
   return (
     <Box className={classes.root}>
+      <Box className={`${classes.shadowBorder} ${classes.shadowBorderLeft}`} />
+      <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
       <Box
         className={classes.container}
         onScroll={handleScroll}
