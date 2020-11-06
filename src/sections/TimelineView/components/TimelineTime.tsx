@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
   timeContainer: {
     backgroundColor: theme.palette.background.default,
-    padding: `0 ${theme.spacing(1.5)}px`,
+    paddingTop: `${theme.spacing(2)}px`,
+    paddingRight: `${theme.spacing(1.5)}px`,
+    paddingBottom: `${theme.spacing(0.5)}px`,
+    paddingLeft: `${theme.spacing(1.5)}px`,
     position: "relative",
   },
   timeContainerButton: {
@@ -26,11 +29,13 @@ const useStyles = makeStyles((theme) => ({
   },
   refreshIndicator: {
     position: "absolute",
-    top: "25%",
-    left: "0px",
+    top: "-2px",
+    left: "50%",
+    marginLeft: "-6px",
   },
   shadowBorder: {
     width: theme.spacing(3),
+    paddingBottom: theme.spacing(0.5),
   },
   shadowBorderLeft: {
     background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,

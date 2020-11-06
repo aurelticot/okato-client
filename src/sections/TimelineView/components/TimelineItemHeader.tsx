@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Divider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { MarketTitle } from "./MarketTitle";
 import { RealTimeClock } from "../../../lib/components/RealTimeClock";
 import { MarketNextEvent } from "./MarketNextEvent";
@@ -24,14 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
   timelineClock: {
     position: "relative",
-  },
-  timeMarker: {
-    position: "absolute",
-    top: "1.4em",
-    height: "3.4em",
-    zIndex: 10,
-    width: "3px",
-    opacity: "100%",
   },
   marketOpen: {
     color: theme.palette.success.main,
@@ -106,7 +98,6 @@ export const TimelineItemHeader = (props: Props) => {
               displayDayDiff
             />
           )}
-          <Divider orientation="vertical" className={classes.timeMarker} />
         </Box>
         <Box
           className={classes.headerComponent}

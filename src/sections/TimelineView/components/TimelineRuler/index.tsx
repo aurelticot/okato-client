@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   ruler: {
     display: "flex",
     color: theme.palette.grey[600],
+    paddingTop: theme.spacing(2),
   },
   daySegment: {
     borderLeft: `1px solid ${theme.palette.grey[600]}`,

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { DateTime } from "luxon";
-import { Box, Paper, Divider } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   MarketSession,
@@ -9,32 +9,49 @@ import {
 } from "../../../lib/types";
 import {
   getTimelineSizeInMinutes,
+  getTimelienVisibleSizeInMinutes,
   resolveTimelineSegments,
 } from "../../../lib/utils";
 import { useFrequency } from "../../../lib/hooks";
 
-const useStyles = makeStyles((_theme) => ({
+const timelineSize = getTimelineSizeInMinutes();
+const visibleTimelineSize = getTimelienVisibleSizeInMinutes();
+const timelineSizeRatioOnVisible = 12;
+const timelineSizeRatioOnTotal =
+  (timelineSizeRatioOnVisible * visibleTimelineSize) / timelineSize;
+
+const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
   },
-  segment: {
-    height: "3em",
-  },
-  timeMarkerContainer: {
-    position: "absolute",
-    width: "100%",
-    bottom: "-0.2em",
-    display: "flex",
-    justifyContent: "center",
-  },
   timeMarker: {
-    height: "3.4em",
-    zIndex: 10,
-    width: "3px",
+    width: "2px",
     opacity: "100%",
+    backgroundColor: theme.palette.grey[400],
+  },
+  baseTimeMarker: {
+    position: "absolute",
+    left: "calc(50% - 1px)",
+    zIndex: 10,
+    height: "0",
+    paddingBottom: `clamp(3em ,${timelineSizeRatioOnVisible}%, 8em)`,
+  },
+  nowTimeMarker: {
+    position: "absolute",
+    left: "calc(50% - 1px)",
+    minHeight: "100%",
+    zIndex: 10,
   },
   timeline: {
+    position: "relative",
     display: "flex",
+    height: "0",
+    paddingBottom: `clamp(3em ,${timelineSizeRatioOnTotal}%, 8em)`,
+  },
+  segment: {
+    minHeight: "100%",
+    position: "absolute",
+    top: "0",
   },
 }));
 
@@ -47,7 +64,7 @@ const useMarketStatusStyles = makeStyles((theme) => ({
     background: theme.palette.warning.light,
     opacity: "70%",
     backgroundImage:
-      "repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
+      "repeating-linear-gradient(80deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   close: {
     background: theme.palette.error.light,
@@ -72,8 +89,6 @@ const useMarketStatusStyles = makeStyles((theme) => ({
       "repeating-linear-gradient(-75deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
 }));
-
-const timelineSize = getTimelineSizeInMinutes();
 
 const useSegments = (
   sessions: MarketSession[],
@@ -104,12 +119,6 @@ const useSegments = (
   return segments;
 };
 
-interface Props {
-  sessions: MarketSession[];
-  timezone: string;
-  displayTimeMarker?: boolean;
-}
-
 const defineSegmentClass = (
   status: MarketStatus,
   classes: Record<string, string>
@@ -132,8 +141,20 @@ const defineSegmentClass = (
   }
 };
 
+interface Props {
+  sessions: MarketSession[];
+  timezone: string;
+  displayNowTimeMarker?: boolean;
+  displayBaseTimeMarker?: boolean;
+}
+
 export const Timeline = (props: Props) => {
-  const { sessions, timezone, displayTimeMarker } = props;
+  const {
+    sessions,
+    timezone,
+    displayNowTimeMarker = true,
+    displayBaseTimeMarker = true,
+  } = props;
 
   const segments = useSegments(sessions, timezone);
 
@@ -141,35 +162,45 @@ export const Timeline = (props: Props) => {
   const marketStatusClasses = useMarketStatusStyles();
 
   const timelineSegments = segments.map((segment, index) => {
-    const { status, duration } = segment;
+    const { start, duration, status } = segment;
     const segmentClass = defineSegmentClass(status, marketStatusClasses);
     return (
-      <Paper
-        square
+      <Box
         className={`${classes.segment} ${segmentClass}`}
-        style={{ width: `${(duration * 100) / timelineSize}%` }}
+        style={{
+          width: `${(duration * 100) / timelineSize}%`,
+          left: `${(start * 100) / timelineSize}%`,
+        }}
         key={index}
       />
     );
   });
 
   return (
-    <Box className={classes.root}>
-      {displayTimeMarker && (
-        <Box className={classes.timeMarkerContainer}>
-          <Divider orientation="vertical" className={classes.timeMarker} />
-        </Box>
+    <Box>
+      {displayBaseTimeMarker && (
+        <Divider
+          orientation="vertical"
+          className={`${classes.timeMarker} ${classes.baseTimeMarker}`}
+        />
       )}
-      <Box className={classes.timeline}>
-        {timelineSegments.length > 0 ? (
-          timelineSegments
-        ) : (
-          <Paper
-            square
-            className={`${classes.segment} ${marketStatusClasses.close}`}
-            style={{ width: "100%" }}
+      <Box className={classes.root}>
+        {displayNowTimeMarker && (
+          <Divider
+            orientation="vertical"
+            className={`${classes.timeMarker} ${classes.nowTimeMarker}`}
           />
         )}
+        <Box className={classes.timeline}>
+          {timelineSegments.length > 0 ? (
+            timelineSegments
+          ) : (
+            <Box
+              className={`${classes.segment} ${marketStatusClasses.close}`}
+              style={{ width: "100%" }}
+            />
+          )}
+        </Box>
       </Box>
     </Box>
   );

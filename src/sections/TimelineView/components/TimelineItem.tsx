@@ -13,11 +13,7 @@ export const TimelineItem = ({ market, time }: Props) => {
   return (
     <Box>
       <TimelineItemHeader time={time} market={market} />
-      <Timeline
-        sessions={market.sessions}
-        timezone={market.timezone}
-        displayTimeMarker
-      />
+      <Timeline sessions={market.sessions} timezone={market.timezone} />
     </Box>
   );
 };
