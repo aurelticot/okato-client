@@ -10,7 +10,6 @@ import {
 } from "../../../../lib/utils";
 import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
 import { TimelinesList } from "../TimelinesList";
-import zIndex from "@material-ui/core/styles/zIndex";
 
 const { timelineVisiblePeriod } = config;
 

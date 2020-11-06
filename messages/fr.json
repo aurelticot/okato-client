@@ -77,5 +77,13 @@
   "NextMarketEvent": {
     "defaultMessage": "{status, select, OPEN {Ouvre} CLOSE {Ferme}} dans {relativeTime}",
     "description": "next market event"
+  },
+  "TimelineTime.backToRealtimeTooltip": {
+    "defaultMessage": "Cliquez pour retourner au temps réel",
+    "description": "Tooltip message on the button to come back to real time"
+  },
+  "TimelineTime.displayingRealtimeTooltip": {
+    "defaultMessage": "Affichage temps réel",
+    "description": "Tooltip message on the time displaying in realtime"
   }
 }

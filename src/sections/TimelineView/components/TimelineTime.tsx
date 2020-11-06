@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, Tooltip } from "@material-ui/core";
 import { Refresh as RefreshIcon } from "@material-ui/icons";
 import { AppDate } from "../../../lib/components/AppDate";
 import { RealTimeClock } from "../../../lib/components/RealTimeClock";
 import { Clock } from "../../../lib/components/Clock";
+import { useIntl } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,27 +53,52 @@ interface Props {
 
 export const TimelineTime = (props: Props) => {
   const { time, onClickBackToRealTime } = props;
-  const classes = useStyles();
+  const i18n = useIntl();
 
+  const backToRealtimeTooltipMessage = i18n.formatMessage({
+    id: "TimelineTime.backToRealtimeTooltip",
+    defaultMessage: "Click to come back to real-time",
+    description: "Tooltip message on the button to come back to real time",
+  });
+  const displayingRealtimeTooltipMessage = i18n.formatMessage({
+    id: "TimelineTime.displayingRealtimeTooltip",
+    defaultMessage: "Displaying real-time",
+    description: "Tooltip message on the time displaying in realtime",
+  });
+
+  const realtimeTooltip = time
+    ? backToRealtimeTooltipMessage
+    : displayingRealtimeTooltipMessage;
+
+  const classes = useStyles();
   return (
     <Box className={classes.root}>
       <Box className={`${classes.shadowBorder} ${classes.shadowBorderLeft}`} />
-      <Box
-        className={`${classes.timeContainer} ${
-          time ? classes.timeContainerButton : ""
-        }`}
-        onClick={onClickBackToRealTime}
+      <Tooltip
+        title={realtimeTooltip}
+        aria-label={realtimeTooltip}
+        arrow
+        interactive
+        placement="top"
+        disableFocusListener
       >
-        {time && (
-          <Box className={classes.refreshIndicator}>
-            <RefreshIcon style={{ fontSize: "0.8rem" }} />
+        <Box
+          className={`${classes.timeContainer} ${
+            time ? classes.timeContainerButton : ""
+          }`}
+          onClick={onClickBackToRealTime}
+        >
+          {time && (
+            <Box className={classes.refreshIndicator}>
+              <RefreshIcon style={{ fontSize: "0.8rem" }} />
+            </Box>
+          )}
+          <Box className={classes.timeWrapper}>
+            <AppDate time={time} />
+            {time ? <Clock time={time} /> : <RealTimeClock />}
           </Box>
-        )}
-        <Box className={classes.timeWrapper}>
-          <AppDate time={time} />
-          {time ? <Clock time={time} /> : <RealTimeClock />}
         </Box>
-      </Box>
+      </Tooltip>
       <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
     </Box>
   );

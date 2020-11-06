@@ -61,6 +61,18 @@
       "value": "Paramètres"
     }
   ],
+  "TimelineTime.backToRealtimeTooltip": [
+    {
+      "type": 0,
+      "value": "Cliquez pour retourner au temps réel"
+    }
+  ],
+  "TimelineTime.displayingRealtimeTooltip": [
+    {
+      "type": 0,
+      "value": "Affichage temps réel"
+    }
+  ],
   "settings.language.label": [
     {
       "type": 0,
