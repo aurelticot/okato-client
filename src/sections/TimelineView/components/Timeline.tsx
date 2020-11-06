@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     width: "2px",
     opacity: "100%",
     backgroundColor: theme.palette.grey[400],
+    boxShadow: theme.shadows[3],
   },
   baseTimeMarker: {
     position: "absolute",
