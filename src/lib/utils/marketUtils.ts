@@ -193,14 +193,8 @@ export const fillBlankWithClosedSessions = (
         const nextSessionStartDate = DateTime.fromJSDate(nextSessionStart);
         if (sessionEndDate < nextSessionStartDate.minus({ seconds: 1 })) {
           completeSessions.push({
-            start: sessionEndDate
-              .plus({ minutes: 1 })
-              .startOf("minute")
-              .toJSDate(),
-            end: nextSessionStartDate
-              .minus({ minutes: 1 })
-              .endOf("minute")
-              .toJSDate(),
+            start: sessionEndDate.startOf("minute").toJSDate(),
+            end: nextSessionStartDate.startOf("minute").toJSDate(),
             mainStatus: MarketStatus.CLOSE,
             status: MarketStatus.CLOSE,
           });

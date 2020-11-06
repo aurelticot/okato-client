@@ -108,6 +108,27 @@ export const getTimelineSizeInSeconds = (): number => {
   return getTimelineSizeInMinutes() * 60;
 };
 
+/**
+ * get the visible size of the timeline in hours.
+ */
+export const getTimelienVisibleSizeInHours = (): number => {
+  return timelineVisiblePeriod;
+};
+
+/**
+ * get the visible size of the timeline in minutes.
+ */
+export const getTimelienVisibleSizeInMinutes = (): number => {
+  return getTimelienVisibleSizeInHours() * 60;
+};
+
+/**
+ * get the visible size of the timeline in seconds.
+ */
+export const getTimelienVisibleSizeInSeconds = (): number => {
+  return getTimelienVisibleSizeInMinutes() * 60;
+};
+
 export const resolveTimelineSegments = (
   time: DateTime,
   timezone: string,
@@ -156,7 +177,7 @@ export const resolveTimelineSegments = (
       }
       return {
         start: sessionStartTime.diff(timelineStart).as("minutes"),
-        duration: sessionEndTime.diff(sessionStartTime).as("minutes") + 1,
+        duration: sessionEndTime.diff(sessionStartTime).as("minutes"),
         status,
       };
     });

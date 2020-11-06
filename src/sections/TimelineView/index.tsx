@@ -72,7 +72,7 @@ export const TimelineView: React.FunctionComponent<{}> = () => {
                       `${session.date}T${session.endTime}`,
                       { zone: timezone }
                     )
-                      .endOf("minute")
+                      .startOf("minute")
                       .toJSDate(),
                     mainStatus: session.mainStatus,
                     status: session.status,
