@@ -8,9 +8,6 @@ import {
   RealTimeClock,
 } from "../../../../../../../../../../lib/components";
 import { useIntl } from "react-intl";
-import { getFluidTextValues } from "../../../../../../../../../../lib/utils";
-
-const refreshIconFluidValues = getFluidTextValues(0.8);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "-6px",
   },
   refreshIcon: {
-    fontSize: `clamp(${refreshIconFluidValues.minSize}, ${refreshIconFluidValues.sizeRatio}vmin , ${refreshIconFluidValues.maxSize})`,
+    fontSize: theme.custom.fluidLength(0.8),
   },
   shadowBorder: {
     width: theme.spacing(3),

@@ -14,7 +14,6 @@ import { FluidText } from "../../../../../../../../../../../../lib/components";
 import { getFluidTextValues } from "../../../../../../../../../../../../lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
-const iconFluidText = getFluidTextValues(0.7);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
   },
   statusIcon: {
-    fontSize: `clamp(${iconFluidText.minSize}, ${iconFluidText.sizeRatio}vmin, ${iconFluidText.maxSize})`,
+    fontSize: theme.custom.fluidLength(0.7),
     margin: `0 ${theme.spacing(0.5)}px`,
   },
 }));

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     position: "inherit",
   },
   timelineListItem: {
-    padding: `${theme.spacing(1)}px 0`,
+    padding: `${theme.custom.fluidLength(0.5)} 0`,
     position: "inherit",
     display: "block",
   },
