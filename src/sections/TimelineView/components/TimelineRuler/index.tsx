@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    textTransform: "capitalize",
   },
   hourSegmentsContainer: {
     display: "flex",
@@ -187,7 +188,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                 {...mainFluidText}
                 className={classes.daySegmentContent}
               >
-                {i18n.formatDate(daySegment.date)}
+                {i18n.formatDate(daySegment.date, { weekday: "long" })}
               </FluidText>
 
               <Box className={classes.hourSegmentsContainer}>
