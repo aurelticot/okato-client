@@ -9,7 +9,7 @@ import {
   getTimelineSizeInSeconds,
 } from "../../../../lib/utils";
 import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
-import { TimelinesList } from "../TimelinesList";
+import { TimelinesList } from "./components";
 
 const { timelineVisiblePeriod } = config;
 

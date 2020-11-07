@@ -1,9 +1,8 @@
 import React from "react";
 import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Market } from "../../../../lib/types";
-import { TimelineItem } from "../TimelineItem";
-import { TimelineRuler } from "../TimelineRuler";
+import { Market } from "../../../../../../lib/types";
+import { TimelineItem, TimelineRuler } from "./components";
 
 const useStyles = makeStyles((theme) => ({
   timelineList: {

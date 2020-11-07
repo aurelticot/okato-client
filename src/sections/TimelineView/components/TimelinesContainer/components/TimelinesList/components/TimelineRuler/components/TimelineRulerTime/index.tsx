@@ -2,9 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Tooltip } from "@material-ui/core";
 import { Refresh as RefreshIcon } from "@material-ui/icons";
-import { AppDate, Clock, RealTimeClock } from "../../../lib/components";
+import {
+  AppDate,
+  Clock,
+  RealTimeClock,
+} from "../../../../../../../../../../lib/components";
 import { useIntl } from "react-intl";
-import { getFluidTextValues } from "../../../lib/utils";
+import { getFluidTextValues } from "../../../../../../../../../../lib/utils";
 
 const refreshIconFluidValues = getFluidTextValues(0.8);
 

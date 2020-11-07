@@ -1,12 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { MarketTitle } from "./MarketTitle";
-import { MarketNextEvent } from "./MarketNextEvent";
-import { Market, MarketStatus } from "../../../lib/types";
-import { useMarketStatus, useMarketNextEvent } from "../../../lib/hooks";
-import { FluidText, Clock, RealTimeClock } from "../../../lib/components";
-import { getFluidTextValues } from "../../../lib/utils";
+import { MarketTitle, MarketNextEvent } from "./components";
+import { Market, MarketStatus } from "../../../../../../../../../../lib/types";
+import {
+  useMarketStatus,
+  useMarketNextEvent,
+} from "../../../../../../../../../../lib/hooks";
+import {
+  FluidText,
+  Clock,
+  RealTimeClock,
+} from "../../../../../../../../../../lib/components";
+import { getFluidTextValues } from "../../../../../../../../../../lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 
