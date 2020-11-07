@@ -1,8 +1,9 @@
 import { textDefault } from "../constants";
+import { FluidTextValues } from "../types";
 
 const { minREMSize, sizeVminRatio, maxREMSize } = textDefault;
 
-export const getFluidTextValues = (minREMValue: number) => {
+export const getFluidTextValues = (minREMValue: number): FluidTextValues => {
   const maxREMValue = (minREMValue * maxREMSize) / minREMSize;
   const ratio =
     maxREMSize === minREMSize
