@@ -29,7 +29,7 @@ interface Props {
   time: Date | null;
 }
 
-export const MarketTitle = (props: Props) => {
+export const MarketTitle: React.FunctionComponent<Props> = (props) => {
   const { market, time } = props;
   const status = useMarketStatus(market, true, time);
 

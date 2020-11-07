@@ -10,7 +10,9 @@ interface Props {
   onClick: (configuration: SettingDialogConfiguration) => void;
 }
 
-export const ThemeSettingItem = ({ onClick }: Props) => {
+export const ThemeSettingItem: React.FunctionComponent<Props> = ({
+  onClick,
+}) => {
   const i18n = useIntl();
 
   const [theme, setTheme, themesSettingsDefinition] = useUserSetting(

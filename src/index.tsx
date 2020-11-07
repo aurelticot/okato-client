@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () => {
+const App: React.FunctionComponent<{}> = () => {
   const classes = useStyles();
 
   return (

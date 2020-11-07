@@ -9,7 +9,10 @@ interface Props {
   time: Date | null;
 }
 
-export const TimelineItem = ({ market, time }: Props) => {
+export const TimelineItem: React.FunctionComponent<Props> = ({
+  market,
+  time,
+}) => {
   return (
     <Box>
       <TimelineItemHeader time={time} market={market} />

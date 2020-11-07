@@ -9,7 +9,7 @@ interface Props {
   displaySeconds?: boolean;
 }
 
-export const RealTimeClock = (props: Props) => {
+export const RealTimeClock: React.FunctionComponent<Props> = (props) => {
   const { timezone, displayTimezone, displayDayDiff, displaySeconds } = props;
 
   const time = useRealTime();

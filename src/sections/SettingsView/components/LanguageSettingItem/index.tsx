@@ -10,7 +10,9 @@ interface Props {
   onClick: (configuration: SettingDialogConfiguration) => void;
 }
 
-export const LanguageSettingItem = ({ onClick }: Props) => {
+export const LanguageSettingItem: React.FunctionComponent<Props> = ({
+  onClick,
+}) => {
   const i18n = useIntl();
 
   const [language, setLanguage, languagesSettingsDefinition] = useUserSetting(

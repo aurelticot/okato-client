@@ -141,7 +141,7 @@ interface Props {
   displayBaseTimeMarker?: boolean;
 }
 
-export const Timeline = (props: Props) => {
+export const Timeline: React.FunctionComponent<Props> = (props) => {
   const {
     sessions,
     timezone,

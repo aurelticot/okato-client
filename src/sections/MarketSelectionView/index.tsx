@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PAGE_LIMIT = 10;
 
-export const MarketSelectionView = () => {
+export const MarketSelectionView: React.FunctionComponent<{}> = () => {
   const [marketSelection, setMarketSelection] = useUserSetting<string[]>(
     SettingKey.MarketSelection
   );

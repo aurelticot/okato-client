@@ -11,7 +11,7 @@ interface AppDateProps {
   time: Date | null;
 }
 
-export const AppDate: React.FC<AppDateProps> = ({ time }) => {
+export const AppDate: React.FunctionComponent<AppDateProps> = ({ time }) => {
   const realtime = useRealTime();
   const i18n = useIntl();
 

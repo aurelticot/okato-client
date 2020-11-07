@@ -23,7 +23,7 @@ const emptyDialogProps: SettingDialogConfiguration = {
   applyValue: () => {},
 };
 
-export const SettingsView = () => {
+export const SettingsView: React.FunctionComponent<{}> = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogConfiguration, setDialogConfiguration] = useState<
     SettingDialogConfiguration

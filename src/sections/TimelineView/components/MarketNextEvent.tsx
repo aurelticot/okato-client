@@ -43,7 +43,9 @@ interface Props {
   nextEvent: MarketSession;
 }
 
-export const MarketNextEvent = ({ nextEvent }: Props) => {
+export const MarketNextEvent: React.FunctionComponent<Props> = ({
+  nextEvent,
+}) => {
   const { mainStatus, start } = nextEvent;
   const classes = useStyles();
   const i18n = useIntl();

@@ -63,7 +63,7 @@ interface Props {
   market: Market;
 }
 
-export const TimelineItemHeader = (props: Props) => {
+export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const { time, market } = props;
   const classes = useStyles(props);
   const status = useMarketStatus(market, true, time);

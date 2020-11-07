@@ -40,7 +40,7 @@ interface Props {
   displaySeconds?: boolean;
 }
 
-export const Clock = (props: Props) => {
+export const Clock: React.FunctionComponent<Props> = (props) => {
   const {
     time,
     timezone,

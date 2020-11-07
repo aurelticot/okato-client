@@ -10,7 +10,9 @@ interface Props {
   onClick: (configuration: SettingDialogConfiguration) => void;
 }
 
-export const MarketSortSettingItem = ({ onClick }: Props) => {
+export const MarketSortSettingItem: React.FunctionComponent<Props> = ({
+  onClick,
+}) => {
   const i18n = useIntl();
 
   const [

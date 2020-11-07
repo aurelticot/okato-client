@@ -17,7 +17,9 @@ interface Props {
   onClose: (value: string) => void;
 }
 
-export const SettingSelectionDialog = (props: Props) => {
+export const SettingSelectionDialog: React.FunctionComponent<Props> = (
+  props
+) => {
   const { open, selectedValue, onClose, title, values } = props;
   const i18n = useIntl();
 

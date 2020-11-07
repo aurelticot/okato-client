@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ApplicationBar = () => {
+export const ApplicationBar: React.FunctionComponent<{}> = () => {
   const classes = useStyles();
 
   return (

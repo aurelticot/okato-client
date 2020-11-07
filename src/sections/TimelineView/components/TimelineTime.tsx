@@ -55,7 +55,7 @@ interface Props {
   onClickBackToRealTime: () => void;
 }
 
-export const TimelineTime = (props: Props) => {
+export const TimelineTime: React.FunctionComponent<Props> = (props) => {
   const { time, onClickBackToRealTime } = props;
   const i18n = useIntl();
 
