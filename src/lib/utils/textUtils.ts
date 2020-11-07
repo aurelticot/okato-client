@@ -16,3 +16,8 @@ export const getFluidTextValues = (minREMValue: number): FluidTextValues => {
     maxSize: `${maxREMValue}rem`,
   };
 };
+
+export const getFluidCSSLength = (minREMValue: number): string => {
+  const { minSize, sizeRatio, maxSize } = getFluidTextValues(minREMValue);
+  return `clamp(${minSize}, ${sizeRatio}vmin, ${maxSize})`;
+};

@@ -1,23 +1,22 @@
 import { ThemeOptions } from "@material-ui/core/styles";
-import { getFluidTextValues } from "../utils";
-import { FluidTextValues } from "../types";
+import { getFluidCSSLength } from "../utils";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
   interface Theme {
     custom: {
-      getFluidTextValues: (minREMValue: number) => FluidTextValues;
+      fluidLength: (minREMValue: number) => string;
     };
   }
   // allow configuration using `createMuiTheme`
   interface ThemeOptions {
     custom?: {
-      getFluidTextValues: (minREMValue: number) => FluidTextValues;
+      fluidLength: (minREMValue: number) => string;
     };
   }
 }
 
 export const baseOptions: ThemeOptions = {
   custom: {
-    getFluidTextValues,
+    fluidLength: getFluidCSSLength,
   },
 };
