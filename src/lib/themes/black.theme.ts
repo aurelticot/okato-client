@@ -1,12 +1,12 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { baseOptions } from "./base.theme";
 
-export const black = responsiveFontSizes(
-  createMuiTheme({
-    palette: {
-      type: "dark",
-      background: {
-        default: "#000000",
-      },
+export const black = createMuiTheme({
+  ...baseOptions,
+  palette: {
+    type: "dark",
+    background: {
+      default: "#000000",
     },
-  })
-);
+  },
+});
