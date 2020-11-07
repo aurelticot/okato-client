@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import { FluidText } from "./FluidText";
+import { getFluidTextValues } from "../utils";
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -14,20 +16,21 @@ const useStyles = makeStyles((_theme) => ({
   },
   timezone: {
     textTransform: "uppercase",
-    fontSize: "0.6rem",
     position: "absolute",
     bottom: "3px",
     left: "4.5em",
     width: "4em",
   },
   dayDiff: {
-    fontSize: "0.6rem",
     position: "absolute",
     bottom: "3px",
     right: "4.4em",
     width: "1em",
   },
 }));
+
+const mainFluidText = getFluidTextValues(1);
+const subFluidText = getFluidTextValues(0.6);
 
 interface Props {
   time: Date;
@@ -66,21 +69,24 @@ export const Clock = (props: Props) => {
   return (
     <Box className={classes.root}>
       {displayDayDiff && displayedDayDiff && (
-        <Typography className={classes.dayDiff}>{displayedDayDiff}</Typography>
+        <FluidText {...subFluidText} className={classes.dayDiff}>
+          {displayedDayDiff}
+        </FluidText>
       )}
       <Box className={classes.time}>
-        <Typography>{workingTime.toFormat("HH")}</Typography>
-        <Typography>:</Typography>
-        <Typography>{workingTime.toFormat("mm")}</Typography>
-        {displaySeconds && <Typography>:</Typography>}
+        <FluidText {...mainFluidText}>{workingTime.toFormat("HH")}</FluidText>
+        <FluidText {...mainFluidText}>:</FluidText>
+        <FluidText {...mainFluidText}>{workingTime.toFormat("mm")}</FluidText>
+        {displaySeconds && <FluidText {...mainFluidText}>:</FluidText>}
         {displaySeconds && (
-          <Typography>{workingTime.toFormat("ss")}</Typography>
+          <FluidText {...mainFluidText}>{workingTime.toFormat("ss")}</FluidText>
         )}
       </Box>
       {displayTimezone && (
-        <Typography className={classes.timezone}>{`GMT${workingTime.toFormat(
-          "Z"
-        )}`}</Typography>
+        <FluidText
+          {...subFluidText}
+          className={classes.timezone}
+        >{`GMT${workingTime.toFormat("Z")}`}</FluidText>
       )}
     </Box>
   );

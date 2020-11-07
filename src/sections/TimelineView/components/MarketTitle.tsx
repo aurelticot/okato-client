@@ -1,12 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
 } from "@material-ui/icons";
 import { Market, MarketStatus } from "../../../lib/types";
 import { useMarketStatus } from "../../../lib/hooks";
+import { FluidText } from "../../../lib/components";
+import { getFluidTextValues } from "../../../lib/utils";
+
+const mainFluidText = getFluidTextValues(1);
+const iconFluidText = getFluidTextValues(0.7);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
   },
   statusIcon: {
-    fontSize: "0.7rem",
+    fontSize: `clamp(${iconFluidText.minSize}, ${iconFluidText.sizeRatio}vmin, ${iconFluidText.maxSize})`,
     margin: `0 ${theme.spacing(0.5)}px`,
   },
 }));
@@ -31,7 +36,7 @@ export const MarketTitle = (props: Props) => {
   const classes = useStyles(props);
   return (
     <Box className={classes.root}>
-      <Typography component="h3">{market.name}</Typography>
+      <FluidText {...mainFluidText}>{market.name}</FluidText>
       {status === MarketStatus.OPEN ? (
         <FullCircle className={classes.statusIcon} />
       ) : (

@@ -1,13 +1,17 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, useMediaQuery, useTheme, Typography } from "@material-ui/core";
+import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { config } from "../../../../config";
 import { useFrequency } from "../../../../lib/hooks";
 import { oneMinuteInMillis } from "../../../../lib/constants";
-import { getTimelineSizeInMinutes } from "../../../../lib/utils";
+import {
+  getTimelineSizeInMinutes,
+  getFluidTextValues,
+} from "../../../../lib/utils";
 import { TimelineTime } from "../TimelineTime";
 import { useIntl } from "react-intl";
+import { FluidText } from "../../../../lib/components";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const timelineSize = getTimelineSizeInMinutes();
@@ -21,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
   ruler: {
     display: "flex",
-    color: theme.palette.grey[600],
+    color: theme.palette.text.disabled,
     paddingTop: theme.spacing(2),
   },
   daySegment: {
-    borderLeft: `1px solid ${theme.palette.grey[600]}`,
+    borderLeft: `1px solid ${theme.palette.text.secondary}`,
     paddingBottom: theme.spacing(0.5),
   },
   daySegmentContent: {
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   hourSegment: {
-    "borderLeft": `1px solid ${theme.palette.grey[600]}`,
+    "borderLeft": `1px solid ${theme.palette.text.secondary}`,
     "&:first-child": {
       borderLeft: "none",
     },
@@ -50,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
   },
 }));
+
+const mainFluidText = getFluidTextValues(1);
 
 interface Segment {
   start: number;
@@ -177,9 +183,12 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                 width: `${(daySegment.duration * 100) / timelineSize}%`,
               }}
             >
-              <Typography className={classes.daySegmentContent}>
+              <FluidText
+                {...mainFluidText}
+                className={classes.daySegmentContent}
+              >
                 {i18n.formatDate(daySegment.date)}
-              </Typography>
+              </FluidText>
 
               <Box className={classes.hourSegmentsContainer}>
                 {daySegment.hourSegments.map((hourSegment) => {
@@ -193,9 +202,12 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                         }%`,
                       }}
                     >
-                      <Typography className={classes.hourSegmentContent}>
+                      <FluidText
+                        {...mainFluidText}
+                        className={classes.hourSegmentContent}
+                      >
                         {smUp ? hourSegment.time : "\u00A0"}
-                      </Typography>
+                      </FluidText>
                     </Box>
                   );
                 })}

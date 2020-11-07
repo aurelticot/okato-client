@@ -14,11 +14,10 @@ import {
 import { useFrequency } from "../../../lib/hooks";
 
 const timelineSize = getTimelineSizeInMinutes();
-const timelineSizeRatio = 8;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: `clamp(3em, ${timelineSizeRatio}vw, 6em)`,
+    height: `clamp(3rem, 8vmin, 8rem)`,
   },
   timelineWrapper: {
     position: "relative",
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     left: "calc(50% - 1px)",
     zIndex: 10,
-    height: `clamp(3em, ${timelineSizeRatio}vw, 6em)`,
+    height: `clamp(3rem, 8vmin, 8rem)`,
   },
   nowTimeMarker: {
     position: "absolute",

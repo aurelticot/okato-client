@@ -1,8 +1,11 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
 import { useIntl } from "react-intl";
 import { useRealTime } from "../hooks";
 import { DateTime } from "luxon";
+import { FluidText } from "./FluidText";
+import { getFluidTextValues } from "../utils";
+
+const mainFluidText = getFluidTextValues(1);
 
 interface AppDateProps {
   time: Date | null;
@@ -18,14 +21,14 @@ export const AppDate: React.FC<AppDateProps> = ({ time }) => {
   });
 
   if (!time) {
-    return <Typography>{labelToday}</Typography>;
+    return <FluidText {...mainFluidText}>{labelToday}</FluidText>;
   }
 
   const realDateTime = DateTime.fromJSDate(realtime);
   const dateTime = DateTime.fromJSDate(time);
 
   if (dateTime.hasSame(realDateTime, "day")) {
-    return <Typography>{labelToday}</Typography>;
+    return <FluidText {...mainFluidText}>{labelToday}</FluidText>;
   }
 
   const labelTomorrow = i18n.formatMessage({
@@ -38,12 +41,12 @@ export const AppDate: React.FC<AppDateProps> = ({ time }) => {
   });
 
   if (dateTime.hasSame(realDateTime.plus({ day: 1 }), "day")) {
-    return <Typography>{labelTomorrow}</Typography>;
+    return <FluidText {...mainFluidText}>{labelTomorrow}</FluidText>;
   }
 
   if (dateTime.hasSame(realDateTime.minus({ day: 1 }), "day")) {
-    return <Typography>{labelYesterday}</Typography>;
+    return <FluidText {...mainFluidText}>{labelYesterday}</FluidText>;
   }
 
-  return <Typography>{i18n.formatDate(time)}</Typography>;
+  return <FluidText {...mainFluidText}>{i18n.formatDate(time)}</FluidText>;
 };

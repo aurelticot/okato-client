@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "../../../lib/types";
 import { oneMinuteInMillis } from "../../../lib/constants";
+import { getFluidTextValues } from "../../../lib/utils";
 import { useFrequency } from "../../../lib/hooks";
+import { FluidText } from "../../../lib/components";
+
+const mainFluidText = getFluidTextValues(0.8);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    fontSize: "0.8rem",
     color: theme.palette.text.secondary,
   },
 }));
@@ -54,7 +56,7 @@ export const MarketNextEvent = ({ nextEvent }: Props) => {
   }
   const status = mainStatus;
   return (
-    <Typography className={classes.root}>
+    <FluidText {...mainFluidText} className={classes.root}>
       {i18n.formatMessage(
         {
           id: "NextMarketEvent",
@@ -64,6 +66,6 @@ export const MarketNextEvent = ({ nextEvent }: Props) => {
         },
         { status, relativeTime }
       )}
-    </Typography>
+    </FluidText>
   );
 };

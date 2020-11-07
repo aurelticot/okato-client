@@ -2,10 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Tooltip } from "@material-ui/core";
 import { Refresh as RefreshIcon } from "@material-ui/icons";
-import { AppDate } from "../../../lib/components/AppDate";
-import { RealTimeClock } from "../../../lib/components/RealTimeClock";
-import { Clock } from "../../../lib/components/Clock";
+import { AppDate, Clock, RealTimeClock } from "../../../lib/components";
 import { useIntl } from "react-intl";
+import { getFluidTextValues } from "../../../lib/utils";
+
+const refreshIconFluidValues = getFluidTextValues(0.8);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     top: "-2px",
     left: "50%",
     marginLeft: "-6px",
+  },
+  refreshIcon: {
+    fontSize: `clamp(${refreshIconFluidValues.minSize}, ${refreshIconFluidValues.sizeRatio}vmin , ${refreshIconFluidValues.maxSize})`,
   },
   shadowBorder: {
     width: theme.spacing(3),
@@ -90,7 +94,7 @@ export const TimelineTime = (props: Props) => {
         >
           {time && (
             <Box className={classes.refreshIndicator}>
-              <RefreshIcon style={{ fontSize: "0.8rem" }} />
+              <RefreshIcon className={classes.refreshIcon} />
             </Box>
           )}
           <Box className={classes.timeWrapper}>

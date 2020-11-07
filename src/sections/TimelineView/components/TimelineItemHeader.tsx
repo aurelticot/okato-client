@@ -2,15 +2,17 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { MarketTitle } from "./MarketTitle";
-import { RealTimeClock } from "../../../lib/components/RealTimeClock";
 import { MarketNextEvent } from "./MarketNextEvent";
-import { Clock } from "../../../lib/components/Clock";
 import { Market, MarketStatus } from "../../../lib/types";
 import { useMarketStatus, useMarketNextEvent } from "../../../lib/hooks";
+import { FluidText, Clock, RealTimeClock } from "../../../lib/components";
+import { getFluidTextValues } from "../../../lib/utils";
+
+const mainFluidText = getFluidTextValues(1);
 
 const useStyles = makeStyles((theme) => ({
   timelineHeaderPlaceholder: {
-    height: "1.6em",
+    visibility: "hidden",
   },
   timelineHeaderWrapper: {
     width: "100%",
@@ -70,7 +72,7 @@ export const TimelineItemHeader = (props: Props) => {
   const marketStatusClass = defineMarketStatusClass(status, classes);
 
   return (
-    <Box className={classes.timelineHeaderPlaceholder}>
+    <Box>
       <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
         <Box
           className={`${classes.headerComponent}`}
@@ -108,6 +110,12 @@ export const TimelineItemHeader = (props: Props) => {
           {nextEvent && !time && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>
+      <FluidText
+        {...mainFluidText}
+        className={classes.timelineHeaderPlaceholder}
+      >
+        {"\u00A0"}
+      </FluidText>
     </Box>
   );
 };
