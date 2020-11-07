@@ -9,20 +9,20 @@ import {
 } from "../../../lib/types";
 import {
   getTimelineSizeInMinutes,
-  getTimelienVisibleSizeInMinutes,
   resolveTimelineSegments,
 } from "../../../lib/utils";
 import { useFrequency } from "../../../lib/hooks";
 
 const timelineSize = getTimelineSizeInMinutes();
-const visibleTimelineSize = getTimelienVisibleSizeInMinutes();
-const timelineSizeRatioOnVisible = 8;
-const timelineSizeRatioOnTotal =
-  (timelineSizeRatioOnVisible * visibleTimelineSize) / timelineSize;
+const timelineSizeRatio = 8;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    height: `clamp(3em, ${timelineSizeRatio}vw, 6em)`,
+  },
+  timelineWrapper: {
     position: "relative",
+    height: "100%",
   },
   timeMarker: {
     width: "2px",
@@ -34,27 +34,19 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     left: "calc(50% - 1px)",
     zIndex: 10,
-    height: "0",
-    paddingBottom: `clamp(3em ,${timelineSizeRatioOnVisible}%, 6em)`,
+    height: `clamp(3em, ${timelineSizeRatio}vw, 6em)`,
   },
   nowTimeMarker: {
     position: "absolute",
     left: "calc(50% - 1px)",
-    minHeight: "100%",
     zIndex: 10,
   },
   timeline: {
-    position: "relative",
     display: "flex",
-    height: "0",
-    paddingBottom: `clamp(3em ,${timelineSizeRatioOnTotal}%, 6em)`,
+    height: "100%",
     boxShadow: theme.shadows[3],
   },
-  segment: {
-    minHeight: "100%",
-    position: "absolute",
-    top: "0",
-  },
+  segment: {},
 }));
 
 const useMarketStatusStyles = makeStyles((theme) => ({
@@ -179,14 +171,14 @@ export const Timeline = (props: Props) => {
   });
 
   return (
-    <Box>
+    <Box className={classes.root}>
       {displayBaseTimeMarker && (
         <Divider
           orientation="vertical"
           className={`${classes.timeMarker} ${classes.baseTimeMarker}`}
         />
       )}
-      <Box className={classes.root}>
+      <Box className={classes.timelineWrapper}>
         {displayNowTimeMarker && (
           <Divider
             orientation="vertical"
