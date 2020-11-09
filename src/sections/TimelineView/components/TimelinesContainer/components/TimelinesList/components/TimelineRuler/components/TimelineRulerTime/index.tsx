@@ -6,8 +6,12 @@ import {
   AppDate,
   Clock,
   RealTimeClock,
+  FluidText,
 } from "../../../../../../../../../../lib/components";
 import { useIntl } from "react-intl";
+import { getFluidTextValues } from "../../../../../../../../../../lib/utils";
+
+const refreshIconPlaceholderFluidText = getFluidTextValues(0.8);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,10 +20,8 @@ const useStyles = makeStyles((theme) => ({
   },
   timeContainer: {
     backgroundColor: theme.palette.background.default,
-    paddingTop: `${theme.spacing(2)}px`,
-    paddingRight: `${theme.spacing(1.5)}px`,
-    paddingBottom: `${theme.spacing(0.5)}px`,
-    paddingLeft: `${theme.spacing(1.5)}px`,
+    paddingRight: theme.custom.fluidLength(0.75),
+    paddingLeft: theme.custom.fluidLength(0.75),
     position: "relative",
   },
   timeContainerButton: {
@@ -30,18 +32,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  refreshIndicator: {
-    position: "absolute",
-    top: "-2px",
-    left: "50%",
-    marginLeft: "-6px",
+  refreshIconWrapper: {
+    height: "1.875em",
+    lineHeight: "1.875",
   },
   refreshIcon: {
-    fontSize: theme.custom.fluidLength(0.8),
+    fontSize: "inherit",
   },
   shadowBorder: {
-    width: theme.spacing(3),
-    paddingBottom: theme.spacing(0.5),
+    width: theme.custom.fluidLength(1.5),
   },
   shadowBorderLeft: {
     background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
@@ -93,12 +92,17 @@ export const TimelineTime: React.FunctionComponent<Props> = (props) => {
           }`}
           onClick={onClickBackToRealTime}
         >
-          {time && (
-            <Box className={classes.refreshIndicator}>
-              <RefreshIcon className={classes.refreshIcon} />
-            </Box>
-          )}
           <Box className={classes.timeWrapper}>
+            <FluidText
+              {...refreshIconPlaceholderFluidText}
+              className={classes.refreshIconWrapper}
+            >
+              {time ? (
+                <RefreshIcon className={classes.refreshIcon} />
+              ) : (
+                "\u00A0"
+              )}
+            </FluidText>
             <AppDate time={time} />
             {time ? <Clock time={time} /> : <RealTimeClock />}
           </Box>

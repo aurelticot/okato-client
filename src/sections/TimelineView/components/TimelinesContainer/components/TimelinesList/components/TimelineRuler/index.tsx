@@ -26,37 +26,41 @@ const useStyles = makeStyles((theme) => ({
   ruler: {
     display: "flex",
     color: theme.palette.text.disabled,
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.custom.fluidLength(1.5),
   },
   daySegment: {
     borderLeft: `1px solid ${theme.palette.text.secondary}`,
-    paddingBottom: theme.spacing(0.5),
   },
   daySegmentContent: {
-    paddingLeft: theme.spacing(0.5),
+    paddingLeft: "0.25em",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
     textTransform: "capitalize",
+    lineHeight: 1.075,
+    height: "1.075em",
+    margin: "0.4em 0",
   },
   hourSegmentsContainer: {
     display: "flex",
   },
-  hourSegment: {
+  hourSegmentContent: {
+    "paddingLeft": "0.25em",
+    "whiteSpace": "nowrap",
+    "overflow": "hidden",
+    "textOverflow": "ellipsis",
+    "lineHeight": 1.075,
+    "height": "1.075em",
+    "margin": "0.4em 0",
     "borderLeft": `1px solid ${theme.palette.text.secondary}`,
     "&:first-child": {
       borderLeft: "none",
     },
   },
-  hourSegmentContent: {
-    paddingLeft: theme.spacing(0.5),
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
 }));
 
-const mainFluidText = getFluidTextValues(1);
+const dayFluidText = getFluidTextValues(0.8);
+const hourFluidText = getFluidTextValues(0.8);
 
 interface Segment {
   start: number;
@@ -185,7 +189,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
               }}
             >
               <FluidText
-                {...mainFluidText}
+                {...dayFluidText}
                 className={classes.daySegmentContent}
               >
                 {i18n.formatDate(daySegment.date, { weekday: "long" })}
@@ -194,22 +198,18 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
               <Box className={classes.hourSegmentsContainer}>
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
-                    <Box
+                    <FluidText
                       key={hourSegment.start}
-                      className={classes.hourSegment}
+                      {...hourFluidText}
+                      className={classes.hourSegmentContent}
                       style={{
                         width: `${
                           (hourSegment.duration * 100) / daySegment.duration
                         }%`,
                       }}
                     >
-                      <FluidText
-                        {...mainFluidText}
-                        className={classes.hourSegmentContent}
-                      >
-                        {smUp ? hourSegment.time : "\u00A0"}
-                      </FluidText>
-                    </Box>
+                      {smUp ? hourSegment.time : "\u00A0"}
+                    </FluidText>
                   );
                 })}
               </Box>
