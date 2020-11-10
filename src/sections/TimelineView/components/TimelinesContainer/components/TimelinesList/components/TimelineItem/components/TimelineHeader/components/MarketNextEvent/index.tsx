@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
-import { MarketSession } from "../../../../../../../../../../../../lib/types";
-import { oneMinuteInMillis } from "../../../../../../../../../../../../lib/constants";
-import { getFluidTextValues } from "../../../../../../../../../../../../lib/utils";
-import { useFrequency } from "../../../../../../../../../../../../lib/hooks";
-import { FluidText } from "../../../../../../../../../../../../lib/components";
+import { MarketSession } from "lib/types";
+import { oneMinuteInMillis } from "lib/constants";
+import { getFluidTextValues } from "lib/utils";
+import { useFrequency } from "lib/hooks";
+import { FluidText } from "lib/components";
 
 const mainFluidText = getFluidTextValues(0.8);
 

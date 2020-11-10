@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   MarketStatus,
   TimelineSegment as TimelineSegmentType,
-} from "../../../../../../../../../../../../lib/types";
+} from "lib/types";
 
 const useMarketStatusStyles = makeStyles((theme) => ({
   statusOpen: {

@@ -1,4 +1,4 @@
-import { Feature, Features } from "../types";
+import { Feature, Features } from "lib/types";
 
 export function getFeatureData(): Features {
   return {

@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useState, useEffect } from "react";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
-import { getTheme } from "../lib/themes";
-import { useUserSetting } from "../lib/hooks";
-import { SettingKey } from "../lib/types";
+import { getTheme } from "lib/themes";
+import { useUserSetting } from "lib/hooks";
+import { SettingKey } from "lib/types";
 
 const useSystemTheme = (): string => {
   const systemDarkThemeMatcher = window.matchMedia(

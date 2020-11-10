@@ -1,5 +1,5 @@
 import React from "react";
-import { useRealTime } from "../hooks";
+import { useRealTime } from "lib/hooks";
 import { Clock } from "./Clock";
 
 interface Props {

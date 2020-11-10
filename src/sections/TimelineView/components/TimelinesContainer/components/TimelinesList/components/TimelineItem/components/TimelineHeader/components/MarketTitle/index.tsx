@@ -5,13 +5,10 @@ import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
 } from "@material-ui/icons";
-import {
-  Market,
-  MarketStatus,
-} from "../../../../../../../../../../../../lib/types";
-import { useMarketStatus } from "../../../../../../../../../../../../lib/hooks";
-import { FluidText } from "../../../../../../../../../../../../lib/components";
-import { getFluidTextValues } from "../../../../../../../../../../../../lib/utils";
+import { Market, MarketStatus } from "lib/types";
+import { useMarketStatus } from "lib/hooks";
+import { FluidText } from "lib/components";
+import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 

@@ -1,4 +1,4 @@
-import { SettingValue } from "../../../lib/types";
+import { SettingValue } from "lib/types";
 
 export interface SettingDialogConfiguration<TData = string> {
   title: string;

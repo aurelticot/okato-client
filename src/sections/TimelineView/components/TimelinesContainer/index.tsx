@@ -2,13 +2,10 @@ import React, { useCallback } from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
-import { config } from "../../../../config";
-import { Market } from "../../../../lib/types";
-import {
-  getTimelineSizeInHours,
-  getTimelineSizeInSeconds,
-} from "../../../../lib/utils";
-import { useBaseTime, useWindowSize } from "../../../../lib/hooks";
+import { config } from "config";
+import { Market } from "lib/types";
+import { getTimelineSizeInHours, getTimelineSizeInSeconds } from "lib/utils";
+import { useBaseTime, useWindowSize } from "lib/hooks";
 import { TimelinesList } from "./components";
 
 const { timelineVisiblePeriod } = config;

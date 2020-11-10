@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState, useEffect, useMemo } from "react";
-import { config } from "../config";
-import { UserSettings } from "../lib/types";
+import { config } from "config";
+import { UserSettings } from "lib/types";
 
 const { defaultUserSettings, settings } = config;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { Market } from "../../../../../../../../lib/types";
+import { Market } from "lib/types";
 import { Timeline, TimelineItemHeader } from "./components";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { getFeatureStatusFromString } from "../utils/featureUtils";
+import { getFeatureStatusFromString } from "lib/utils/featureUtils";
 
 export enum FeatureStatus {
   ENABLED = "ENABLED",

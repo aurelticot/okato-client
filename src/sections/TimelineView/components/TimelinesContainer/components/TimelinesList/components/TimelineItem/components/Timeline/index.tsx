@@ -5,12 +5,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   MarketSession,
   TimelineSegment as TimelineSegmentType,
-} from "../../../../../../../../../../lib/types";
-import {
-  getTimelineSizeInMinutes,
-  resolveTimelineSegments,
-} from "../../../../../../../../../../lib/utils";
-import { useFrequency } from "../../../../../../../../../../lib/hooks";
+} from "lib/types";
+import { getTimelineSizeInMinutes, resolveTimelineSegments } from "lib/utils";
+import { useFrequency } from "lib/hooks";
 import { TimelineSegment, TimelineSegmentDefault } from "./components";
 
 const timelineSize = getTimelineSizeInMinutes();

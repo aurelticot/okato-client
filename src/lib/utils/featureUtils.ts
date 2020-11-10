@@ -1,4 +1,4 @@
-import { FeatureStatus } from "../types";
+import { FeatureStatus } from "lib/types";
 
 export const getFeatureStatusFromString = (status: string): FeatureStatus => {
   switch (status) {

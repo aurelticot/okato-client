@@ -2,9 +2,9 @@ import React from "react";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { Translate as LanguageIcon } from "@material-ui/icons";
 import { useIntl } from "react-intl";
-import { SettingKey } from "../../../../lib/types";
-import { useUserSetting } from "../../../../lib/hooks";
-import { SettingDialogConfiguration } from "../../types";
+import { SettingKey } from "lib/types";
+import { useUserSetting } from "lib/hooks";
+import { SettingDialogConfiguration } from "sections/SettingsView/types";
 
 interface Props {
   onClick: (configuration: SettingDialogConfiguration) => void;

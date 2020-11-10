@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { oneMinuteInMillis } from "../constants";
-import { Market, MarketSession, MarketStatus } from "../types";
-import { getMarketNextEvent, getMarketStatus } from "../utils";
+import { oneMinuteInMillis } from "lib/constants";
+import { Market, MarketSession, MarketStatus } from "lib/types";
+import { getMarketNextEvent, getMarketStatus } from "lib/utils";
 import { useFrequency } from "./timeHooks";
 
 export const useMarketStatus = (

@@ -1,4 +1,4 @@
-import { SettingKey, Settings, MarketSortingMethod } from "../lib/types";
+import { SettingKey, Settings, MarketSortingMethod } from "lib/types";
 
 export const settings: Settings = {
   [SettingKey.Theme]: {

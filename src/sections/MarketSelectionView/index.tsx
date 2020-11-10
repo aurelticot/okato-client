@@ -10,15 +10,14 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useIntl } from "react-intl";
-import { SettingKey } from "../../lib/types";
-import { useUserSetting } from "../../lib/hooks";
+import { SettingKey, MarketSortingMethod } from "lib/types";
+import { useUserSetting } from "lib/hooks";
 import { useQuery } from "@apollo/client";
-import { MARKETS } from "../../lib/graphql/queries";
+import { MARKETS } from "lib/graphql/queries";
 import {
   Markets as MarketsData,
   MarketsVariables,
-} from "../../lib/graphql/queries/Markets/types/Markets";
-import { MarketSortingMethod } from "../../lib/types/globalTypes";
+} from "lib/graphql/queries/Markets/types/Markets";
 
 const useStyles = makeStyles((theme) => ({
   root: {

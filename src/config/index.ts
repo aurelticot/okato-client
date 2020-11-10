@@ -1,4 +1,4 @@
-import { SettingKey, UserSettings, MarketSortingMethod } from "../lib/types";
+import { SettingKey, UserSettings, MarketSortingMethod } from "lib/types";
 import { settings } from "./settings";
 
 const appName = process.env.npm_package_name;

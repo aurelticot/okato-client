@@ -2,14 +2,11 @@ import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, useMediaQuery, useTheme } from "@material-ui/core";
-import { config } from "../../../../../../../../config";
-import { useFrequency } from "../../../../../../../../lib/hooks";
-import { oneMinuteInMillis } from "../../../../../../../../lib/constants";
-import { FluidText } from "../../../../../../../../lib/components";
-import {
-  getTimelineSizeInMinutes,
-  getFluidTextValues,
-} from "../../../../../../../../lib/utils";
+import { config } from "config";
+import { useFrequency } from "lib/hooks";
+import { oneMinuteInMillis } from "lib/constants";
+import { FluidText } from "lib/components";
+import { getTimelineSizeInMinutes, getFluidTextValues } from "lib/utils";
 import { TimelineTime } from "./components";
 import { useIntl } from "react-intl";
 

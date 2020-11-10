@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useRealTime } from "../hooks";
+import { useRealTime } from "lib/hooks";
 import { DateTime } from "luxon";
 import { FluidText } from "./FluidText";
-import { getFluidTextValues } from "../utils";
+import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 

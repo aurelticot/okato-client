@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
 import { MessageFormatElement } from "intl-messageformat-parser";
-import { messages } from "../lib/lang";
-import { useUserSetting } from "../lib/hooks";
-import { SettingKey } from "../lib/types";
+import { messages } from "lib/lang";
+import { useUserSetting } from "lib/hooks";
+import { SettingKey } from "lib/types";
 
 const { en, fr } = messages;
 

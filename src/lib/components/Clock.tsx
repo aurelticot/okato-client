@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
 import { Box } from "@material-ui/core";
 import { FluidText } from "./FluidText";
-import { getFluidTextValues } from "../utils";
+import { getFluidTextValues } from "lib/utils";
 
 const useStyles = makeStyles((_theme) => ({
   root: {

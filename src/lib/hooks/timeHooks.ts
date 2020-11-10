@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { TimeContext } from "../../contexts/TimeProvider";
+import { TimeContext } from "lib/contexts";
 
 export const useRealTime = (): Date => {
   return useContext(TimeContext);

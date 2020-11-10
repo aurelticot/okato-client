@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { config } from "../config";
+import { config } from "config";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({

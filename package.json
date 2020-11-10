@@ -22,6 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "start:dev": "react-scripts start",
+    "start:build": "npx serve -s build",
     "start": "npm run start:dev",
     "eject": "react-scripts eject"
   },

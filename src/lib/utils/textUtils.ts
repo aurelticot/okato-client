@@ -1,5 +1,5 @@
-import { textDefault } from "../constants";
-import { FluidTextValues } from "../types";
+import { textDefault } from "lib/constants";
+import { FluidTextValues } from "lib/types";
 
 const { minREMSize, sizeVminRatio, maxREMSize } = textDefault;
 

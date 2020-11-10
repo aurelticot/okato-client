@@ -1,5 +1,5 @@
 import React, { useState, useEffect, PropsWithChildren } from "react";
-import { getFeatureData } from "../lib/utils/APImock";
+import { getFeatureData } from "lib/utils/APImock";
 
 export const FeatureContext = React.createContext(getFeatureData());
 

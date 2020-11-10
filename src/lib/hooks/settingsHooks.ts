@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { UserSettingsContext } from "../../contexts/UserSettingsProvider";
-import { SettingKey, Setting as SettingDefinition } from "../types";
-import { config } from "../../config";
+import { UserSettingsContext } from "lib/contexts";
+import { SettingKey, Setting as SettingDefinition } from "lib/types";
+import { config } from "config";
 
 const { settings, defaultUserSettings } = config;
 

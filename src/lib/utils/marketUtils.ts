@@ -4,7 +4,7 @@ import {
   Market,
   MarketSortingMethod,
   MarketSession,
-} from "../types";
+} from "lib/types";
 
 interface ComparableMarket {
   name: string;

@@ -1,7 +1,7 @@
-import { initRaygun } from "./lib/utils";
+import { initRaygun } from "lib/utils";
 import React from "react";
 import ReactDOM from "react-dom";
-import AppContext from "./contexts/AppContext";
+import { AppContextProvider } from "lib/contexts";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +11,7 @@ import {
   MarketSelectionView,
   SettingsView,
   TimelineView,
-} from "./sections";
+} from "sections";
 import * as serviceWorker from "./serviceWorker";
 
 initRaygun();
@@ -50,10 +50,10 @@ const App: React.FunctionComponent<{}> = () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppContext>
+    <AppContextProvider>
       <CssBaseline></CssBaseline>
       <App />
-    </AppContext>
+    </AppContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

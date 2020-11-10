@@ -1,20 +1,20 @@
 import React from "react";
 import { DateTime } from "luxon";
 import { config } from "../../config";
-import { Market, MarketSession, SettingKey } from "../../lib/types";
-import { dateFormat } from "../../lib/constants";
+import { Market, MarketSession, SettingKey } from "lib/types";
+import { dateFormat } from "lib/constants";
 import {
   getMarketSortingFunction,
   fillBlankWithClosedSessions,
-} from "../../lib/utils";
-import { useUserSetting } from "../../lib/hooks";
+} from "lib/utils";
+import { useUserSetting } from "lib/hooks";
 import { TimelinesContainer } from "./components";
 import { useQuery } from "@apollo/client";
-import { MARKETS } from "../../lib/graphql/queries";
+import { MARKETS } from "lib/graphql/queries";
 import {
   Markets as MarketsData,
   MarketsVariables,
-} from "../../lib/graphql/queries/Markets/types/Markets";
+} from "lib/graphql/queries/Markets/types/Markets";
 
 const {
   timelineVisiblePeriod,

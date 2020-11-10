@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
-import { MarketSession, MarketStatus, TimelineSegment } from "../types";
-import { config } from "../../config";
+import { MarketSession, MarketStatus, TimelineSegment } from "lib/types";
+import { config } from "config";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 
