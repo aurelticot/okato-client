@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
   timeContainer: {
     backgroundColor: theme.palette.background.default,
-    paddingRight: theme.custom.fluidLength(0.75),
-    paddingLeft: theme.custom.fluidLength(0.75),
+    paddingRight: theme.custom.mixins.fluidLength(0.75),
+    paddingLeft: theme.custom.mixins.fluidLength(0.75),
     position: "relative",
   },
   timeContainerButton: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "inherit",
   },
   shadowBorder: {
-    width: theme.custom.fluidLength(1.5),
+    width: theme.custom.mixins.fluidLength(1.5),
   },
   shadowBorderLeft: {
     background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,

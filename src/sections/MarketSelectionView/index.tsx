@@ -83,7 +83,7 @@ export const MarketSelectionView: React.FunctionComponent<{}> = () => {
                 <ListItemSecondaryAction>
                   <Switch
                     edge="end"
-                    color="primary"
+                    color="default"
                     onChange={handleToggle(market.code)}
                     checked={marketSelection.includes(market.code)}
                     inputProps={{

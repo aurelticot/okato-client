@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
   },
   statusIcon: {
-    fontSize: theme.custom.fluidLength(0.7),
+    fontSize: theme.custom.mixins.fluidLength(0.7),
     margin: `0 ${theme.spacing(0.5)}px`,
   },
 }));

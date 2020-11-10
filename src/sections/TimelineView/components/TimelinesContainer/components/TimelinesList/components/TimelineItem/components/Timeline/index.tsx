@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     left: "calc(50% - 1px)",
     zIndex: 10,
+    backgroundColor: theme.palette.primary.main,
   },
   timeline: {
     display: "flex",

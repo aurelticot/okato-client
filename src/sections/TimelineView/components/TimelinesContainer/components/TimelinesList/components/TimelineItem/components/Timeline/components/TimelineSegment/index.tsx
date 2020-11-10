@@ -8,36 +8,38 @@ import {
 
 const useMarketStatusStyles = makeStyles((theme) => ({
   statusOpen: {
-    background: theme.palette.success.main,
+    background: theme.custom.palette.marketStatus.open.main,
     opacity: "100%",
   },
   statusBreak: {
-    background: theme.palette.warning.light,
-    opacity: "70%",
+    background: theme.custom.palette.marketStatus.open.main,
+    opacity: "100%",
     backgroundImage:
-      "repeating-linear-gradient(80deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
+      "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   statusClose: {
-    background: theme.palette.error.light,
-    opacity: "15%",
+    background: theme.custom.palette.marketStatus.close.light,
+    opacity: "25%",
     backgroundImage:
       "repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   statusCloseSpecial: {
-    background: theme.palette.error.light,
-    opacity: "40%",
+    background: theme.custom.palette.marketStatus.close.main,
+    opacity: "100%",
+    backgroundImage:
+      "repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,.2) 5px, rgba(255,255,255,.2) 10px)",
   },
   statusBeforeMarket: {
-    background: theme.palette.warning.light,
-    opacity: "60%",
+    background: theme.custom.palette.marketStatus.extended.main,
+    opacity: "80%",
     backgroundImage:
-      "repeating-linear-gradient(-75deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
+      "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   statusAfterMarket: {
-    background: theme.palette.warning.light,
-    opacity: "60%",
+    background: theme.custom.palette.marketStatus.extended.main,
+    opacity: "80%",
     backgroundImage:
-      "repeating-linear-gradient(-75deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
+      "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
 }));
 

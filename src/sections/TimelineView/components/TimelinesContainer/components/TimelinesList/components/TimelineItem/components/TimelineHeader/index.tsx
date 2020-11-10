@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   marketOpen: {
-    color: theme.palette.success.main,
+    color: theme.custom.palette.marketStatus.open.main,
   },
   marketClosed: {
-    color: theme.palette.error.main,
+    color: theme.custom.palette.marketStatus.close.main,
   },
   marketAfterBeforeHour: {
-    color: theme.palette.warning.main,
+    color: theme.custom.palette.marketStatus.extended.main,
   },
 }));
 
