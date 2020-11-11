@@ -15,7 +15,6 @@ const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.mixins.toolbar.minHeight,
     position: "relative",
   },
   shadowBorder: {

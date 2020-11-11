@@ -1,37 +1,101 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Box, IconButton } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import {
   ClearAll as TimelineIcon,
-  Edit as EditIcon,
-  Settings as SettingsIcon,
+  MoreVert as MoreIcon,
 } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useIntl } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: theme.palette.background.default,
-    top: "auto",
-    bottom: 0,
+    color: theme.palette.text.primary,
+  },
+  appTitle: {
+    flexGrow: 1,
   },
 }));
 
 export const ApplicationBar: React.FunctionComponent<{}> = () => {
-  const classes = useStyles();
+  const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(anchorEl);
+  const i18n = useIntl();
 
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (to: string) => {
+    history.push(to);
+    closeMenu();
+  };
+
+  const appTitle = i18n.formatMessage({
+    id: "ApplicationBar.appTitle",
+    description: "Name/Title of the application",
+    defaultMessage: "Market Timeline",
+  });
+
+  const marketSelectionMenuItemLabel = i18n.formatMessage({
+    id: "ApplicationBar.marketSelectionMenuItemLabel",
+    description: "Label of the menu item for the Market Selection view",
+    defaultMessage: "Market selection",
+  });
+
+  const settingsMenuItemLabel = i18n.formatMessage({
+    id: "ApplicationBar.settingsMenuItemLabel",
+    description: "Label of the menu item for the Settings view",
+    defaultMessage: "Settings",
+  });
+
+  const classes = useStyles();
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar} elevation={0}>
       <Toolbar>
-        <Box width="100%" display="flex" justifyContent="space-between">
-          <IconButton edge="start" component={Link} to="/">
-            <TimelineIcon />
+        <IconButton edge="start" component={Link} to="/">
+          <TimelineIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.appTitle}>
+          {appTitle}
+        </Typography>
+        <Box>
+          <IconButton
+            aria-label="more"
+            aria-controls="appbar.menu-more"
+            aria-haspopup="true"
+            onClick={handleMenu}
+          >
+            <MoreIcon />
           </IconButton>
-          <IconButton component={Link} to="/selection">
-            <EditIcon />
-          </IconButton>
-          <IconButton edge="end" component={Link} to="/settings">
-            <SettingsIcon />
-          </IconButton>
+          <Menu
+            id="appbar.menu-more"
+            open={menuOpen}
+            anchorEl={anchorEl}
+            onClose={closeMenu}
+            keepMounted
+          >
+            <MenuItem onClick={() => handleMenuItemClick("/selection")}>
+              {marketSelectionMenuItemLabel}
+            </MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick("/settings")}>
+              {settingsMenuItemLabel}
+            </MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>

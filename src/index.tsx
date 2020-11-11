@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
   },
+  appContainer: theme.mixins.toolbar,
 }));
 
 const App: React.FunctionComponent<{}> = () => {
@@ -28,6 +29,8 @@ const App: React.FunctionComponent<{}> = () => {
   return (
     <Router>
       <Box className={classes.root}>
+        <ApplicationBar />
+        <Box className={classes.appContainer} />
         <Switch>
           <Route path="/" exact>
             <TimelineView />
@@ -42,7 +45,6 @@ const App: React.FunctionComponent<{}> = () => {
             <MarketSelectionView />
           </Route>
         </Switch>
-        <ApplicationBar />
       </Box>
     </Router>
   );
