@@ -17,7 +17,6 @@
   "settings.theme.value.light.label": {
     "defaultMessage": "Clair"
   },
-
   "settings.language.label": {
     "defaultMessage": "Langue"
   },
@@ -33,7 +32,6 @@
   "settings.language.value.fr.label": {
     "defaultMessage": "Français"
   },
-
   "settings.marketSort.label": {
     "defaultMessage": "Tri des marchés"
   },
@@ -58,11 +56,28 @@
   "settings.marketSort.value.chronologicallyReverse.label": {
     "defaultMessage": "Chronologique (inverse)"
   },
-
-  "SettingsView.title": {
+  "ApplicationBar.appTitle": {
+    "description": "Name/Title of the application",
+    "defaultMessage": "Market Timeline"
+  },
+  "ApplicationBar.marketSelectionMenuItemLabel": {
+    "description": "Label of the menu item for the Market Selection view",
+    "defaultMessage": "Selection des marchés"
+  },
+  "ApplicationBar.settingsMenuItemLabel": {
+    "description": "Label of the menu item for the Settings view",
     "defaultMessage": "Paramètres"
   },
-  "MarketSelectionView.title": {
+  "App.modalDialog.closeButtonLabel": {
+    "description": "Label of the the 'Close' button in the main dialog",
+    "defaultMessage": "Fermer"
+  },
+  "App.modalDialog.settingsTitle": {
+    "description": "Title of the Settings dialog",
+    "defaultMessage": "Paramètres"
+  },
+  "App.modalDialog.marketSelectionTitle": {
+    "description": "Title of the Market Selection dialog",
     "defaultMessage": "Marchés"
   },
   "AppDate.today": {
