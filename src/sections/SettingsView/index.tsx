@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { List, ListSubheader, Box } from "@material-ui/core";
+import { List } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useIntl } from "react-intl";
 import {
   SettingSelectionDialog,
   LanguageSettingItem,
@@ -10,9 +9,9 @@ import {
 } from "./components";
 import { SettingDialogConfiguration } from "./types";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: theme.mixins.toolbar.minHeight,
+const useStyles = makeStyles((_theme) => ({
+  list: {
+    padding: "0",
   },
 }));
 
@@ -41,17 +40,10 @@ export const SettingsView: React.FunctionComponent<{}> = () => {
     setDialogOpen(false);
   };
 
-  const i18n = useIntl();
-  const settingsViewTitle = i18n.formatMessage({
-    id: "SettingsView.title",
-    defaultMessage: "Settings",
-    description: "Title of the Settings view",
-  });
-
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <List subheader={<ListSubheader>{settingsViewTitle}</ListSubheader>}>
+    <>
+      <List className={classes.list}>
         <ThemeSettingItem onClick={openDialog} />
         <LanguageSettingItem onClick={openDialog} />
         <MarketSortSettingItem onClick={openDialog} />
@@ -61,6 +53,6 @@ export const SettingsView: React.FunctionComponent<{}> = () => {
         {...dialogConfiguration}
         onClose={closeDialog}
       />
-    </Box>
+    </>
   );
 };

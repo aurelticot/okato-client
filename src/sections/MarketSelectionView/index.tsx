@@ -1,15 +1,12 @@
 import React from "react";
 import {
-  Box,
   List,
-  ListSubheader,
   ListItemText,
   ListItem,
   ListItemSecondaryAction,
   Switch,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useIntl } from "react-intl";
 import { SettingKey, MarketSortingMethod } from "lib/types";
 import { useUserSetting } from "lib/hooks";
 import { useQuery } from "@apollo/client";
@@ -19,9 +16,9 @@ import {
   MarketsVariables,
 } from "lib/graphql/queries/Markets/types/Markets";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: theme.mixins.toolbar.minHeight,
+const useStyles = makeStyles((_theme) => ({
+  list: {
+    padding: "0",
   },
 }));
 
@@ -55,46 +52,33 @@ export const MarketSelectionView: React.FunctionComponent<{}> = () => {
     setMarketSelection(newMarketSelection);
   };
 
-  const i18n = useIntl();
-
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <List
-        subheader={
-          <ListSubheader>
-            {i18n.formatMessage({
-              id: "MarketSelectionView.title",
-              defaultMessage: "Markets",
-            })}
-          </ListSubheader>
-        }
-      >
-        {markets &&
-          markets.result.map((market) => {
-            const itemId = `switch-list-label-${market.code}`;
-            return (
-              <ListItem key={market.code}>
-                <ListItemText
-                  id={itemId}
-                  primary={market.name}
-                  secondary={market.city}
+    <List className={classes.list}>
+      {markets &&
+        markets.result.map((market) => {
+          const itemId = `switch-list-label-${market.code}`;
+          return (
+            <ListItem key={market.code}>
+              <ListItemText
+                id={itemId}
+                primary={market.name}
+                secondary={market.city}
+              />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
+                  color="default"
+                  onChange={handleToggle(market.code)}
+                  checked={marketSelection.includes(market.code)}
+                  inputProps={{
+                    "aria-labelledby": itemId,
+                  }}
                 />
-                <ListItemSecondaryAction>
-                  <Switch
-                    edge="end"
-                    color="default"
-                    onChange={handleToggle(market.code)}
-                    checked={marketSelection.includes(market.code)}
-                    inputProps={{
-                      "aria-labelledby": itemId,
-                    }}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
-      </List>
-    </Box>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
+    </List>
   );
 };

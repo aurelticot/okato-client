@@ -1,4 +1,22 @@
 {
+  "App.modalDialog.closeButtonLabel": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "App.modalDialog.marketSelectionTitle": [
+    {
+      "type": 0,
+      "value": "Market Selection"
+    }
+  ],
+  "App.modalDialog.settingsTitle": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
   "AppDate.today": [
     {
       "type": 0,
@@ -17,10 +35,22 @@
       "value": "Yesterday"
     }
   ],
-  "MarketSelectionView.title": [
+  "ApplicationBar.appTitle": [
     {
       "type": 0,
-      "value": "Markets"
+      "value": "Market Timeline"
+    }
+  ],
+  "ApplicationBar.marketSelectionMenuItemLabel": [
+    {
+      "type": 0,
+      "value": "Market selection"
+    }
+  ],
+  "ApplicationBar.settingsMenuItemLabel": [
+    {
+      "type": 0,
+      "value": "Settings"
     }
   ],
   "NextMarketEvent": [
@@ -53,12 +83,6 @@
     {
       "type": 1,
       "value": "relativeTime"
-    }
-  ],
-  "SettingsView.title": [
-    {
-      "type": 0,
-      "value": "Settings"
     }
   ],
   "TimelineTime.backToRealtimeTooltip": [
