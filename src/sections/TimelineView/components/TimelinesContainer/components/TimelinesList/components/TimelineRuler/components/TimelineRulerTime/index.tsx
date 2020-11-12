@@ -1,12 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Tooltip } from "@material-ui/core";
-import { Refresh as RefreshIcon } from "@material-ui/icons";
-import { AppDate, Clock, RealTimeClock, FluidText } from "lib/components";
+import { Badge, Box, Tooltip } from "@material-ui/core";
+import { AppDate, Clock, RealTimeClock } from "lib/components";
 import { useIntl } from "react-intl";
-import { getFluidTextValues } from "lib/utils";
-
-const refreshIconPlaceholderFluidText = getFluidTextValues(0.8);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,9 +13,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     paddingRight: theme.custom.mixins.fluidLength(0.75),
     paddingLeft: theme.custom.mixins.fluidLength(0.75),
-    position: "relative",
-  },
-  timeWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -78,20 +71,18 @@ export const TimelineTime: React.FunctionComponent<Props> = (props) => {
         disableFocusListener
       >
         <Box className={classes.timeContainer}>
-          <Box className={classes.timeWrapper}>
-            <FluidText
-              {...refreshIconPlaceholderFluidText}
-              className={classes.refreshIconWrapper}
+          <AppDate time={baseTime} />
+          {baseTime ? (
+            <Badge
+              color="primary"
+              variant="dot"
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             >
-              {baseTime ? (
-                <RefreshIcon className={classes.refreshIcon} />
-              ) : (
-                "\u00A0"
-              )}
-            </FluidText>
-            <AppDate time={baseTime} />
-            {baseTime ? <Clock time={baseTime} /> : <RealTimeClock />}
-          </Box>
+              <Clock time={baseTime} />
+            </Badge>
+          ) : (
+            <RealTimeClock />
+          )}
         </Box>
       </Tooltip>
       <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
