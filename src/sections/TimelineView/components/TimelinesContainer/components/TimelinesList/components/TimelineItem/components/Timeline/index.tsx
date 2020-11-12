@@ -79,16 +79,16 @@ const useSegments = (
 interface Props {
   sessions: MarketSession[];
   timezone: string;
-  displayNowTimeMarker?: boolean;
-  displayBaseTimeMarker?: boolean;
+  hideNowTimeMarker?: boolean;
+  hideBaseTimeMarker?: boolean;
 }
 
 export const Timeline: React.FunctionComponent<Props> = (props) => {
   const {
     sessions,
     timezone,
-    displayNowTimeMarker = true,
-    displayBaseTimeMarker = true,
+    hideNowTimeMarker = false,
+    hideBaseTimeMarker = false,
   } = props;
 
   const segments = useSegments(sessions, timezone);
@@ -99,14 +99,14 @@ export const Timeline: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-      {displayBaseTimeMarker && (
+      {!hideBaseTimeMarker && (
         <Divider
           orientation="vertical"
           className={`${classes.timeMarker} ${classes.baseTimeMarker}`}
         />
       )}
       <Box className={classes.timelineWrapper}>
-        {displayNowTimeMarker && (
+        {!hideNowTimeMarker && (
           <Divider
             orientation="vertical"
             className={`${classes.timeMarker} ${classes.nowTimeMarker}`}

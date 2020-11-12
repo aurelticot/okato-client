@@ -58,16 +58,16 @@ const defineMarketStatusClass = (
 };
 
 interface Props {
-  time: Date | null;
+  baseTime: Date | null;
   market: Market;
 }
 
 export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
-  const { time, market } = props;
-  const classes = useStyles(props);
-  const status = useMarketStatus(market, true, time);
+  const { baseTime, market } = props;
+  const status = useMarketStatus(market, true, baseTime);
   const nextEvent = useMarketNextEvent(market, true);
 
+  const classes = useStyles(props);
   const marketStatusClass = defineMarketStatusClass(status, classes);
 
   return (
@@ -78,22 +78,22 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
           display="flex"
           justifyContent="flex-start"
         >
-          <MarketTitle market={market} time={time} />
+          <MarketTitle name={market.name} status={status} />
         </Box>
         <Box
           className={`${classes.headerComponent} ${classes.timelineClock}`}
           display="flex"
           justifyContent="center"
         >
-          {time && (
+          {baseTime && (
             <Clock
-              time={time}
+              time={baseTime}
               timezone={market.timezone}
               displayTimezone
               displayDayDiff
             />
           )}
-          {!time && (
+          {!baseTime && (
             <RealTimeClock
               timezone={market.timezone}
               displayTimezone
@@ -106,7 +106,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
           display="flex"
           justifyContent="flex-end"
         >
-          {nextEvent && !time && <MarketNextEvent nextEvent={nextEvent} />}
+          {nextEvent && !baseTime && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>
       <FluidText

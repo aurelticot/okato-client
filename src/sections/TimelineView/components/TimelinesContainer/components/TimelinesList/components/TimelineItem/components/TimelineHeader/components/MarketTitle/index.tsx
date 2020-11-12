@@ -5,8 +5,7 @@ import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
 } from "@material-ui/icons";
-import { Market, MarketStatus } from "lib/types";
-import { useMarketStatus } from "lib/hooks";
+import { MarketStatus } from "lib/types";
 import { FluidText } from "lib/components";
 import { getFluidTextValues } from "lib/utils";
 
@@ -24,18 +23,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  market: Market;
-  time: Date | null;
+  name: string;
+  status: MarketStatus;
 }
 
 export const MarketTitle: React.FunctionComponent<Props> = (props) => {
-  const { market, time } = props;
-  const status = useMarketStatus(market, true, time);
+  const { name, status } = props;
 
   const classes = useStyles(props);
   return (
     <Box className={classes.root}>
-      <FluidText {...mainFluidText}>{market.name}</FluidText>
+      <FluidText {...mainFluidText}>{name}</FluidText>
       {status === MarketStatus.OPEN ? (
         <FullCircle className={classes.statusIcon} />
       ) : (

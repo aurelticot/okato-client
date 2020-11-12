@@ -18,28 +18,23 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   markets: Market[];
   baseTime: Date | null;
-  onClickBackToRealTime: () => void;
 }
 
 export const TimelinesList: React.FunctionComponent<Props> = ({
   baseTime,
   markets,
-  onClickBackToRealTime,
 }) => {
   const classes = useStyles();
   return (
     <List className={classes.timelineList}>
       <ListItem key={`_ruler`} className={classes.timelineListItem}>
-        <TimelineRuler
-          baseTime={baseTime}
-          onClickBackToRealTime={onClickBackToRealTime}
-        />
+        <TimelineRuler baseTime={baseTime} />
       </ListItem>
       {markets.map((market) => {
         return (
           <ListItem key={market.id} className={classes.timelineListItem}>
             <TimelineItem
-              time={baseTime}
+              baseTime={baseTime}
               market={{ ...market, hasReminder: false, isBookmarked: false }}
             />
           </ListItem>

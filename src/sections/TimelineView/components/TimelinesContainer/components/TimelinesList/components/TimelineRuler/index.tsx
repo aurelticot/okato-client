@@ -144,11 +144,10 @@ const resolveRulerSegments = (): DayRulerSegment[] => {
 
 interface Props {
   baseTime: Date | null;
-  onClickBackToRealTime: () => void;
 }
 
 export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
-  const { baseTime, onClickBackToRealTime } = props;
+  const { baseTime } = props;
   const time = useFrequency(oneMinuteInMillis);
   const initialSegments = resolveRulerSegments();
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
@@ -170,10 +169,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   return (
     <Box>
       <Box className={classes.rulerTimeContainer}>
-        <TimelineTime
-          time={baseTime}
-          onClickBackToRealTime={onClickBackToRealTime}
-        />
+        <TimelineTime baseTime={baseTime} />
       </Box>
       <Box className={classes.ruler}>
         {segments.map((daySegment) => {

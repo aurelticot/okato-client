@@ -5,16 +5,16 @@ import { Timeline, TimelineItemHeader } from "./components";
 
 interface Props {
   market: Market;
-  time: Date | null;
+  baseTime: Date | null;
 }
 
 export const TimelineItem: React.FunctionComponent<Props> = ({
   market,
-  time,
+  baseTime,
 }) => {
   return (
     <Box>
-      <TimelineItemHeader time={time} market={market} />
+      <TimelineItemHeader baseTime={baseTime} market={market} />
       <Timeline sessions={market.sessions} timezone={market.timezone} />
     </Box>
   );

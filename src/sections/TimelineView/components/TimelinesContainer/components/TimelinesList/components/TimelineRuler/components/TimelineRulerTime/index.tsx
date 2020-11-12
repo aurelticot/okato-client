@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.custom.mixins.fluidLength(0.75),
     position: "relative",
   },
-  timeContainerButton: {
-    cursor: "pointer",
-  },
   timeWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -46,12 +43,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  time: Date | null;
-  onClickBackToRealTime: () => void;
+  baseTime: Date | null;
 }
 
 export const TimelineTime: React.FunctionComponent<Props> = (props) => {
-  const { time, onClickBackToRealTime } = props;
+  const { baseTime } = props;
   const i18n = useIntl();
 
   const backToRealtimeTooltipMessage = i18n.formatMessage({
@@ -65,7 +61,7 @@ export const TimelineTime: React.FunctionComponent<Props> = (props) => {
     description: "Tooltip message on the time displaying in realtime",
   });
 
-  const realtimeTooltip = time
+  const realtimeTooltip = baseTime
     ? backToRealtimeTooltipMessage
     : displayingRealtimeTooltipMessage;
 
@@ -81,25 +77,20 @@ export const TimelineTime: React.FunctionComponent<Props> = (props) => {
         placement="top"
         disableFocusListener
       >
-        <Box
-          className={`${classes.timeContainer} ${
-            time ? classes.timeContainerButton : ""
-          }`}
-          onClick={onClickBackToRealTime}
-        >
+        <Box className={classes.timeContainer}>
           <Box className={classes.timeWrapper}>
             <FluidText
               {...refreshIconPlaceholderFluidText}
               className={classes.refreshIconWrapper}
             >
-              {time ? (
+              {baseTime ? (
                 <RefreshIcon className={classes.refreshIcon} />
               ) : (
                 "\u00A0"
               )}
             </FluidText>
-            <AppDate time={time} />
-            {time ? <Clock time={time} /> : <RealTimeClock />}
+            <AppDate time={baseTime} />
+            {baseTime ? <Clock time={baseTime} /> : <RealTimeClock />}
           </Box>
         </Box>
       </Tooltip>
