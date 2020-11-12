@@ -8,13 +8,14 @@ import {
   useTheme,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Refresh as RefreshIcon } from "@material-ui/icons";
+import { Refresh as ResyncIcon } from "@material-ui/icons";
 import { DateTime } from "luxon";
 import { config } from "config";
 import { Market } from "lib/types";
 import { getTimelineSizeInHours, getTimelineSizeInSeconds } from "lib/utils";
 import { useBaseTime, useWindowSize } from "lib/hooks";
 import { TimelinesList } from "./components";
+import { useIntl } from "react-intl";
 
 const { timelineVisiblePeriod } = config;
 
@@ -48,13 +49,13 @@ const useStyles = makeStyles((theme) => ({
   innerContainer: {
     width: `${(timelineTotalhours * 100) / timelineVisiblePeriod}%`,
   },
-  refreshFab: {
+  resyncFab: {
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2),
     zIndex: 100,
   },
-  refreshFabExtendedText: {
+  resyncFabExtendedText: {
     marginLeft: theme.spacing(1),
   },
 }));
@@ -140,6 +141,14 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up("md"));
 
+  const i18n = useIntl();
+
+  const resyncRealtimeButtonLabel = i18n.formatMessage({
+    id: "TimelinesContainer.ResyncFABLabel",
+    description: "Label of the button to resync real-time the timelines",
+    defaultMessage: "Real-time",
+  });
+
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -151,24 +160,20 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
         {...{ ref: containerRef }}
       >
         <Box className={classes.innerContainer}>
-          <TimelinesList
-            markets={markets}
-            baseTime={baseTime}
-            onClickBackToRealTime={handleBackToRealTime}
-          />
+          <TimelinesList markets={markets} baseTime={baseTime} />
         </Box>
       </Box>
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>
         <Fab
           color="primary"
           variant={upMd ? "extended" : "round"}
-          className={classes.refreshFab}
+          className={classes.resyncFab}
           onClick={handleBackToRealTime}
         >
-          <RefreshIcon />
+          <ResyncIcon />
           {upMd && (
-            <Typography className={classes.refreshFabExtendedText}>
-              Real-time
+            <Typography className={classes.resyncFabExtendedText}>
+              {resyncRealtimeButtonLabel}
             </Typography>
           )}
         </Fab>

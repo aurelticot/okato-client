@@ -100,5 +100,9 @@
   "TimelineTime.displayingRealtimeTooltip": {
     "defaultMessage": "Displaying real-time",
     "description": "Tooltip message on the time displaying in realtime"
+  },
+  "TimelinesContainer.ResyncFABLabel": {
+    "description": "Label of the button to resync real-time the timelines",
+    "defaultMessage": "Real-time"
   }
 }

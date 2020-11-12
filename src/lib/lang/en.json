@@ -97,6 +97,12 @@
       "value": "Displaying real-time"
     }
   ],
+  "TimelinesContainer.ResyncFABLabel": [
+    {
+      "type": 0,
+      "value": "Real-time"
+    }
+  ],
   "settings.language.label": [
     {
       "type": 0,
