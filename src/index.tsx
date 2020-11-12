@@ -55,8 +55,8 @@ const App: React.FunctionComponent<{}> = () => {
   const i18n = useIntl();
 
   const closeDialog = () => {
-    history.goBack();
     setDialogOpen(false);
+    history.push("/");
   };
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const App: React.FunctionComponent<{}> = () => {
         </Route>
       </Switch>
       <Dialog
-        open={dialogOpen}
+        open={dialogOpen && !!settingsRouteMatch?.isExact}
         onClose={closeDialog}
         fullWidth={true}
         maxWidth="sm"
@@ -108,13 +108,32 @@ const App: React.FunctionComponent<{}> = () => {
             : {}
         }
       >
-        <DialogTitle>
-          {!!settingsRouteMatch?.isExact && settingsModalTitle}
-          {!!marketSelectionRouteMatch?.isExact && marketSelectionModalTitle}
-        </DialogTitle>
+        <DialogTitle>{settingsModalTitle}</DialogTitle>
         <DialogContent className={classes.dialogContent}>
-          {!!settingsRouteMatch?.isExact && <SettingsView />}
-          {!!marketSelectionRouteMatch?.isExact && <MarketSelectionView />}
+          <SettingsView />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog}>{modalCloseButtonLabel}</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={dialogOpen && !!marketSelectionRouteMatch?.isExact}
+        onClose={closeDialog}
+        fullWidth={true}
+        maxWidth="sm"
+        scroll="paper"
+        fullScreen={fullscreenDialog}
+        classes={
+          fullscreenDialog
+            ? {
+                paper: classes.dialogContainer,
+              }
+            : {}
+        }
+      >
+        <DialogTitle>{marketSelectionModalTitle}</DialogTitle>
+        <DialogContent className={classes.dialogContent}>
+          <MarketSelectionView />
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog}>{modalCloseButtonLabel}</Button>
