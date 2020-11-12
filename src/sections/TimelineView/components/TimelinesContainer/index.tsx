@@ -1,6 +1,14 @@
 import React, { useCallback } from "react";
-import { Box } from "@material-ui/core";
+import {
+  Box,
+  Fab,
+  Slide,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Refresh as RefreshIcon } from "@material-ui/icons";
 import { DateTime } from "luxon";
 import { config } from "config";
 import { Market } from "lib/types";
@@ -39,6 +47,15 @@ const useStyles = makeStyles((theme) => ({
   },
   innerContainer: {
     width: `${(timelineTotalhours * 100) / timelineVisiblePeriod}%`,
+  },
+  refreshFab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    zIndex: 100,
+  },
+  refreshFabExtendedText: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -120,6 +137,9 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
+  const theme = useTheme();
+  const upMd = useMediaQuery(theme.breakpoints.up("md"));
+
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -138,6 +158,21 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
           />
         </Box>
       </Box>
+      <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>
+        <Fab
+          color="primary"
+          variant={upMd ? "extended" : "round"}
+          className={classes.refreshFab}
+          onClick={handleBackToRealTime}
+        >
+          <RefreshIcon />
+          {upMd && (
+            <Typography className={classes.refreshFabExtendedText}>
+              Real-time
+            </Typography>
+          )}
+        </Fab>
+      </Slide>
     </Box>
   );
 };
