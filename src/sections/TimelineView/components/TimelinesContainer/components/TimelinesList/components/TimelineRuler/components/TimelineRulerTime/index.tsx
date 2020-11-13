@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     paddingRight: theme.custom.mixins.fluidLength(0.75),
     paddingLeft: theme.custom.mixins.fluidLength(0.75),
+    paddingBottom: theme.spacing(0.5),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   ruler: {
     display: "flex",
     color: theme.palette.text.disabled,
-    paddingTop: theme.custom.mixins.fluidLength(1.5),
   },
   daySegment: {
     borderLeft: `1px solid ${theme.palette.text.secondary}`,
