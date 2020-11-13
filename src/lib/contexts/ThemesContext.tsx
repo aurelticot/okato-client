@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
 import { getTheme } from "lib/themes";
 import { useUserSetting } from "lib/hooks";
@@ -43,5 +44,15 @@ export const ThemesProvider = (props: PropsWithChildren<{}>) => {
     setAppliedTheme(getTheme(resolveTheme(systemTheme, userTheme)));
   }, [systemTheme, userTheme]);
 
-  return <ThemeProvider theme={appliedTheme}>{props.children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={appliedTheme}>
+      <Helmet>
+        <meta
+          name="theme-color"
+          content={appliedTheme.palette.background.default}
+        />
+      </Helmet>
+      {props.children}
+    </ThemeProvider>
+  );
 };
