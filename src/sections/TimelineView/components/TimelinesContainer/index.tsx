@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
   shadowBorderLeft: {
     top: "0",
     left: "0",
-    background: `linear-gradient(270deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
+    background: `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
   },
   shadowBorderRight: {
     top: "0",
     right: "0",
-    background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${theme.palette.background.default} 100%)`,
+    background: `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
   },
   container: {
     width: "100%",
