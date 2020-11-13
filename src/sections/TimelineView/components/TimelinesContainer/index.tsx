@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   resyncFab: {
     position: "fixed",
     bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    right: theme.spacing(3),
     zIndex: 100,
   },
   resyncFabExtendedText: {
