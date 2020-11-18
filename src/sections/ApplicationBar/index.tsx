@@ -9,11 +9,8 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import {
-  ClearAll as TimelineIcon,
-  MoreVert as MoreIcon,
-} from "@material-ui/icons";
-import { Link, useHistory } from "react-router-dom";
+import { MoreVert as MoreIcon } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
@@ -67,9 +64,6 @@ export const ApplicationBar: React.FunctionComponent<{}> = () => {
   return (
     <AppBar position="fixed" className={classes.appBar} elevation={0}>
       <Toolbar>
-        <IconButton edge="start" component={Link} to="/">
-          <TimelineIcon />
-        </IconButton>
         <Typography variant="h6" className={classes.appTitle}>
           {appTitle}
         </Typography>
