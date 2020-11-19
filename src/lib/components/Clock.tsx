@@ -5,27 +5,33 @@ import { Box } from "@material-ui/core";
 import { FluidText } from "./FluidText";
 import { getFluidTextValues } from "lib/utils";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative",
+    width: "100%",
+    display: "flex",
+    alignItems: "baseline",
+  },
+  timePrefix: {
+    flex: "1",
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  timeSuffix: {
+    flex: "1",
+    display: "flex",
+    justifyContent: "flex-start",
   },
   time: {
-    width: "3em",
     display: "flex",
     justifyContent: "center",
   },
   timezone: {
+    marginLeft: theme.custom.mixins.fluidLength(0.2),
     textTransform: "uppercase",
-    position: "absolute",
-    bottom: "3px",
-    left: "4.5em",
-    width: "4em",
   },
   dayDiff: {
-    position: "absolute",
-    bottom: "3px",
-    right: "4.4em",
-    width: "1em",
+    textTransform: "uppercase",
+    marginRight: theme.custom.mixins.fluidLength(0.2),
   },
 }));
 
@@ -68,26 +74,30 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
 
   return (
     <Box className={classes.root}>
-      {displayDayDiff && displayedDayDiff && (
-        <FluidText {...subFluidText} className={classes.dayDiff}>
-          {displayedDayDiff}
-        </FluidText>
-      )}
+      <Box className={classes.timePrefix}>
+        {displayDayDiff && displayedDayDiff && (
+          <FluidText {...subFluidText} className={classes.dayDiff}>
+            {displayedDayDiff}
+          </FluidText>
+        )}
+      </Box>
       <Box className={classes.time}>
         <FluidText {...mainFluidText}>{workingTime.toFormat("HH")}</FluidText>
         <FluidText {...mainFluidText}>:</FluidText>
         <FluidText {...mainFluidText}>{workingTime.toFormat("mm")}</FluidText>
+      </Box>
+      <Box className={classes.timeSuffix}>
         {displaySeconds && <FluidText {...mainFluidText}>:</FluidText>}
         {displaySeconds && (
           <FluidText {...mainFluidText}>{workingTime.toFormat("ss")}</FluidText>
         )}
+        {displayTimezone && (
+          <FluidText
+            {...subFluidText}
+            className={classes.timezone}
+          >{`GMT${workingTime.toFormat("Z")}`}</FluidText>
+        )}
       </Box>
-      {displayTimezone && (
-        <FluidText
-          {...subFluidText}
-          className={classes.timezone}
-        >{`GMT${workingTime.toFormat("Z")}`}</FluidText>
-      )}
     </Box>
   );
 };
