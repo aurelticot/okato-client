@@ -20,12 +20,21 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    whiteSpace: "nowrap",
   },
-  headerComponent: {
-    flexBasis: "33.3333%",
+  componentTitle: {
+    flexBasis: "25%",
+    maxWidth: "25%",
   },
-  timelineClock: {
-    position: "relative",
+  componentClock: {
+    flexBasis: "50%",
+    maxWidth: "50%",
+  },
+  componentNextEvent: {
+    flexBasis: "25%",
+    maxWidth: "25%",
+    display: "flex",
+    justifyContent: "flex-end",
   },
   marketOpen: {
     color: theme.custom.palette.marketStatus.open.main,
@@ -73,18 +82,10 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   return (
     <Box>
       <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
-        <Box
-          className={`${classes.headerComponent}`}
-          display="flex"
-          justifyContent="flex-start"
-        >
+        <Box className={classes.componentTitle}>
           <MarketTitle name={market.name} status={status} />
         </Box>
-        <Box
-          className={`${classes.headerComponent} ${classes.timelineClock}`}
-          display="flex"
-          justifyContent="center"
-        >
+        <Box className={classes.componentClock}>
           {baseTime && (
             <Clock
               time={baseTime}
@@ -101,11 +102,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
             />
           )}
         </Box>
-        <Box
-          className={classes.headerComponent}
-          display="flex"
-          justifyContent="flex-end"
-        >
+        <Box className={classes.componentNextEvent}>
           {nextEvent && !baseTime && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>

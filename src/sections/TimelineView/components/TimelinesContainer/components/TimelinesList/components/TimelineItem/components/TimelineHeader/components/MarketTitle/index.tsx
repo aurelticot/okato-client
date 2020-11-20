@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "baseline",
+    justifyContent: "flex-start",
+    whiteSpace: "nowrap",
   },
   statusIcon: {
     fontSize: theme.custom.mixins.fluidLength(0.7),

@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "baseline",
+    whiteSpace: "nowrap",
   },
   timePrefix: {
     flex: "1",
