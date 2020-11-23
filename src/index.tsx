@@ -34,7 +34,7 @@ initRaygun();
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(1),
+    padding: `0 ${theme.spacing(1)}px`,
   },
   appContainer: theme.mixins.toolbar,
   dialogContent: {

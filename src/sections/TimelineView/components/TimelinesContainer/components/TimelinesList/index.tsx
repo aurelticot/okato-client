@@ -7,6 +7,12 @@ import { TimelineItem, TimelineRuler } from "./components";
 const useStyles = makeStyles((theme) => ({
   timelineList: {
     position: "inherit",
+    padding: "0",
+  },
+  timelineListItemRuler: {
+    padding: `0`,
+    position: "inherit",
+    display: "block",
   },
   timelineListItem: {
     padding: `${theme.custom.mixins.fluidLength(0.5)} 0`,
@@ -27,7 +33,7 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
   const classes = useStyles();
   return (
     <List className={classes.timelineList}>
-      <ListItem key={`_ruler`} className={classes.timelineListItem}>
+      <ListItem key={`_ruler`} className={classes.timelineListItemRuler}>
         <TimelineRuler baseTime={baseTime} />
       </ListItem>
       {markets.map((market) => {

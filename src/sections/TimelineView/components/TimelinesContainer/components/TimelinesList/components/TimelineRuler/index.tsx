@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Paper, useMediaQuery, useTheme } from "@material-ui/core";
 import { config } from "config";
 import { useFrequency } from "lib/hooks";
 import { oneMinuteInMillis } from "lib/constants";
@@ -14,6 +14,10 @@ const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 const timelineSize = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles((theme) => ({
+  rulerContainer: {
+    backgroundColor: theme.palette.background.default,
+    padding: `${theme.spacing(1)}px 0`,
+  },
   rulerTimeContainer: {
     position: "absolute",
     width: "100%",
@@ -166,7 +170,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   const i18n = useIntl();
   const classes = useStyles();
   return (
-    <Box>
+    <Paper className={classes.rulerContainer} elevation={0}>
       <Box className={classes.rulerTimeContainer}>
         <TimelineTime baseTime={baseTime} />
       </Box>
@@ -209,6 +213,6 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
           );
         })}
       </Box>
-    </Box>
+    </Paper>
   );
 };
