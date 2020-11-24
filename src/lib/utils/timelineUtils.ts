@@ -104,10 +104,14 @@ const fillGapTimelineSegments = (
     })
     // eslint-disable-next-line array-callback-return
     .map((segment, index, array) => {
-      const { start, duration } = segment;
+      const { startDate, endDate, start, duration } = segment;
       const end = start + duration;
       if (index === 0 && start !== 0) {
         completedSegments.push({
+          startDate: DateTime.fromJSDate(startDate)
+            .minus({ days: 1 })
+            .toJSDate(),
+          endDate: startDate,
           start: 0,
           duration: start,
           status: MarketStatus.CLOSE,
@@ -119,6 +123,8 @@ const fillGapTimelineSegments = (
         const nextSegment = array[nextIndex];
         if (end !== nextSegment.start) {
           completedSegments.push({
+            startDate: endDate,
+            endDate: nextSegment.startDate,
             start: end,
             duration: nextSegment.start - end,
             status: MarketStatus.CLOSE,
@@ -126,6 +132,8 @@ const fillGapTimelineSegments = (
         }
       } else if (end !== timelineSize) {
         completedSegments.push({
+          startDate: endDate,
+          endDate: DateTime.fromJSDate(endDate).plus({ days: 1 }).toJSDate(),
           start: end,
           duration: timelineSize - end,
           status: MarketStatus.CLOSE,
@@ -159,7 +167,7 @@ export const resolveTimelineSegments = (
     .startOf("minute");
   const timelineSize = getTimelineSizeInMinutes();
 
-  const segments = sessions
+  const segments: TimelineSegment[] = sessions
     .filter((session) => {
       const { start, end } = session;
       const sessionStartTime = DateTime.fromJSDate(start, {
@@ -187,6 +195,8 @@ export const resolveTimelineSegments = (
         sessionEndTime = timelineEnd;
       }
       return {
+        startDate: start,
+        endDate: end,
         start: sessionStartTime.diff(timelineStart).as("minutes"),
         duration: sessionEndTime.diff(sessionStartTime).as("minutes"),
         status: mainStatus,

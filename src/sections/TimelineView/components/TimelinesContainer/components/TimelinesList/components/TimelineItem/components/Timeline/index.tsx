@@ -93,7 +93,13 @@ export const Timeline: React.FunctionComponent<Props> = (props) => {
 
   const segments = useSegments(sessions, timezone);
   const timelineSegments = segments.map((segment) => {
-    return <TimelineSegment segment={segment} timelineSize={timelineSize} />;
+    return (
+      <TimelineSegment
+        key={segment.startDate.getTime()}
+        segment={segment}
+        timelineSize={timelineSize}
+      />
+    );
   });
 
   const classes = useStyles();
