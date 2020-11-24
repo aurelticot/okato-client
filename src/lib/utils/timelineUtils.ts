@@ -4,10 +4,69 @@ import { config } from "config";
 
 const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 
+/**
+ * get the size of the timeline in hours.
+ */
+export const getTimelineSizeInHours = (): number => {
+  return (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
+};
+
+/**
+ * get the size of the timeline in minutes.
+ */
+export const getTimelineSizeInMinutes = (): number => {
+  return getTimelineSizeInHours() * 60;
+};
+
+/**
+ * get the size of the timeline in seconds.
+ */
+export const getTimelineSizeInSeconds = (): number => {
+  return getTimelineSizeInMinutes() * 60;
+};
+
+/**
+ * get the visible size of the timeline in hours.
+ */
+export const getTimelienVisibleSizeInHours = (): number => {
+  return timelineVisiblePeriod;
+};
+
+/**
+ * get the visible size of the timeline in minutes.
+ */
+export const getTimelienVisibleSizeInMinutes = (): number => {
+  return getTimelienVisibleSizeInHours() * 60;
+};
+
+/**
+ * get the visible size of the timeline in seconds.
+ */
+export const getTimelienVisibleSizeInSeconds = (): number => {
+  return getTimelienVisibleSizeInMinutes() * 60;
+};
+
 const cleanTimelineSegments = (
   segments: TimelineSegment[]
 ): TimelineSegment[] => {
-  const size = segments.length;
+  const getNextSegmentDuration = (
+    status: MarketStatus,
+    array: TimelineSegment[],
+    nextIndex: number
+  ): number => {
+    if (nextIndex >= array.length) {
+      return 0;
+    }
+    const nextSegment = array[nextIndex];
+    if (nextSegment.status !== status) {
+      return 0;
+    }
+    return (
+      nextSegment.duration +
+      getNextSegmentDuration(status, array, nextIndex + 1)
+    );
+  };
+
   const returnedSegments: TimelineSegment[] = [...segments]
     .sort((a, b) => {
       return a.start - b.start;
@@ -15,13 +74,7 @@ const cleanTimelineSegments = (
     .map((segment, index, array) => {
       let duration = segment.duration;
 
-      const nextIndex = index + 1;
-      if (nextIndex < size) {
-        const nextSegment = array[nextIndex];
-        if (segment.status === nextSegment.status) {
-          duration += nextSegment.duration;
-        }
-      }
+      duration += getNextSegmentDuration(segment.status, array, index + 1);
 
       const previousIndex = index - 1;
       if (previousIndex >= 0) {
@@ -87,48 +140,6 @@ const fillGapTimelineSegments = (
   });
 };
 
-/**
- * get the size of the timeline in hours.
- */
-export const getTimelineSizeInHours = (): number => {
-  return (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
-};
-
-/**
- * get the size of the timeline in minutes.
- */
-export const getTimelineSizeInMinutes = (): number => {
-  return getTimelineSizeInHours() * 60;
-};
-
-/**
- * get the size of the timeline in seconds.
- */
-export const getTimelineSizeInSeconds = (): number => {
-  return getTimelineSizeInMinutes() * 60;
-};
-
-/**
- * get the visible size of the timeline in hours.
- */
-export const getTimelienVisibleSizeInHours = (): number => {
-  return timelineVisiblePeriod;
-};
-
-/**
- * get the visible size of the timeline in minutes.
- */
-export const getTimelienVisibleSizeInMinutes = (): number => {
-  return getTimelienVisibleSizeInHours() * 60;
-};
-
-/**
- * get the visible size of the timeline in seconds.
- */
-export const getTimelienVisibleSizeInSeconds = (): number => {
-  return getTimelienVisibleSizeInMinutes() * 60;
-};
-
 export const resolveTimelineSegments = (
   time: DateTime,
   timezone: string,
@@ -162,7 +173,7 @@ export const resolveTimelineSegments = (
       );
     })
     .map((session) => {
-      const { start, end, status } = session;
+      const { start, end, mainStatus } = session;
       let sessionStartTime = DateTime.fromJSDate(start, {
         zone: timezone,
       });
@@ -178,7 +189,8 @@ export const resolveTimelineSegments = (
       return {
         start: sessionStartTime.diff(timelineStart).as("minutes"),
         duration: sessionEndTime.diff(sessionStartTime).as("minutes"),
-        status,
+        status: mainStatus,
+        // TODO use status instead of mainStatus when backend will handle it.
       };
     });
 
