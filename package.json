@@ -20,6 +20,7 @@
     "graphql": "npm run graphql:extract && npm run graphql:generate",
     "prebuild": "npm run clean:build",
     "build": "react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-scripts test --passWithNoTests",
     "start:dev": "react-scripts start",
     "start:build": "npx serve -s build",
@@ -78,6 +79,7 @@
     "react-intl": "^5.8.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "source-map-explorer": "^2.5.0",
     "typescript": "^3.7.5"
   },
   "browserslist": {
