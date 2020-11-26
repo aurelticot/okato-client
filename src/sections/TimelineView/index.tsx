@@ -29,7 +29,7 @@ const requestedEndDate = DateTime.local()
   .plus({ days: daysRequestedInFuture, hours: timelineVisiblePeriod / 2 })
   .startOf("minute");
 
-const PAGE_LIMIT = 10;
+const PAGE_LIMIT = 20;
 
 export const TimelineView: React.FunctionComponent<{}> = () => {
   const [selectedMarkets] = useUserSetting<string[]>(
@@ -54,7 +54,7 @@ export const TimelineView: React.FunctionComponent<{}> = () => {
     const preparedMarkets: Market[] = data
       ? data.markets.result
           .filter((market) => {
-            return selectedMarkets.includes(market.code) ? true : false;
+            return selectedMarkets.includes(market.id) ? true : false;
           })
           .map(
             (market): Market => {

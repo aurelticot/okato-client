@@ -83,7 +83,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
     <Box>
       <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
         <Box className={classes.componentTitle}>
-          <MarketTitle name={market.name} status={status} />
+          <MarketTitle name={market.shortName} status={status} />
         </Box>
         <Box className={classes.componentClock}>
           {baseTime && (

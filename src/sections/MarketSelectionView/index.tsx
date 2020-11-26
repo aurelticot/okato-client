@@ -22,7 +22,7 @@ const useStyles = makeStyles((_theme) => ({
   },
 }));
 
-const PAGE_LIMIT = 10;
+const PAGE_LIMIT = 20;
 
 export const MarketSelectionView: React.FunctionComponent<{}> = () => {
   const [marketSelection, setMarketSelection] = useUserSetting<string[]>(
@@ -57,20 +57,20 @@ export const MarketSelectionView: React.FunctionComponent<{}> = () => {
     <List className={classes.list}>
       {markets &&
         markets.result.map((market) => {
-          const itemId = `switch-list-label-${market.code}`;
+          const itemId = `switch-list-label-${market.id}`;
           return (
-            <ListItem key={market.code}>
+            <ListItem key={market.id}>
               <ListItemText
                 id={itemId}
                 primary={market.name}
-                secondary={market.city}
+                secondary={`${market.shortName}/${market.mic} - ${market.city}`}
               />
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
                   color="default"
-                  onChange={handleToggle(market.code)}
-                  checked={marketSelection.includes(market.code)}
+                  onChange={handleToggle(market.id)}
+                  checked={marketSelection.includes(market.id)}
                   inputProps={{
                     "aria-labelledby": itemId,
                   }}
