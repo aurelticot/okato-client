@@ -181,7 +181,7 @@ export const resolveTimelineSegments = (
       );
     })
     .map((session) => {
-      const { start, end, mainStatus } = session;
+      const { start, end, mainStatus, status } = session;
       let sessionStartTime = DateTime.fromJSDate(start, {
         zone: timezone,
       });
@@ -199,7 +199,7 @@ export const resolveTimelineSegments = (
         endDate: end,
         start: sessionStartTime.diff(timelineStart).as("minutes"),
         duration: sessionEndTime.diff(sessionStartTime).as("minutes"),
-        status: mainStatus,
+        status: status === MarketStatus.CLOSE_SPECIAL ? status : mainStatus,
         // TODO use status instead of mainStatus when backend will handle it.
       };
     });
