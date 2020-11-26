@@ -21,7 +21,8 @@ export interface Markets_markets_result_sessions {
 export interface Markets_markets_result {
   __typename: "Market";
   id: string;
-  code: string;
+  mic: string;
+  shortName: string;
   name: string;
   city: string;
   country: string;

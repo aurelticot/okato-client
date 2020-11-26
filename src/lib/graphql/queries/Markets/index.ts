@@ -14,7 +14,8 @@ export const MARKETS = gql`
       total
       result {
         id
-        code
+        mic
+        shortName
         name
         city
         country

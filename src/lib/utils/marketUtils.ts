@@ -125,10 +125,10 @@ export const getMarketMainStatusFromStatus = (
 ): MarketStatus => {
   switch (status) {
     case MarketStatus.OPEN:
-    case MarketStatus.BREAK:
       return MarketStatus.OPEN;
-    case MarketStatus.CLOSE_SPECIAL:
     case MarketStatus.CLOSE:
+    case MarketStatus.CLOSE_SPECIAL:
+    case MarketStatus.BREAK:
     case MarketStatus.BEFORE_MARKET:
     case MarketStatus.AFTER_MARKET:
     default:
