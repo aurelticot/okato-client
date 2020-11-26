@@ -28,7 +28,7 @@ const daysRequestedInFuture = daysInFuture + 1;
 const defaultUserSettings: UserSettings = {
   [SettingKey.Theme]: "system",
   [SettingKey.Language]: "system",
-  [SettingKey.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
+  [SettingKey.MarketSelection]: ["XNYS", "XNAS", "XLON", "XJPX", "XAMS"],
   [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
 };
 
