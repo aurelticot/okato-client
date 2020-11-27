@@ -1,11 +1,13 @@
 import React from "react";
 import {
+  Box,
   List,
   ListItemText,
   ListItem,
   ListItemSecondaryAction,
   Switch,
 } from "@material-ui/core";
+import { Room as LocationIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { SettingKey, MarketSortingMethod } from "lib/types";
 import { useUserSetting } from "lib/hooks";
@@ -16,9 +18,17 @@ import {
   MarketsVariables,
 } from "lib/graphql/queries/Markets/types/Markets";
 
-const useStyles = makeStyles((_theme) => ({
+const useStyles = makeStyles((theme) => ({
   list: {
     padding: "0",
+  },
+  secondaryTextWrapper: {
+    display: "flex",
+    alignItems: "center",
+  },
+  secondaryTextIcon: {
+    fontSize: "0.875rem",
+    marginRight: theme.spacing(0.5),
   },
 }));
 
@@ -62,8 +72,16 @@ export const MarketSelectionList: React.FunctionComponent<{}> = () => {
             <ListItem key={market.id}>
               <ListItemText
                 id={itemId}
-                primary={market.name}
-                secondary={`${market.shortName}/${market.mic} - ${market.city}`}
+                primary={`${market.shortName} - ${market.name}`}
+                secondary={
+                  <Box
+                    component={"span"}
+                    className={classes.secondaryTextWrapper}
+                  >
+                    <LocationIcon className={classes.secondaryTextIcon} />
+                    {` ${market.city}`}
+                  </Box>
+                }
               />
               <ListItemSecondaryAction>
                 <Switch
