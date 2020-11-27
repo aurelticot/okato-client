@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, useTheme, useMediaQuery } from "@material-ui/core";
 import { MarketTitle, MarketNextEvent } from "./components";
 import { Market, MarketStatus } from "lib/types";
 import { useMarketStatus, useMarketNextEvent } from "lib/hooks";
@@ -75,15 +75,18 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const { baseTime, market } = props;
   const status = useMarketStatus(market, true, baseTime);
   const nextEvent = useMarketNextEvent(market, true);
+  const theme = useTheme();
+  const downSM = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const marketTitle = `${market.shortName}${downSM ? "" : ` - ${market.name}`}`;
 
   const classes = useStyles(props);
   const marketStatusClass = defineMarketStatusClass(status, classes);
-
   return (
     <Box>
       <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
         <Box className={classes.componentTitle}>
-          <MarketTitle name={market.shortName} status={status} />
+          <MarketTitle name={marketTitle} status={status} />
         </Box>
         <Box className={classes.componentClock}>
           {baseTime && (

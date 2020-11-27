@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   statusIcon: {
     fontSize: theme.custom.mixins.fluidLength(0.7),
-    margin: `0 ${theme.spacing(0.5)}px`,
+    marginRight: theme.spacing(0.5),
   },
 }));
 
@@ -35,12 +35,12 @@ export const MarketTitle: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles(props);
   return (
     <Box className={classes.root}>
-      <FluidText {...mainFluidText}>{name}</FluidText>
       {status === MarketStatus.OPEN ? (
         <FullCircle className={classes.statusIcon} />
       ) : (
         <HollowedCircle className={classes.statusIcon} />
       )}
+      <FluidText {...mainFluidText}>{name}</FluidText>
     </Box>
   );
 };
