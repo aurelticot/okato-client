@@ -4,7 +4,7 @@ import { Translate as LanguageIcon } from "@material-ui/icons";
 import { useIntl } from "react-intl";
 import { SettingKey } from "lib/types";
 import { useUserSetting } from "lib/hooks";
-import { SettingDialogConfiguration } from "sections/SettingsView/types";
+import { SettingDialogConfiguration } from "../../types";
 
 interface Props {
   onClick: (configuration: SettingDialogConfiguration) => void;
