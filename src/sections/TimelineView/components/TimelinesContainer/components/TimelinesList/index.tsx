@@ -39,10 +39,7 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
       {markets.map((market) => {
         return (
           <ListItem key={market.id} className={classes.timelineListItem}>
-            <TimelineItem
-              baseTime={baseTime}
-              market={{ ...market, hasReminder: false, isBookmarked: false }}
-            />
+            <TimelineItem baseTime={baseTime} market={market} />
           </ListItem>
         );
       })}

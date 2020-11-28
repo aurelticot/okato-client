@@ -85,8 +85,6 @@ export const TimelineView: React.FunctionComponent<{}> = () => {
               return {
                 ...market,
                 sessions: preparedSessions,
-                hasReminder: false,
-                isBookmarked: false,
               };
             }
           )

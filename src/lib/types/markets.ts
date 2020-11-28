@@ -10,8 +10,6 @@ export interface Market {
   longitude: number;
   capitalisation: number | null;
   timezone: string;
-  hasReminder: boolean;
-  isBookmarked: boolean;
   sessions: MarketSession[];
 }
 
