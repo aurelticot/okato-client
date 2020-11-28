@@ -72,13 +72,21 @@
     "description": "Label of the the 'Close' button in the main dialog",
     "defaultMessage": "Close"
   },
+  "App.modalDialog.cancelButtonLabel": {
+    "description": "Label of the the 'Cancel' button in the main dialog",
+    "defaultMessage": "Cancel"
+  },
+  "App.modalDialog.saveButtonLabel": {
+    "description": "Label of the the 'Save' button in the main dialog",
+    "defaultMessage": "Save"
+  },
   "App.modalDialog.settingsTitle": {
     "description": "Title of the Settings dialog",
     "defaultMessage": "Settings"
   },
   "App.modalDialog.marketSelectionTitle": {
     "description": "Title of the Market Selection dialog",
-    "defaultMessage": "Market Selection"
+    "defaultMessage": "Select Markets"
   },
   "AppDate.today": {
     "defaultMessage": "Today"

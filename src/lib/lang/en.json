@@ -1,4 +1,10 @@
 {
+  "App.modalDialog.cancelButtonLabel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
   "App.modalDialog.closeButtonLabel": [
     {
       "type": 0,
@@ -8,7 +14,13 @@
   "App.modalDialog.marketSelectionTitle": [
     {
       "type": 0,
-      "value": "Market Selection"
+      "value": "Select Markets"
+    }
+  ],
+  "App.modalDialog.saveButtonLabel": [
+    {
+      "type": 0,
+      "value": "Save"
     }
   ],
   "App.modalDialog.settingsTitle": [
