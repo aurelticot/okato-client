@@ -62,7 +62,7 @@
   },
   "ApplicationBar.marketSelectionMenuItemLabel": {
     "description": "Label of the menu item for the Market Selection view",
-    "defaultMessage": "Selection des marchés"
+    "defaultMessage": "Sélection de marchés"
   },
   "ApplicationBar.settingsMenuItemLabel": {
     "description": "Label of the menu item for the Settings view",
@@ -86,7 +86,7 @@
   },
   "App.modalDialog.marketSelectionTitle": {
     "description": "Title of the Market Selection dialog",
-    "defaultMessage": "Selectionner les Marchés"
+    "defaultMessage": "Sélectionnez les Marchés"
   },
   "AppDate.today": {
     "defaultMessage": "Aujourd'hui"

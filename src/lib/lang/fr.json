@@ -14,7 +14,7 @@
   "App.modalDialog.marketSelectionTitle": [
     {
       "type": 0,
-      "value": "Selectionner les Marchés"
+      "value": "Sélectionnez les Marchés"
     }
   ],
   "App.modalDialog.saveButtonLabel": [
@@ -56,7 +56,7 @@
   "ApplicationBar.marketSelectionMenuItemLabel": [
     {
       "type": 0,
-      "value": "Selection des marchés"
+      "value": "Sélection de marchés"
     }
   ],
   "ApplicationBar.settingsMenuItemLabel": [
