@@ -78,7 +78,7 @@
     "react-helmet": "^6.1.0",
     "react-intl": "^5.10.6",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^3.4.4",
     "source-map-explorer": "^2.5.1",
     "typescript": "^3.7.5"
   },
