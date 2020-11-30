@@ -22,12 +22,14 @@ const {
   daysRequestedInPast,
 } = config;
 
-const requestedStartDate = DateTime.local()
-  .minus({ days: daysRequestedInPast, hours: timelineVisiblePeriod / 2 })
-  .startOf("minute");
-const requestedEndDate = DateTime.local()
-  .plus({ days: daysRequestedInFuture, hours: timelineVisiblePeriod / 2 })
-  .startOf("minute");
+const requestedStartDate = DateTime.local().minus({
+  days: daysRequestedInPast,
+  hours: timelineVisiblePeriod / 2,
+});
+const requestedEndDate = DateTime.local().plus({
+  days: daysRequestedInFuture,
+  hours: timelineVisiblePeriod / 2,
+});
 
 const PAGE_LIMIT = 20;
 
