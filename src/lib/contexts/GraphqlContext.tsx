@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import { config } from "config";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
@@ -7,6 +7,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const GraphqlProvider = ({ children }: PropsWithChildren<{}>) => {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+export const GraphqlProvider: React.FunctionComponent = (props) => {
+  return <ApolloProvider client={client}>{props.children}</ApolloProvider>;
 };

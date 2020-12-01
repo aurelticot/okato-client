@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { config } from "config";
 import { UserSettings } from "lib/types";
 
@@ -38,7 +38,7 @@ export const UserSettingsContext = React.createContext({
   setUserSetting: (_key: string, _value: string | string[]): void => {},
 });
 
-export const UserSettingsProvider = (props: PropsWithChildren<{}>) => {
+export const UserSettingsProvider: React.FunctionComponent = (props) => {
   const [userSettings, setUserSettings] = useState<UserSettings>(
     initialUserSettings
   );

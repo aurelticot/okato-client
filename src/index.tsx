@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App: React.FunctionComponent<{}> = () => {
+const App: React.FunctionComponent = () => {
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
   const settingsRouteMatch = useRouteMatch("/settings");

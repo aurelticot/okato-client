@@ -6,7 +6,7 @@ import { UserSettingsProvider } from "./UserSettingsContext";
 import { MessagesProvider } from "./MessagesContext";
 import { ThemesProvider } from "./ThemesContext";
 
-export const AppContextProvider: React.FunctionComponent<{}> = (props) => {
+export const AppContextProvider: React.FunctionComponent = (props) => {
   return (
     <TimeProvider>
       <GraphqlProvider>

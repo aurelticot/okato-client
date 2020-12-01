@@ -22,11 +22,12 @@ const emptyDialogProps: SettingDialogConfiguration = {
   applyValue: () => {},
 };
 
-export const SettingsList: React.FunctionComponent<{}> = () => {
+export const SettingsList: React.FunctionComponent = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogConfiguration, setDialogConfiguration] = useState<
-    SettingDialogConfiguration
-  >(emptyDialogProps);
+  const [
+    dialogConfiguration,
+    setDialogConfiguration,
+  ] = useState<SettingDialogConfiguration>(emptyDialogProps);
 
   const openDialog = (
     settingsDialogConfiguration: SettingDialogConfiguration

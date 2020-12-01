@@ -88,7 +88,7 @@ export const TimelineSegment: React.FunctionComponent<Props> = ({
   );
 };
 
-export const TimelineSegmentDefault: React.FunctionComponent<{}> = () => {
+export const TimelineSegmentDefault: React.FunctionComponent = () => {
   const classes = useMarketStatusStyles();
   return <Box className={`${classes.statusClose}`} style={{ width: "100%" }} />;
 };

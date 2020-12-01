@@ -29,7 +29,9 @@ export const FluidText: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles(props);
   return (
     <Typography
-      className={`${classes.fluidText} ${props.className}`}
+      className={`${classes.fluidText} ${
+        props.className ? props.className : ""
+      }`}
       style={props.style}
     >
       {props.children}

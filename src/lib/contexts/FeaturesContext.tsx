@@ -1,9 +1,9 @@
-import React, { useState, useEffect, PropsWithChildren } from "react";
+import React, { useState, useEffect } from "react";
 import { getFeatureData } from "lib/utils/APImock";
 
 export const FeatureContext = React.createContext(getFeatureData());
 
-export const FeaturesProvider = (props: PropsWithChildren<{}>) => {
+export const FeaturesProvider: React.FunctionComponent = (props) => {
   const [features, setFeatures] = useState(getFeatureData());
 
   useEffect(() => {

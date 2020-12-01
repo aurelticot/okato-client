@@ -7,11 +7,11 @@ import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 
-interface AppDateProps {
+interface Props {
   time: Date | null;
 }
 
-export const AppDate: React.FunctionComponent<AppDateProps> = ({ time }) => {
+export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
   const realtime = useRealTime();
   const i18n = useIntl();
 

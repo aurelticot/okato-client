@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import { IntlProvider } from "react-intl";
 import { MessageFormatElement } from "intl-messageformat-parser";
 import { messages } from "lib/lang";
@@ -51,7 +51,7 @@ const getLocaleMessages = (
   }
 };
 
-export const MessagesProvider = (props: PropsWithChildren<{}>) => {
+export const MessagesProvider: React.FunctionComponent = (props) => {
   const browserLanguage = getBrowserLanguage();
   const [userLanguage] = useUserSetting(SettingKey.Language);
   const locale: string = resolveLanguageValue(userLanguage || browserLanguage);

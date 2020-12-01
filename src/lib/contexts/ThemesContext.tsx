@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
 import { getTheme } from "lib/themes";
@@ -33,7 +33,7 @@ const resolveTheme = (
     : userTheme;
 };
 
-export const ThemesProvider = (props: PropsWithChildren<{}>) => {
+export const ThemesProvider: React.FunctionComponent = (props) => {
   const systemTheme = useSystemTheme();
   const [userTheme] = useUserSetting(SettingKey.Theme);
 

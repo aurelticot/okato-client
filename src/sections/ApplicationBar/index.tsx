@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ApplicationBar: React.FunctionComponent<{}> = () => {
+export const ApplicationBar: React.FunctionComponent = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
