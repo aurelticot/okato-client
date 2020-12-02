@@ -1,0 +1,232 @@
+{
+  "App.modalDialog.cancelButtonLabel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "App.modalDialog.closeButtonLabel": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "App.modalDialog.marketSelectionTitle": [
+    {
+      "type": 0,
+      "value": "Sélectionnez les Marchés"
+    }
+  ],
+  "App.modalDialog.saveButtonLabel": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "App.modalDialog.settingsTitle": [
+    {
+      "type": 0,
+      "value": "Paramètres"
+    }
+  ],
+  "AppDate.today": [
+    {
+      "type": 0,
+      "value": "Aujourd'hui"
+    }
+  ],
+  "AppDate.tomorrow": [
+    {
+      "type": 0,
+      "value": "Demain"
+    }
+  ],
+  "AppDate.yesterday": [
+    {
+      "type": 0,
+      "value": "Hier"
+    }
+  ],
+  "ApplicationBar.appTitle": [
+    {
+      "type": 0,
+      "value": "Market Timeline"
+    }
+  ],
+  "ApplicationBar.marketSelectionMenuItemLabel": [
+    {
+      "type": 0,
+      "value": "Sélection de marchés"
+    }
+  ],
+  "ApplicationBar.settingsMenuItemLabel": [
+    {
+      "type": 0,
+      "value": "Paramètres"
+    }
+  ],
+  "NextMarketEvent": [
+    {
+      "options": {
+        "CLOSE": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "OPEN": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ouvre"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "status"
+    },
+    {
+      "type": 0,
+      "value": " dans "
+    },
+    {
+      "type": 1,
+      "value": "relativeTime"
+    }
+  ],
+  "TimelineTime.backToRealtimeTooltip": [
+    {
+      "type": 0,
+      "value": "Cliquez pour retourner au temps réel"
+    }
+  ],
+  "TimelineTime.displayingRealtimeTooltip": [
+    {
+      "type": 0,
+      "value": "Affichage temps réel"
+    }
+  ],
+  "TimelinesContainer.ResyncFABLabel": [
+    {
+      "type": 0,
+      "value": "Temps réel"
+    }
+  ],
+  "settings.language.label": [
+    {
+      "type": 0,
+      "value": "Langue"
+    }
+  ],
+  "settings.language.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez une langue"
+    }
+  ],
+  "settings.language.value.en.label": [
+    {
+      "type": 0,
+      "value": "English"
+    }
+  ],
+  "settings.language.value.fr.label": [
+    {
+      "type": 0,
+      "value": "Français"
+    }
+  ],
+  "settings.language.value.system.label": [
+    {
+      "type": 0,
+      "value": "Préférence système"
+    }
+  ],
+  "settings.marketSort.label": [
+    {
+      "type": 0,
+      "value": "Tri des marchés"
+    }
+  ],
+  "settings.marketSort.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez une méthode"
+    }
+  ],
+  "settings.marketSort.value.alphabetically.label": [
+    {
+      "type": 0,
+      "value": "Alphabétique"
+    }
+  ],
+  "settings.marketSort.value.alphabeticallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Alphabétique (inverse)"
+    }
+  ],
+  "settings.marketSort.value.capitalisation.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation"
+    }
+  ],
+  "settings.marketSort.value.capitalisationReverse.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation (inverse)"
+    }
+  ],
+  "settings.marketSort.value.chronologically.label": [
+    {
+      "type": 0,
+      "value": "Chronologique"
+    }
+  ],
+  "settings.marketSort.value.chronologicallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Chronologique (inverse)"
+    }
+  ],
+  "settings.theme.label": [
+    {
+      "type": 0,
+      "value": "Thème"
+    }
+  ],
+  "settings.theme.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Sélectionnez un thème"
+    }
+  ],
+  "settings.theme.value.black.label": [
+    {
+      "type": 0,
+      "value": "Noir"
+    }
+  ],
+  "settings.theme.value.dark.label": [
+    {
+      "type": 0,
+      "value": "Foncé"
+    }
+  ],
+  "settings.theme.value.light.label": [
+    {
+      "type": 0,
+      "value": "Clair"
+    }
+  ],
+  "settings.theme.value.system.label": [
+    {
+      "type": 0,
+      "value": "Préférence système"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+"""
+Direct the client to resolve this field locally, either from the cache or local resolvers.
+"""
+directive @client(
+  """
+  When true, the client will never use the cache for this value. See
+  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  """
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
+
+"""
+Export this locally resolved field as a variable to be used in the remainder of this query. See
+https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+"""
+directive @export(
+  """The variable name to export this field as."""
+  as: String!
+) on FIELD
+
+"""
+Specify a custom store key for this result. See
+https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+"""
+directive @connection(
+  """Specify the store key."""
+  key: String!
+
+  """
+  An array of query argument names to include in the generated custom store key.
+  """
+  filter: [String!]
+) on FIELD
+
+type MarketSession {
+  date: String!
+  startTime: String!
+  endTime: String!
+  mainStatus: MarketStatus!
+  status: MarketStatus!
+  reason: String
+}
+
+type Market {
+  id: ID!
+  mic: String!
+  shortName: String!
+  name: String!
+  currency: String!
+  city: String!
+  country: String!
+  latitude: Float!
+  longitude: Float!
+  timezone: String!
+  capitalisation: Float
+  website: String
+  sessions(startDate: String!, endDate: String!): [MarketSession!]!
+}
+
+type Markets {
+  total: Int!
+  result: [Market!]!
+}
+
+enum MarketStatus {
+  OPEN
+  CLOSE
+  CLOSE_SPECIAL
+  BREAK
+  BEFORE_MARKET
+  AFTER_MARKET
+}
+
+enum MarketSortingMethod {
+  ALPHABETICALLY
+  ALPHABETICALLY_REVERSE
+  CAPITALISATION
+  CAPITALISATION_REVERSE
+  CHRONOLOGICALLY
+  CHRONOLOGICALLY_REVERSE
+}
+
+type Query {
+  market(id: ID!): Market!
+  markets(sort: MarketSortingMethod = CHRONOLOGICALLY, limit: Int!, page: Int!, selection: [ID!]): Markets!
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

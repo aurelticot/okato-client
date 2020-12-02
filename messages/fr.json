@@ -1,0 +1,116 @@
+{
+  "settings.theme.label": {
+    "defaultMessage": "Thème"
+  },
+  "settings.theme.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez un thème"
+  },
+  "settings.theme.value.system.label": {
+    "defaultMessage": "Préférence système"
+  },
+  "settings.theme.value.black.label": {
+    "defaultMessage": "Noir"
+  },
+  "settings.theme.value.dark.label": {
+    "defaultMessage": "Foncé"
+  },
+  "settings.theme.value.light.label": {
+    "defaultMessage": "Clair"
+  },
+  "settings.language.label": {
+    "defaultMessage": "Langue"
+  },
+  "settings.language.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez une langue"
+  },
+  "settings.language.value.system.label": {
+    "defaultMessage": "Préférence système"
+  },
+  "settings.language.value.en.label": {
+    "defaultMessage": "English"
+  },
+  "settings.language.value.fr.label": {
+    "defaultMessage": "Français"
+  },
+  "settings.marketSort.label": {
+    "defaultMessage": "Tri des marchés"
+  },
+  "settings.marketSort.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez une méthode"
+  },
+  "settings.marketSort.value.capitalisation.label": {
+    "defaultMessage": "Capitalisation"
+  },
+  "settings.marketSort.value.alphabetically.label": {
+    "defaultMessage": "Alphabétique"
+  },
+  "settings.marketSort.value.chronologically.label": {
+    "defaultMessage": "Chronologique"
+  },
+  "settings.marketSort.value.capitalisationReverse.label": {
+    "defaultMessage": "Capitalisation (inverse)"
+  },
+  "settings.marketSort.value.alphabeticallyReverse.label": {
+    "defaultMessage": "Alphabétique (inverse)"
+  },
+  "settings.marketSort.value.chronologicallyReverse.label": {
+    "defaultMessage": "Chronologique (inverse)"
+  },
+  "ApplicationBar.appTitle": {
+    "description": "Name/Title of the application",
+    "defaultMessage": "Market Timeline"
+  },
+  "ApplicationBar.marketSelectionMenuItemLabel": {
+    "description": "Label of the menu item for the Market Selection view",
+    "defaultMessage": "Sélection de marchés"
+  },
+  "ApplicationBar.settingsMenuItemLabel": {
+    "description": "Label of the menu item for the Settings view",
+    "defaultMessage": "Paramètres"
+  },
+  "App.modalDialog.closeButtonLabel": {
+    "description": "Label of the the 'Close' button in the main dialog",
+    "defaultMessage": "Fermer"
+  },
+  "App.modalDialog.cancelButtonLabel": {
+    "description": "Label of the the 'Cancel' button in the main dialog",
+    "defaultMessage": "Annuler"
+  },
+  "App.modalDialog.saveButtonLabel": {
+    "description": "Label of the the 'Save' button in the main dialog",
+    "defaultMessage": "Sauvegarder"
+  },
+  "App.modalDialog.settingsTitle": {
+    "description": "Title of the Settings dialog",
+    "defaultMessage": "Paramètres"
+  },
+  "App.modalDialog.marketSelectionTitle": {
+    "description": "Title of the Market Selection dialog",
+    "defaultMessage": "Sélectionnez les Marchés"
+  },
+  "AppDate.today": {
+    "defaultMessage": "Aujourd'hui"
+  },
+  "AppDate.tomorrow": {
+    "defaultMessage": "Demain"
+  },
+  "AppDate.yesterday": {
+    "defaultMessage": "Hier"
+  },
+  "NextMarketEvent": {
+    "defaultMessage": "{status, select, OPEN {Ouvre} CLOSE {Ferme}} dans {relativeTime}",
+    "description": "next market event"
+  },
+  "TimelineTime.backToRealtimeTooltip": {
+    "defaultMessage": "Cliquez pour retourner au temps réel",
+    "description": "Tooltip message on the button to come back to real time"
+  },
+  "TimelineTime.displayingRealtimeTooltip": {
+    "defaultMessage": "Affichage temps réel",
+    "description": "Tooltip message on the time displaying in realtime"
+  },
+  "TimelinesContainer.ResyncFABLabel": {
+    "description": "Label of the button to resync real-time the timelines",
+    "defaultMessage": "Temps réel"
+  }
+}

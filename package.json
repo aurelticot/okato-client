@@ -1,0 +1,103 @@
+{
+  "name": "okato-client",
+  "version": "1.0.0",
+  "description": "Stock Echange trading sessions - Client side of the okato project",
+  "private": true,
+  "scripts": {
+    "clean:node_modules": "rm -rf node_modules/",
+    "clean:build": "rm -rf build/",
+    "clean": "npm run clean:build && npm run clean:node_modules",
+    "format:check": "npx prettier src/ --check",
+    "format": "npx prettier src/ --write",
+    "lint:check": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src/ --fix --ext .js,.jsx,.ts,.tsx",
+    "check": "npm run format:check && npm run lint:check",
+    "fix": "npm run format && npm run lint",
+    "messages:extract": "formatjs extract 'src/**/*.ts*' --out-file messages/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "messages:compile": "formatjs compile-folder --ast messages/ src/lib/lang/",
+    "graphql:extract": "npx apollo client:download-schema schema.graphql --endpoint=http://localhost:9000/api/graphql",
+    "graphql:generate": "npx apollo client:codegen types --localSchemaFile=schema.graphql --includes=src/**/*.ts --globalTypesFile=./src/lib/types/globalTypes.ts --target=typescript",
+    "graphql": "npm run graphql:extract && npm run graphql:generate",
+    "prebuild": "npm run clean:build",
+    "build": "react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "test": "react-scripts test --passWithNoTests",
+    "start:dev": "react-scripts start",
+    "start:build": "npx serve -s build",
+    "start": "npm run start:dev",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurelticot/okato-client.git"
+  },
+  "keywords": [
+    "stock-market"
+  ],
+  "author": "aurelticot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aurelticot/okato-client/issues"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.2.9",
+    "@formatjs/cli": "^2.13.15",
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/luxon": "^1.25.0",
+    "@types/node": "^12.19.8",
+    "@types/raygun4js": "^2.13.6",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-helmet": "^6.1.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "2.34.0",
+    "@typescript-eslint/parser": "2.34.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-formatjs": "^2.9.10",
+    "eslint-plugin-functional": "^3.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^30.7.8",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "graphql": "^15.4.0",
+    "luxon": "^1.25.0",
+    "prettier": "^2.2.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-helmet": "^6.1.0",
+    "react-intl": "^5.10.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.4",
+    "source-map-explorer": "^2.5.1",
+    "typescript": "^3.7.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": "14.13.0"
+  },
+  "devDependencies": {
+    "apollo": "^2.31.1"
+  }
+}
