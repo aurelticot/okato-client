@@ -7,7 +7,7 @@ import {
 } from "lib/types";
 
 interface ComparableMarket {
-  name: string;
+  shortName: string;
   longitude: number;
   capitalisation?: number | null;
 }
@@ -16,7 +16,7 @@ export const sortMarketAlphabetically = <TData extends ComparableMarket>(
   marketA: TData,
   marketB: TData
 ) => {
-  return marketA.name.localeCompare(marketB.name);
+  return marketA.shortName.localeCompare(marketB.shortName);
 };
 
 export const sortMarketAlphabeticallyReverse = <TData extends ComparableMarket>(
