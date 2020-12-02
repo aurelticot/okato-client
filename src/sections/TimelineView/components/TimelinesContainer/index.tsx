@@ -71,12 +71,13 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
 
   const { width } = useWindowSize();
   const resizing = React.useRef(false);
-
+  const adjusting = React.useRef(false);
+  const scrollBasetimeAdjustmentTimer = React.useRef<NodeJS.Timeout>();
   const containerRef = React.useRef<HTMLDivElement>();
 
   const handleScroll = React.useCallback(() => {
     const containerElement = containerRef.current;
-    if (!containerElement || resizing.current) {
+    if (!containerElement || resizing.current || adjusting.current) {
       return;
     }
     const timelineSize = containerElement.scrollWidth;
@@ -127,6 +128,25 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     resfreshPosition();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseTime]);
+
+  React.useLayoutEffect(() => {
+    if (baseTime) {
+      scrollBasetimeAdjustmentTimer.current = setInterval(() => {
+        adjusting.current = true;
+        resfreshPosition();
+        setTimeout(() => {
+          adjusting.current = false;
+        }, 500);
+      }, 10000);
+    } else if (scrollBasetimeAdjustmentTimer.current) {
+      clearInterval(scrollBasetimeAdjustmentTimer.current);
+    }
+    return () => {
+      if (scrollBasetimeAdjustmentTimer.current) {
+        clearInterval(scrollBasetimeAdjustmentTimer.current);
+      }
+    };
+  }, [baseTime, resfreshPosition]);
 
   React.useLayoutEffect(() => {
     resizing.current = true;
