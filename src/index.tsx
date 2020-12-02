@@ -20,7 +20,7 @@ import {
 } from "sections";
 import * as serviceWorker from "./serviceWorker";
 
-initRaygun();
+const raygun = initRaygun();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +45,13 @@ const App: React.FunctionComponent = () => {
     setDialogOpen(false);
     history.push("/");
   };
+
+  history.listen((location) => {
+    raygun("trackEvent", {
+      type: "pageView",
+      path: location.pathname,
+    });
+  });
 
   useEffect(() => {
     setDialogOpen(
