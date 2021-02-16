@@ -38,7 +38,7 @@ export const TimelineView: React.FunctionComponent = () => {
     SettingKey.MarketSelection
   );
   const [marketSort] = useUserSetting(SettingKey.MarketSort);
-  const [markets, setMarkets] = React.useState<Market[]>([]);
+  const [markets, setMarkets] = React.useState<Market[] | null>(null);
 
   const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
     variables: {
@@ -53,7 +53,7 @@ export const TimelineView: React.FunctionComponent = () => {
 
   React.useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
-    const preparedMarkets: Market[] = data
+    const preparedMarkets: Market[] | null = data
       ? data.markets.result
           .filter((market) => {
             return selectedMarkets.includes(market.id) ? true : false;
@@ -100,7 +100,7 @@ export const TimelineView: React.FunctionComponent = () => {
             return { ...market, sessions: preparedSessions };
           })
           .sort((a, b) => sortMethod<Market>(a, b))
-      : [];
+      : null;
     setMarkets(preparedMarkets);
   }, [data, selectedMarkets, marketSort]);
 
