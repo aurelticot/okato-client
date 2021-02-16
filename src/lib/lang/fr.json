@@ -115,6 +115,18 @@
       "value": "Temps réel"
     }
   ],
+  "TimelinesList.selectMarketsAfterLinkMessage": [
+    {
+      "type": 0,
+      "value": " pour afficher leur timelines"
+    }
+  ],
+  "TimelinesList.selectMarketsLinkMessage": [
+    {
+      "type": 0,
+      "value": "Sélectionnez des marchés"
+    }
+  ],
   "settings.language.label": [
     {
       "type": 0,
