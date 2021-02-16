@@ -2,6 +2,7 @@ import { initRaygun } from "lib/utils";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { AppContextProvider } from "lib/contexts";
+import { reportWebVitals } from "lib/utils";
 import { CssBaseline } from "@material-ui/core";
 import {
   BrowserRouter as Router,
@@ -21,6 +22,14 @@ import {
 import * as serviceWorker from "./serviceWorker";
 
 const raygun = initRaygun();
+
+reportWebVitals((metric) => {
+  raygun("trackEvent", {
+    type: "customTiming",
+    name: metric.name,
+    duration: metric.value,
+  });
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
