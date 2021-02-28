@@ -1,6 +1,6 @@
-import { initRaygun } from "lib/utils";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { initTelemetry, sendCustomTiming, sendPageView } from "lib/utils";
 import { AppContextProvider } from "lib/contexts";
 import { reportWebVitals } from "lib/utils";
 import { routes } from "lib/constants";
@@ -22,14 +22,10 @@ import {
 } from "sections";
 import * as serviceWorker from "./serviceWorker";
 
-const raygun = initRaygun();
+initTelemetry();
 
 reportWebVitals((metric) => {
-  raygun("trackEvent", {
-    type: "customTiming",
-    name: metric.name,
-    duration: metric.value,
-  });
+  sendCustomTiming(metric.name, metric.value);
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -57,10 +53,7 @@ const App: React.FunctionComponent = () => {
   };
 
   history.listen((location) => {
-    raygun("trackEvent", {
-      type: "pageView",
-      path: location.pathname,
-    });
+    sendPageView(location.pathname);
   });
 
   useEffect(() => {
