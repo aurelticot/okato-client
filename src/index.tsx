@@ -1,7 +1,9 @@
-import { initRaygun } from "lib/utils";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { initTelemetry, sendCustomTiming, sendPageView } from "lib/utils";
 import { AppContextProvider } from "lib/contexts";
+import { reportWebVitals } from "lib/utils";
+import { routes } from "lib/constants";
 import { CssBaseline } from "@material-ui/core";
 import {
   BrowserRouter as Router,
@@ -20,7 +22,11 @@ import {
 } from "sections";
 import * as serviceWorker from "./serviceWorker";
 
-const raygun = initRaygun();
+initTelemetry();
+
+reportWebVitals((metric) => {
+  sendCustomTiming(metric.name, metric.value);
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,19 +44,16 @@ const useStyles = makeStyles((theme) => ({
 const App: React.FunctionComponent = () => {
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const settingsRouteMatch = useRouteMatch("/settings");
-  const marketSelectionRouteMatch = useRouteMatch("/selection");
+  const settingsRouteMatch = useRouteMatch(routes.settings);
+  const marketSelectionRouteMatch = useRouteMatch(routes.marketSelection);
 
   const closeDialog = () => {
     setDialogOpen(false);
-    history.push("/");
+    history.push(routes.home);
   };
 
   history.listen((location) => {
-    raygun("trackEvent", {
-      type: "pageView",
-      path: location.pathname,
-    });
+    sendPageView(location.pathname);
   });
 
   useEffect(() => {
@@ -65,7 +68,10 @@ const App: React.FunctionComponent = () => {
       <ApplicationBar />
       <Box className={classes.appContainer} />
       <Switch>
-        <Route path={["/", "/settings", "/selection"]} exact>
+        <Route
+          path={[routes.home, routes.settings, routes.marketSelection]}
+          exact
+        >
           <TimelineView />
         </Route>
       </Switch>

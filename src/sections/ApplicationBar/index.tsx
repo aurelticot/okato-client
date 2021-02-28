@@ -12,6 +12,7 @@ import {
 import { MoreVert as MoreIcon } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { routes } from "lib/constants";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -83,10 +84,12 @@ export const ApplicationBar: React.FunctionComponent = () => {
             onClose={closeMenu}
             keepMounted
           >
-            <MenuItem onClick={() => handleMenuItemClick("/selection")}>
+            <MenuItem
+              onClick={() => handleMenuItemClick(routes.marketSelection)}
+            >
               {marketSelectionMenuItemLabel}
             </MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick("/settings")}>
+            <MenuItem onClick={() => handleMenuItemClick(routes.settings)}>
               {settingsMenuItemLabel}
             </MenuItem>
           </Menu>

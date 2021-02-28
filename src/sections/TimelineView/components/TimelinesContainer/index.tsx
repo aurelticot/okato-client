@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  markets: Market[];
+  markets: Market[] | null;
 }
 
 export const TimelinesContainer: React.FunctionComponent<Props> = ({

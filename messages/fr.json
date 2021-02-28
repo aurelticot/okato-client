@@ -112,5 +112,13 @@
   "TimelinesContainer.ResyncFABLabel": {
     "description": "Label of the button to resync real-time the timelines",
     "defaultMessage": "Temps réel"
+  },
+  "TimelinesList.selectMarketsLinkMessage": {
+    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link",
+    "defaultMessage": "Sélectionnez des marchés"
+  },
+  "TimelinesList.selectMarketsAfterLinkMessage": {
+    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link",
+    "defaultMessage": " pour afficher leur timelines"
   }
 }

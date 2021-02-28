@@ -1,8 +1,7 @@
 import { config } from "config";
-import { RaygunV2 } from "raygun4js";
 const { raygunAPIKey, enableCrashReporting, enableMonitoring } = config;
 
-export const initRaygun = (): RaygunV2 => {
+export const initTelemetry = (): void => {
   window.rg4js("apiKey", raygunAPIKey || "local_dev");
   window.rg4js("enableCrashReporting", enableCrashReporting);
   window.rg4js("enablePulse", enableMonitoring);
@@ -12,11 +11,6 @@ export const initRaygun = (): RaygunV2 => {
   window.rg4js("options", {
     debugMode: config.nodeEnv === "development",
   });
-  return window.rg4js;
-};
-
-export const getRaygun = (): RaygunV2 => {
-  return window.rg4js;
 };
 
 export const sendCustomTiming = (name: string, duration: number) => {
@@ -24,5 +18,12 @@ export const sendCustomTiming = (name: string, duration: number) => {
     type: "customTiming",
     name,
     duration,
+  });
+};
+
+export const sendPageView = (path: string) => {
+  window.rg4js("trackEvent", {
+    type: "pageView",
+    path,
   });
 };
