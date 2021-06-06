@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { initTelemetry, sendCustomTiming, sendPageView } from "lib/utils";
+import { initTelemetry, sendPageView } from "lib/utils";
 import { AppContextProvider } from "lib/contexts";
-import { reportWebVitals } from "lib/utils";
 import { routes } from "lib/constants";
 import { CssBaseline } from "@material-ui/core";
 import {
@@ -11,6 +10,7 @@ import {
   Route,
   useRouteMatch,
   useHistory,
+  useLocation,
 } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
@@ -23,10 +23,6 @@ import {
 import * as serviceWorker from "./serviceWorker";
 
 initTelemetry();
-
-reportWebVitals((metric) => {
-  sendCustomTiming(metric.name, metric.value);
-});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App: React.FunctionComponent = () => {
   const history = useHistory();
+  const location = useLocation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const settingsRouteMatch = useRouteMatch(routes.settings);
   const marketSelectionRouteMatch = useRouteMatch(routes.marketSelection);
@@ -52,9 +49,9 @@ const App: React.FunctionComponent = () => {
     history.push(routes.home);
   };
 
-  history.listen((location) => {
+  useEffect(() => {
     sendPageView(location.pathname);
-  });
+  }, [location]);
 
   useEffect(() => {
     setDialogOpen(
