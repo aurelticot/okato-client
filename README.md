@@ -1,5 +1,10 @@
 # okato-client
-Stock Echange trading sessions - Client side of the okato project
+
+Okato is the project behind a 'Stock Market Sessions' app providing users a timeline view of the different Stock Exchanges' trading sessions.
+
+You can check a functional deployment at [beta.markettimeline.app](https://beta.markettimeline.app).
+
+This repository is the frontend part of the application. You can check the umbrella repository [okato](https://github.com/aurelticot/okato).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
