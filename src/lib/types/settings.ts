@@ -23,3 +23,10 @@ export interface Settings {
 export interface UserSettings {
   [key: string]: string | string[];
 }
+
+export interface SettingDialogConfiguration<TData = string> {
+  title: string;
+  selectedValue: TData;
+  values: SettingValue[];
+  applyValue: (value: TData) => void;
+}

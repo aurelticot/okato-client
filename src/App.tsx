@@ -11,11 +11,11 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import {
-  ApplicationBar,
-  TimelineView,
   MarketSelectionDialog,
   SettingsDialog,
-} from "sections";
+  TopBar,
+} from "components/organisms";
+import { TimelineView } from "pages";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +55,7 @@ export const App: React.FunctionComponent = () => {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-      <ApplicationBar />
+      <TopBar />
       <Box className={classes.appContainer} />
       <Switch>
         <Route
