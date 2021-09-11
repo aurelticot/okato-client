@@ -1,6 +1,5 @@
 import React from "react";
 import { TimeProvider } from "./TimeContext";
-import { FeaturesProvider } from "./FeaturesContext";
 import { GraphqlProvider } from "./GraphqlContext";
 import { UserSettingsProvider } from "./UserSettingsContext";
 import { MessagesProvider } from "./MessagesContext";
@@ -10,13 +9,11 @@ export const AppContextProvider: React.FunctionComponent = (props) => {
   return (
     <TimeProvider>
       <GraphqlProvider>
-        <FeaturesProvider>
-          <UserSettingsProvider>
-            <MessagesProvider>
-              <ThemesProvider>{props.children}</ThemesProvider>
-            </MessagesProvider>
-          </UserSettingsProvider>
-        </FeaturesProvider>
+        <UserSettingsProvider>
+          <MessagesProvider>
+            <ThemesProvider>{props.children}</ThemesProvider>
+          </MessagesProvider>
+        </UserSettingsProvider>
       </GraphqlProvider>
     </TimeProvider>
   );

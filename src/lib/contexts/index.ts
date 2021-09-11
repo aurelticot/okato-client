@@ -1,5 +1,4 @@
 export * from "./AppContext";
-export * from "./FeaturesContext";
 export * from "./GraphqlContext";
 export * from "./MessagesContext";
 export * from "./ThemesContext";
