@@ -1,6 +1,6 @@
 import React from "react";
 import { DateTime } from "luxon";
-import { config } from "../config";
+import { config } from "../../config";
 import { Market, MarketSession, SettingKey } from "lib/types";
 import { dateFormat } from "lib/constants";
 import {

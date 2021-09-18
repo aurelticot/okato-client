@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { sendPageView } from "lib/utils";
-import { routes } from "lib/constants";
 import {
   Switch,
   Route,
@@ -10,12 +8,14 @@ import {
 } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
+import { routes } from "lib/constants";
+import { sendPageView } from "lib/utils";
+import { TopBar } from "components/organisms";
 import {
   MarketSelectionDialog,
   SettingsDialog,
-  TopBar,
-} from "components/organisms";
-import { TimelineView } from "pages";
+  TimelineView,
+} from "components/views";
 
 const useStyles = makeStyles((theme) => ({
   root: {
