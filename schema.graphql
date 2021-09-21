@@ -35,9 +35,8 @@ directive @connection(
 ) on FIELD
 
 type MarketSession {
-  date: String!
-  startTime: String!
-  endTime: String!
+  start: String!
+  end: String!
   mainStatus: MarketStatus!
   status: MarketStatus!
   reason: String

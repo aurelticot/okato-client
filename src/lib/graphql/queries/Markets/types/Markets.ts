@@ -11,9 +11,8 @@ import { MarketSortingMethod, MarketStatus } from "./../../../../types/globalTyp
 
 export interface Markets_markets_result_sessions {
   __typename: "MarketSession";
-  date: string;
-  startTime: string;
-  endTime: string;
+  start: string;
+  end: string;
   mainStatus: MarketStatus;
   status: MarketStatus;
 }

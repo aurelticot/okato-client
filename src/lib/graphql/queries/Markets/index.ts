@@ -24,9 +24,8 @@ export const MARKETS = gql`
         capitalisation
         sessions(startDate: $startDate, endDate: $endDate)
           @include(if: $withSessions) {
-          date
-          startTime
-          endTime
+          start
+          end
           mainStatus
           status
         }

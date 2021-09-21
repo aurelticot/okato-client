@@ -158,61 +158,6 @@ export const getMarketStatus = (
   return useMain ? getMarketMainStatusFromStatus(status) : status;
 };
 
-export const fillBlankWithClosedSessions = (
-  sessions: MarketSession[],
-  startDate: Date,
-  endDate: Date
-): MarketSession[] => {
-  const completeSessions: MarketSession[] = [];
-  const size = sessions.length;
-  const overallStartDate = DateTime.fromJSDate(startDate);
-  const overallEndDate = DateTime.fromJSDate(endDate);
-
-  sessions
-    .sort((sessionA, sessionB) => {
-      return sessionA.start.getTime() - sessionB.start.getTime();
-    })
-    .map((session, index, array) => {
-      const { start, end } = session;
-      const sessionStartDate = DateTime.fromJSDate(start);
-      const sessionEndDate = DateTime.fromJSDate(end);
-
-      if (index === 0 && sessionStartDate > overallStartDate) {
-        completeSessions.push({
-          start: overallStartDate.toJSDate(),
-          end: sessionStartDate.toJSDate(),
-          mainStatus: MarketStatus.CLOSE,
-          status: MarketStatus.CLOSE,
-        });
-      }
-      completeSessions.push(session);
-
-      const nextIndex = index + 1;
-      if (nextIndex < size) {
-        const { start: nextSessionStart } = array[nextIndex];
-        const nextSessionStartDate = DateTime.fromJSDate(nextSessionStart);
-        if (sessionEndDate < nextSessionStartDate.minus({ seconds: 1 })) {
-          completeSessions.push({
-            start: sessionEndDate.startOf("minute").toJSDate(),
-            end: nextSessionStartDate.startOf("minute").toJSDate(),
-            mainStatus: MarketStatus.CLOSE,
-            status: MarketStatus.CLOSE,
-          });
-        }
-      } else if (sessionEndDate < overallEndDate) {
-        completeSessions.push({
-          start: sessionEndDate.toJSDate(),
-          end: overallEndDate.toJSDate(),
-          mainStatus: MarketStatus.CLOSE,
-          status: MarketStatus.CLOSE,
-        });
-      }
-
-      return session;
-    });
-  return completeSessions;
-};
-
 export const getCurrentSession = (
   baseTime: Date,
   market: Market

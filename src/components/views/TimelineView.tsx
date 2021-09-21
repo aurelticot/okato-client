@@ -3,10 +3,7 @@ import { DateTime } from "luxon";
 import { config } from "../../config";
 import { Market, MarketSession, SettingKey } from "lib/types";
 import { dateFormat } from "lib/constants";
-import {
-  getMarketSortingFunction,
-  fillBlankWithClosedSessions,
-} from "lib/utils";
+import { getMarketSortingFunction } from "lib/utils";
 import { useUserSetting } from "lib/hooks";
 import { TimelinesContainer } from "components/organisms";
 import { useQuery } from "@apollo/client";
@@ -60,20 +57,13 @@ export const TimelineView: React.FunctionComponent = () => {
           })
           .map(
             (market): Market => {
-              const { timezone } = market;
               const preparedSessions: MarketSession[] = market.sessions
                 .map(
                   (session): MarketSession => ({
-                    start: DateTime.fromISO(
-                      `${session.date}T${session.startTime}`,
-                      { zone: timezone }
-                    )
+                    start: DateTime.fromISO(session.start)
                       .startOf("minute")
                       .toJSDate(),
-                    end: DateTime.fromISO(
-                      `${session.date}T${session.endTime}`,
-                      { zone: timezone }
-                    )
+                    end: DateTime.fromISO(session.end)
                       .startOf("minute")
                       .toJSDate(),
                     mainStatus: session.mainStatus,
@@ -90,15 +80,6 @@ export const TimelineView: React.FunctionComponent = () => {
               };
             }
           )
-          .map((market) => {
-            const { sessions } = market;
-            const preparedSessions = fillBlankWithClosedSessions(
-              sessions,
-              requestedStartDate.toJSDate(),
-              requestedEndDate.toJSDate()
-            );
-            return { ...market, sessions: preparedSessions };
-          })
           .sort((a, b) => sortMethod<Market>(a, b))
       : null;
     setMarkets(preparedMarkets);
