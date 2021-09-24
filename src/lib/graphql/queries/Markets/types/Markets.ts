@@ -17,6 +17,15 @@ export interface Markets_markets_result_sessions {
   status: MarketStatus;
 }
 
+export interface Markets_markets_result_timeline {
+  __typename: "TimelineSegment";
+  startDate: string;
+  start: number;
+  duration: number;
+  mainStatus: MarketStatus;
+  status: MarketStatus;
+}
+
 export interface Markets_markets_result {
   __typename: "Market";
   id: string;
@@ -29,6 +38,7 @@ export interface Markets_markets_result {
   timezone: string;
   capitalisation: number | null;
   sessions: Markets_markets_result_sessions[];
+  timeline: Markets_markets_result_timeline[];
 }
 
 export interface Markets_markets {
@@ -46,7 +56,10 @@ export interface MarketsVariables {
   sort?: MarketSortingMethod | null;
   limit: number;
   page: number;
-  startDate: string;
-  endDate: string;
+  sessionStartDate: string;
+  sessionEndDate: string;
   withSessions?: boolean | null;
+  timelineStartDate: string;
+  timelineEndDate: string;
+  withTimeline?: boolean | null;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { DateTime } from "luxon";
 import { config } from "../../config";
-import { Market, MarketSession, SettingKey } from "lib/types";
+import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
 import { dateFormat } from "lib/constants";
 import { getMarketSortingFunction } from "lib/utils";
 import { useUserSetting } from "lib/hooks";
@@ -17,14 +17,28 @@ const {
   timelineVisiblePeriod,
   daysRequestedInFuture,
   daysRequestedInPast,
+  daysInPast,
+  daysInFuture,
 } = config;
 
-const requestedStartDate = DateTime.local().minus({
-  days: daysRequestedInPast,
+const requestedStartDate = DateTime.local()
+  .minus({
+    days: daysRequestedInPast,
+    hours: timelineVisiblePeriod / 2,
+  })
+  .startOf("day");
+const requestedEndDate = DateTime.local()
+  .plus({
+    days: daysRequestedInFuture,
+    hours: timelineVisiblePeriod / 2,
+  })
+  .endOf("day");
+const requestedTimelineStartDate = DateTime.local().minus({
+  days: daysInPast,
   hours: timelineVisiblePeriod / 2,
 });
-const requestedEndDate = DateTime.local().plus({
-  days: daysRequestedInFuture,
+const requestedTimelineEndDate = DateTime.local().plus({
+  days: daysInFuture,
   hours: timelineVisiblePeriod / 2,
 });
 
@@ -42,9 +56,12 @@ export const TimelineView: React.FunctionComponent = () => {
       selection: selectedMarkets,
       limit: PAGE_LIMIT,
       page: 1,
-      startDate: requestedStartDate.toFormat(dateFormat),
-      endDate: requestedEndDate.toFormat(dateFormat),
+      sessionStartDate: requestedStartDate.toFormat(dateFormat),
+      sessionEndDate: requestedEndDate.toFormat(dateFormat),
       withSessions: true,
+      timelineStartDate: requestedTimelineStartDate.toISO(),
+      timelineEndDate: requestedTimelineEndDate.toISO(),
+      withTimeline: true,
     },
   });
 
@@ -60,12 +77,8 @@ export const TimelineView: React.FunctionComponent = () => {
               const preparedSessions: MarketSession[] = market.sessions
                 .map(
                   (session): MarketSession => ({
-                    start: DateTime.fromISO(session.start)
-                      .startOf("minute")
-                      .toJSDate(),
-                    end: DateTime.fromISO(session.end)
-                      .startOf("minute")
-                      .toJSDate(),
+                    start: DateTime.fromISO(session.start).toJSDate(),
+                    end: DateTime.fromISO(session.end).toJSDate(),
                     mainStatus: session.mainStatus,
                     status: session.status,
                   })
@@ -74,9 +87,17 @@ export const TimelineView: React.FunctionComponent = () => {
                   (sessionA, sessionB) =>
                     sessionB.start.getTime() - sessionA.start.getTime()
                 );
+
+              const preparedTimeline: TimelineSegment[] = market.timeline.map(
+                (segment) => ({
+                  ...segment,
+                  startDate: DateTime.fromISO(segment.startDate).toJSDate(),
+                })
+              );
               return {
                 ...market,
                 sessions: preparedSessions,
+                timeline: preparedTimeline,
               };
             }
           )

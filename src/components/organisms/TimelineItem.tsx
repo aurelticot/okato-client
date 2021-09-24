@@ -15,7 +15,7 @@ export const TimelineItem: React.FunctionComponent<Props> = ({
   return (
     <Box>
       <TimelineItemHeader baseTime={baseTime} market={market} />
-      <Timeline sessions={market.sessions} timezone={market.timezone} />
+      <Timeline segments={market.timeline} />
     </Box>
   );
 };

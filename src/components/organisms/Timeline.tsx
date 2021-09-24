@@ -1,13 +1,8 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { DateTime } from "luxon";
+import React from "react";
 import { Box, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  MarketSession,
-  TimelineSegment as TimelineSegmentType,
-} from "lib/types";
-import { getTimelineSizeInMinutes, resolveTimelineSegments } from "lib/utils";
-import { useFrequency } from "lib/hooks";
+import { TimelineSegment as TimelineSegmentType } from "lib/types";
+import { getTimelineSizeInMinutes } from "lib/utils";
 import { TimelineSegment, TimelineSegmentDefault } from "components/atoms";
 
 const timelineSize = getTimelineSizeInMinutes();
@@ -45,53 +40,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useSegments = (
-  sessions: MarketSession[],
-  timezone: string
-): TimelineSegmentType[] => {
-  const time = useFrequency(10000);
-  const now = DateTime.local().setZone(timezone);
-  const initialSegments: TimelineSegmentType[] = resolveTimelineSegments(
-    now,
-    timezone,
-    sessions
-  );
-  const [segments, setSegments] = useState<TimelineSegmentType[]>(
-    initialSegments
-  );
-
-  const updateSegments = useCallback(() => {
-    const newNow = DateTime.local().setZone(timezone);
-    const newSegments: TimelineSegmentType[] = resolveTimelineSegments(
-      newNow,
-      timezone,
-      sessions
-    );
-    setSegments(newSegments);
-  }, [sessions, timezone]);
-
-  useEffect(() => {
-    updateSegments();
-  }, [updateSegments, time]);
-  return segments;
-};
-
 interface Props {
-  sessions: MarketSession[];
-  timezone: string;
+  segments: TimelineSegmentType[];
   hideNowTimeMarker?: boolean;
   hideBaseTimeMarker?: boolean;
 }
 
 export const Timeline: React.FunctionComponent<Props> = (props) => {
   const {
-    sessions,
-    timezone,
+    segments,
     hideNowTimeMarker = false,
     hideBaseTimeMarker = false,
   } = props;
-
-  const segments = useSegments(sessions, timezone);
   const timelineSegments = segments.map((segment) => {
     return (
       <TimelineSegment

@@ -1,4 +1,5 @@
 import { MarketStatus } from "./globalTypes";
+import { TimelineSegment } from "./timeline";
 
 export interface Market {
   id: string;
@@ -11,6 +12,7 @@ export interface Market {
   capitalisation: number | null;
   timezone: string;
   sessions: MarketSession[];
+  timeline: TimelineSegment[];
 }
 
 export interface MarketSession {

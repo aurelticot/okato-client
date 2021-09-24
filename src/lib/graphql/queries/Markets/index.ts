@@ -6,9 +6,12 @@ export const MARKETS = gql`
     $sort: MarketSortingMethod
     $limit: Int!
     $page: Int!
-    $startDate: String!
-    $endDate: String!
+    $sessionStartDate: String!
+    $sessionEndDate: String!
     $withSessions: Boolean = true
+    $timelineStartDate: String!
+    $timelineEndDate: String!
+    $withTimeline: Boolean = true
   ) {
     markets(selection: $selection, sort: $sort, limit: $limit, page: $page) {
       total
@@ -22,10 +25,18 @@ export const MARKETS = gql`
         longitude
         timezone
         capitalisation
-        sessions(startDate: $startDate, endDate: $endDate)
+        sessions(startDate: $sessionStartDate, endDate: $sessionEndDate)
           @include(if: $withSessions) {
           start
           end
+          mainStatus
+          status
+        }
+        timeline(startDate: $timelineStartDate, endDate: $timelineEndDate)
+          @include(if: $withTimeline) {
+          startDate
+          start
+          duration
           mainStatus
           status
         }
