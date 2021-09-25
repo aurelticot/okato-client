@@ -77,21 +77,20 @@ export const TimelineView: React.FunctionComponent = () => {
               const preparedSessions: MarketSession[] = market.sessions
                 .map(
                   (session): MarketSession => ({
-                    start: DateTime.fromISO(session.start).toJSDate(),
-                    end: DateTime.fromISO(session.end).toJSDate(),
-                    mainStatus: session.mainStatus,
-                    status: session.status,
+                    ...session,
+                    start: DateTime.fromISO(session.start),
+                    end: DateTime.fromISO(session.end),
                   })
                 )
                 .sort(
                   (sessionA, sessionB) =>
-                    sessionB.start.getTime() - sessionA.start.getTime()
+                    sessionB.start.toMillis() - sessionA.start.toMillis()
                 );
 
               const preparedTimeline: TimelineSegment[] = market.timeline.map(
                 (segment) => ({
                   ...segment,
-                  startDate: DateTime.fromISO(segment.startDate).toJSDate(),
+                  startDate: DateTime.fromISO(segment.startDate),
                 })
               );
               return {

@@ -1,7 +1,8 @@
+import { DateTime } from "luxon";
 import { MarketStatus } from "./globalTypes";
 
 export interface TimelineSegment {
-  startDate: Date;
+  startDate: DateTime;
   start: number;
   duration: number;
   status: MarketStatus;

@@ -55,7 +55,7 @@ export const Timeline: React.FunctionComponent<Props> = (props) => {
   const timelineSegments = segments.map((segment) => {
     return (
       <TimelineSegment
-        key={segment.startDate.getTime()}
+        key={segment.startDate.toMillis()}
         segment={segment}
         timelineSize={timelineSize}
       />

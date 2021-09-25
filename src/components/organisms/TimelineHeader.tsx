@@ -1,4 +1,5 @@
 import React from "react";
+import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, useTheme, useMediaQuery } from "@material-ui/core";
 import { Market, MarketStatus } from "lib/types";
@@ -78,7 +79,11 @@ interface Props {
 
 export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const { baseTime, market } = props;
-  const status = useMarketStatus(market, true, baseTime);
+  const status = useMarketStatus(
+    market,
+    true,
+    baseTime ? DateTime.fromJSDate(baseTime) : undefined
+  );
   const nextEvent = useMarketNextEvent(market, true);
   const theme = useTheme();
   const downSM = useMediaQuery(theme.breakpoints.down("sm"));

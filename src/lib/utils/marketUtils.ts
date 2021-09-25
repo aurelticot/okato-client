@@ -137,20 +137,14 @@ export const getMarketMainStatusFromStatus = (
 };
 
 export const getMarketStatus = (
-  baseTime: Date,
+  baseTime: DateTime,
   market: Market,
   useMain = false
 ): MarketStatus => {
-  const { timezone, sessions } = market;
-  const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
+  const { sessions } = market;
   const status = sessions.reduce<MarketStatus>((value, session) => {
-    const sessionStart = DateTime.fromJSDate(session.start, {
-      zone: timezone,
-    }).startOf("minute");
-    const sessionEnd = DateTime.fromJSDate(session.end, {
-      zone: timezone,
-    }).endOf("minute");
-    if (sessionStart <= adjustedBaseTime && sessionEnd >= adjustedBaseTime) {
+    const { start, end } = session;
+    if (start <= baseTime && end >= baseTime) {
       return session.status;
     }
     return value;
@@ -159,40 +153,31 @@ export const getMarketStatus = (
 };
 
 export const getCurrentSession = (
-  baseTime: Date,
+  baseTime: DateTime,
   market: Market
 ): MarketSession | null => {
-  const { timezone, sessions } = market;
-  const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
-
+  const { sessions } = market;
   return [...sessions]
     .sort(
       (sessionA, sessionB) =>
-        sessionA.start.getTime() - sessionB.start.getTime()
+        sessionA.start.toMillis() - sessionB.start.toMillis()
     )
     .reduce<MarketSession | null>((value, session) => {
       const { start, end } = session;
-      const startDate = DateTime.fromJSDate(start);
-      const endDate = DateTime.fromJSDate(end);
-      return startDate < adjustedBaseTime && adjustedBaseTime < endDate
-        ? session
-        : value;
+      return start < baseTime && baseTime < end ? session : value;
     }, null);
 };
 
 export const getMarketNextEvent = (
-  baseTime: Date,
+  baseTime: DateTime,
   market: Market,
   useMain = false
 ): MarketSession | null => {
-  const { timezone, sessions } = market;
+  const { sessions } = market;
   const currentStatus = getMarketStatus(baseTime, market, useMain);
-  const adjustedBaseTime = DateTime.fromJSDate(baseTime, { zone: timezone });
   const nextSessions = sessions
     .filter((session) => {
-      const sessionStartDate = DateTime.fromJSDate(session.start, {
-        zone: timezone,
-      }).startOf("minute");
+      const { start } = session;
       const differentSubStatus = currentStatus !== session.status;
       const differentMainStatus =
         getMarketMainStatusFromStatus(currentStatus) !==
@@ -200,12 +185,12 @@ export const getMarketNextEvent = (
       const differentStatus = useMain
         ? differentMainStatus
         : differentSubStatus;
-      const sessionAfterBase = sessionStartDate > adjustedBaseTime;
+      const sessionAfterBase = start > baseTime;
       return sessionAfterBase && differentStatus;
     })
     .sort(
       (sessionA, sessionB) =>
-        sessionA.start.getTime() - sessionB.start.getTime()
+        sessionA.start.toMillis() - sessionB.start.toMillis()
     );
   return nextSessions[0];
 };

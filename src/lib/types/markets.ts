@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { MarketStatus } from "./globalTypes";
 import { TimelineSegment } from "./timeline";
 
@@ -16,8 +17,8 @@ export interface Market {
 }
 
 export interface MarketSession {
-  start: Date;
-  end: Date;
+  start: DateTime;
+  end: DateTime;
   mainStatus: MarketStatus;
   status: MarketStatus;
   reason?: string;

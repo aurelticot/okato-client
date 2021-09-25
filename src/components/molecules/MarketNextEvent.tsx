@@ -50,8 +50,7 @@ export const MarketNextEvent: React.FunctionComponent<Props> = ({
   const classes = useStyles();
   const i18n = useIntl();
 
-  const startTimeObject = DateTime.fromJSDate(start);
-  const relativeTime = useRelativeTime(startTimeObject);
+  const relativeTime = useRelativeTime(start);
 
   if ((!start && !mainStatus) || relativeTime === null) {
     return null;
