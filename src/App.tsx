@@ -14,7 +14,7 @@ import { TopBar } from "components/organisms";
 import {
   MarketSelectionDialog,
   SettingsDialog,
-  TimelineView,
+  TimelinesView,
 } from "components/views";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +62,7 @@ export const App: React.FunctionComponent = () => {
           path={[routes.home, routes.settings, routes.marketSelection]}
           exact
         >
-          <TimelineView />
+          <TimelinesView />
         </Route>
       </Switch>
       <MarketSelectionDialog

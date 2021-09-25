@@ -44,7 +44,7 @@ const requestedTimelineEndDate = DateTime.local().plus({
 
 const PAGE_LIMIT = 20;
 
-export const TimelineView: React.FunctionComponent = () => {
+export const TimelinesView: React.FunctionComponent = () => {
   const [selectedMarkets] = useUserSetting<string[]>(
     SettingKey.MarketSelection
   );

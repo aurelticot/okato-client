@@ -1,3 +1,3 @@
 export * from "./MarketSelectionDialog";
 export * from "./SettingsDialog";
-export * from "./TimelineView";
+export * from "./TimelinesView";
