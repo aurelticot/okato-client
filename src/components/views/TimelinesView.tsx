@@ -63,15 +63,15 @@ export const TimelinesView: React.FunctionComponent = () => {
       timelineEndDate: requestedTimelineEndDate.toISO(),
       withTimeline: true,
     },
+    pollInterval: 60000,
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
   });
 
   React.useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
-          .filter((market) => {
-            return selectedMarkets.includes(market.id) ? true : false;
-          })
           .map(
             (market): Market => {
               const preparedSessions: MarketSession[] = market.sessions
