@@ -26,11 +26,11 @@ const useRelativeTime = (targetDate: DateTime): string | null => {
       setRelativeTime(null);
     } else {
       const interval = Interval.fromDateTimes(now, targetDate);
-      const hourCount = interval.length("hour");
+      const hourCount = interval.length("hours");
       if (hourCount > 1) {
         setRelativeTime(`${Math.floor(hourCount)}h`);
       } else {
-        const minuteCount = interval.length("minute");
+        const minuteCount = interval.length("minutes");
         setRelativeTime(`${Math.floor(minuteCount + 1)}m`);
       }
     }

@@ -40,11 +40,11 @@ export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
     defaultMessage: "Yesterday",
   });
 
-  if (dateTime.hasSame(realDateTime.plus({ day: 1 }), "day")) {
+  if (dateTime.hasSame(realDateTime.plus({ days: 1 }), "day")) {
     return <FluidText {...mainFluidText}>{labelTomorrow}</FluidText>;
   }
 
-  if (dateTime.hasSame(realDateTime.minus({ day: 1 }), "day")) {
+  if (dateTime.hasSame(realDateTime.minus({ days: 1 }), "day")) {
     return <FluidText {...mainFluidText}>{labelYesterday}</FluidText>;
   }
 
