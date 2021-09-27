@@ -14,16 +14,12 @@ export const MarketSortSettingItem: React.FunctionComponent<Props> = ({
 }) => {
   const i18n = useIntl();
 
-  const [
-    marketSort,
-    setMarketSort,
-    marketSortSettingsDefinition,
-  ] = useUserSetting(SettingKey.MarketSort);
-  const selectedMarketSortDefinition = marketSortSettingsDefinition.values.filter(
-    (valueDefinition) => {
+  const [marketSort, setMarketSort, marketSortSettingsDefinition] =
+    useUserSetting(SettingKey.MarketSort);
+  const selectedMarketSortDefinition =
+    marketSortSettingsDefinition.values.filter((valueDefinition) => {
       return valueDefinition.key === marketSort;
-    }
-  )[0];
+    })[0];
   const dialogConfiguration: SettingDialogConfiguration = {
     title: i18n.formatMessage({
       id: "settings.marketSort.selectionDialog.title",

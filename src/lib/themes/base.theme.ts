@@ -1,7 +1,7 @@
 import { ThemeOptions } from "@material-ui/core/styles";
 import { getFluidCSSLength } from "lib/utils";
 
-declare module "@material-ui/core/styles/createMuiTheme" {
+declare module "@material-ui/core/styles/createTheme" {
   interface Theme {
     custom: {
       palette: {

@@ -48,13 +48,8 @@ interface Props {
 }
 
 export const Clock: React.FunctionComponent<Props> = (props) => {
-  const {
-    time,
-    timezone,
-    displayTimezone,
-    displayDayDiff,
-    displaySeconds,
-  } = props;
+  const { time, timezone, displayTimezone, displayDayDiff, displaySeconds } =
+    props;
 
   const workingTime = DateTime.fromJSDate(time, { zone: timezone || "local" });
   const localTime = DateTime.fromJSDate(time, { zone: "local" });

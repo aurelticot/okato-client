@@ -5,7 +5,7 @@ import { AppContextProvider } from "lib/contexts";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
 import { App } from "./App";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 initTelemetry();
 
@@ -21,4 +21,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-serviceWorker.unregister();
+serviceWorkerRegistration.register();

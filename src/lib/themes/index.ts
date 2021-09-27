@@ -9,11 +9,11 @@ export const themes = {
   light,
 };
 
-export const getDarkTheme = () => {
+export const getDarkTheme = (): Theme => {
   return themes.dark;
 };
 
-export const getLightTheme = () => {
+export const getLightTheme = (): Theme => {
   return themes.light;
 };
 

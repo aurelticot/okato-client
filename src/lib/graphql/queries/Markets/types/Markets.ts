@@ -3,7 +3,10 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { MarketSortingMethod, MarketStatus } from "./../../../../types/globalTypes";
+import {
+  MarketSortingMethod,
+  MarketStatus,
+} from "./../../../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Markets

@@ -72,34 +72,32 @@ export const TimelinesView: React.FunctionComponent = () => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
-          .map(
-            (market): Market => {
-              const preparedSessions: MarketSession[] = market.sessions
-                .map(
-                  (session): MarketSession => ({
-                    ...session,
-                    start: DateTime.fromISO(session.start),
-                    end: DateTime.fromISO(session.end),
-                  })
-                )
-                .sort(
-                  (sessionA, sessionB) =>
-                    sessionB.start.toMillis() - sessionA.start.toMillis()
-                );
-
-              const preparedTimeline: TimelineSegment[] = market.timeline.map(
-                (segment) => ({
-                  ...segment,
-                  startDate: DateTime.fromISO(segment.startDate),
+          .map((market): Market => {
+            const preparedSessions: MarketSession[] = market.sessions
+              .map(
+                (session): MarketSession => ({
+                  ...session,
+                  start: DateTime.fromISO(session.start),
+                  end: DateTime.fromISO(session.end),
                 })
+              )
+              .sort(
+                (sessionA, sessionB) =>
+                  sessionB.start.toMillis() - sessionA.start.toMillis()
               );
-              return {
-                ...market,
-                sessions: preparedSessions,
-                timeline: preparedTimeline,
-              };
-            }
-          )
+
+            const preparedTimeline: TimelineSegment[] = market.timeline.map(
+              (segment) => ({
+                ...segment,
+                startDate: DateTime.fromISO(segment.startDate),
+              })
+            );
+            return {
+              ...market,
+              sessions: preparedSessions,
+              timeline: preparedTimeline,
+            };
+          })
           .sort((a, b) => sortMethod<Market>(a, b))
       : null;
     setMarkets(preparedMarkets);

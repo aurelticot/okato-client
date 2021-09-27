@@ -5,9 +5,11 @@ import { config } from "config";
 
 const { settings, defaultUserSettings } = config;
 
+type UserSettingsHookType<T> = [T, (value: T) => void, SettingDefinition, T];
+
 export const useUserSetting = <T extends string | string[] = string>(
   key: SettingKey
-) => {
+): UserSettingsHookType<T> => {
   const { userSettings, setUserSetting } = useContext(UserSettingsContext);
   const definition = settings[key];
   const defaultValue = defaultUserSettings[key] as T;
@@ -17,11 +19,10 @@ export const useUserSetting = <T extends string | string[] = string>(
     setUserSetting(key, value);
   }
 
-  const returnedObject: [T, (value: T) => void, SettingDefinition, T] = [
+  return [
     userSetting ? userSetting : defaultValue,
     setter,
     definition,
     defaultValue,
   ];
-  return returnedObject;
 };
