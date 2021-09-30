@@ -7,13 +7,12 @@ import { oneMinuteInMillis } from "lib/constants";
 import { FluidText } from "components/atoms";
 import {
   getTimelineSizeInMinutes,
-  getTimelineSizeInHours,
+  getTimelineDates,
   getFluidTextValues,
 } from "lib/utils";
 import { TimelineRulerTime } from "components/organisms";
 import { useIntl } from "react-intl";
 
-const timelineSizeInHours = getTimelineSizeInHours();
 const timelineSizeInMinutes = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles((theme) => ({
@@ -131,19 +130,8 @@ const resolveDayRulerSegments = (
 };
 
 const resolveRulerSegments = (): DayRulerSegment[] => {
-  const now = DateTime.local();
-  const timelineStart = now
-    .minus({
-      hours: timelineSizeInHours / 2,
-    })
-    .startOf("minute");
-  const timelineEnd = now
-    .plus({
-      hours: timelineSizeInHours / 2,
-    })
-    .startOf("minute");
-
-  return resolveDayRulerSegments(timelineStart, timelineEnd);
+  const { total: timelineDates } = getTimelineDates();
+  return resolveDayRulerSegments(timelineDates.start, timelineDates.end);
 };
 
 interface Props {

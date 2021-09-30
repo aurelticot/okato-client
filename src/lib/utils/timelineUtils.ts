@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { config } from "config";
 
 const { timelineTotalPeriod, timelineVisiblePeriod } = config;
@@ -42,4 +43,36 @@ export const getTimelineVisibleSizeInMinutes = (): number => {
  */
 export const getTimelineVisibleSizeInSeconds = (): number => {
   return getTimelineVisibleSizeInMinutes() * 60;
+};
+
+export const getTimelineDates = (baseTime?: DateTime) => {
+  const base = baseTime || DateTime.local();
+  const timelineTotalSize = getTimelineSizeInHours();
+  const timelineVisibleSize = getTimelineVisibleSizeInHours();
+  return {
+    total: {
+      start: base
+        .minus({
+          hours: timelineTotalSize / 2,
+        })
+        .startOf("minute"),
+      end: base
+        .plus({
+          hours: timelineTotalSize / 2,
+        })
+        .startOf("minute"),
+    },
+    visible: {
+      start: base
+        .minus({
+          hours: timelineVisibleSize / 2,
+        })
+        .startOf("minute"),
+      end: base
+        .plus({
+          hours: timelineVisibleSize / 2,
+        })
+        .startOf("minute"),
+    },
+  };
 };

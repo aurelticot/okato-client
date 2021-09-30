@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
-import { getMarketSortingFunction, getTimelineSizeInHours } from "lib/utils";
+import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
 import { oneMinuteInMillis } from "lib/constants";
 import { useUserSetting } from "lib/hooks";
 import { TimelinesContainer } from "components/organisms";
@@ -12,30 +12,11 @@ import {
   MarketsVariables,
 } from "lib/graphql/queries/Markets/types/Markets";
 
-const timelineSizeInHours = getTimelineSizeInHours();
-
-const getRequestDates = () => {
-  const now = DateTime.local();
-  return {
-    startDate: now
-      .minus({
-        hours: timelineSizeInHours / 2,
-      })
-      .startOf("minute"),
-    endDate: now
-      .plus({
-        hours: timelineSizeInHours / 2,
-      })
-      .startOf("minute"),
-  };
-};
+const initialTimelineDates = getTimelineDates();
 
 const PAGE_LIMIT = 20;
 
-const useMarketsData = (selectedMarkets: string[], marketSort: string) => {
-  const [markets, setMarkets] = useState<Market[] | null>(null);
-  const initialRequestDates = getRequestDates();
-
+const useMarketsData = (selectedMarkets: string[]) => {
   const { data, loading, networkStatus, error, refetch } = useQuery<
     MarketsData,
     MarketsVariables
@@ -44,8 +25,8 @@ const useMarketsData = (selectedMarkets: string[], marketSort: string) => {
       selection: selectedMarkets,
       limit: PAGE_LIMIT,
       page: 1,
-      startDate: initialRequestDates.startDate.toISO(),
-      endDate: initialRequestDates.endDate.toISO(),
+      startDate: initialTimelineDates.total.start.toISO(),
+      endDate: initialTimelineDates.total.end.toISO(),
       withSessions: true,
       withTimeline: true,
     },
@@ -55,16 +36,27 @@ const useMarketsData = (selectedMarkets: string[], marketSort: string) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const updatedRequestDates = getRequestDates();
+      const updatedTimelineDates = getTimelineDates();
       refetch({
-        startDate: updatedRequestDates.startDate.toISO(),
-        endDate: updatedRequestDates.endDate.toISO(),
+        startDate: updatedTimelineDates.total.start.toISO(),
+        endDate: updatedTimelineDates.total.end.toISO(),
       })
         .then(() => console.debug("refetching completed"))
         .catch((e) => console.error(e));
     }, oneMinuteInMillis);
     return () => clearInterval(timer);
   }, [refetch]);
+
+  return { data, loading, networkStatus, error };
+};
+
+export const TimelinesView: React.FunctionComponent = () => {
+  const [selectedMarkets] = useUserSetting<string[]>(
+    SettingKey.MarketSelection
+  );
+  const [marketSort] = useUserSetting(SettingKey.MarketSort);
+  const [markets, setMarkets] = useState<Market[] | null>(null);
+  const { data } = useMarketsData(selectedMarkets);
 
   useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
@@ -101,16 +93,6 @@ const useMarketsData = (selectedMarkets: string[], marketSort: string) => {
       : null;
     setMarkets(preparedMarkets);
   }, [data, selectedMarkets, marketSort]);
-
-  return { markets, loading, networkStatus, error };
-};
-
-export const TimelinesView: React.FunctionComponent = () => {
-  const [selectedMarkets] = useUserSetting<string[]>(
-    SettingKey.MarketSelection
-  );
-  const [marketSort] = useUserSetting(SettingKey.MarketSort);
-  const { markets } = useMarketsData(selectedMarkets, marketSort);
 
   return <TimelinesContainer markets={markets} />;
 };
