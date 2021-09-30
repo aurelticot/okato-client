@@ -10,17 +10,19 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Refresh as ResyncIcon } from "@material-ui/icons";
 import { DateTime } from "luxon";
-import { config } from "config";
 import { Market } from "lib/types";
-import { getTimelineSizeInHours, getTimelineSizeInSeconds } from "lib/utils";
+import {
+  getTimelineSizeInHours,
+  getTimelineSizeInSeconds,
+  getTimelineVisibleSizeInHours,
+} from "lib/utils";
 import { useBaseTime, useWindowSize } from "lib/hooks";
 import { TimelinesList } from "components/organisms";
 import { useIntl } from "react-intl";
 
-const { timelineVisiblePeriod } = config;
-
-const timelineTotalhours = getTimelineSizeInHours();
+const timelineSizeInHours = getTimelineSizeInHours();
 const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
+const timelineVisibleSizeInHours = getTimelineVisibleSizeInHours();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   innerContainer: {
-    width: `${(timelineTotalhours * 100) / timelineVisiblePeriod}%`,
+    width: `${(timelineSizeInHours * 100) / timelineVisibleSizeInHours}%`,
   },
   resyncFab: {
     position: "fixed",
@@ -186,7 +188,7 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>
         <Fab
           color="primary"
-          variant={upMd ? "extended" : "round"}
+          variant={upMd ? "extended" : "circular"}
           className={classes.resyncFab}
           onClick={handleBackToRealTime}
         >

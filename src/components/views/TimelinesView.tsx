@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { config } from "../../config";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
-import { dateFormat } from "lib/constants";
-import { getMarketSortingFunction } from "lib/utils";
+import { getMarketSortingFunction, getTimelineSizeInHours } from "lib/utils";
+import { oneMinuteInMillis } from "lib/constants";
 import { useUserSetting } from "lib/hooks";
 import { TimelinesContainer } from "components/organisms";
 import { useQuery } from "@apollo/client";
@@ -13,62 +12,61 @@ import {
   MarketsVariables,
 } from "lib/graphql/queries/Markets/types/Markets";
 
-const {
-  timelineVisiblePeriod,
-  daysRequestedInFuture,
-  daysRequestedInPast,
-  daysInPast,
-  daysInFuture,
-} = config;
+const timelineSizeInHours = getTimelineSizeInHours();
 
-const requestedStartDate = DateTime.local()
-  .minus({
-    days: daysRequestedInPast,
-    hours: timelineVisiblePeriod / 2,
-  })
-  .startOf("day");
-const requestedEndDate = DateTime.local()
-  .plus({
-    days: daysRequestedInFuture,
-    hours: timelineVisiblePeriod / 2,
-  })
-  .endOf("day");
-const requestedTimelineStartDate = DateTime.local().minus({
-  days: daysInPast,
-  hours: timelineVisiblePeriod / 2,
-});
-const requestedTimelineEndDate = DateTime.local().plus({
-  days: daysInFuture,
-  hours: timelineVisiblePeriod / 2,
-});
+const getRequestDates = () => {
+  const now = DateTime.local();
+  return {
+    startDate: now
+      .minus({
+        hours: timelineSizeInHours / 2,
+      })
+      .startOf("minute"),
+    endDate: now
+      .plus({
+        hours: timelineSizeInHours / 2,
+      })
+      .startOf("minute"),
+  };
+};
 
 const PAGE_LIMIT = 20;
 
-export const TimelinesView: React.FunctionComponent = () => {
-  const [selectedMarkets] = useUserSetting<string[]>(
-    SettingKey.MarketSelection
-  );
-  const [marketSort] = useUserSetting(SettingKey.MarketSort);
-  const [markets, setMarkets] = React.useState<Market[] | null>(null);
+const useMarketsData = (selectedMarkets: string[], marketSort: string) => {
+  const [markets, setMarkets] = useState<Market[] | null>(null);
+  const initialRequestDates = getRequestDates();
 
-  const { data } = useQuery<MarketsData, MarketsVariables>(MARKETS, {
+  const { data, loading, networkStatus, error, refetch } = useQuery<
+    MarketsData,
+    MarketsVariables
+  >(MARKETS, {
     variables: {
       selection: selectedMarkets,
       limit: PAGE_LIMIT,
       page: 1,
-      sessionStartDate: requestedStartDate.toFormat(dateFormat),
-      sessionEndDate: requestedEndDate.toFormat(dateFormat),
+      startDate: initialRequestDates.startDate.toISO(),
+      endDate: initialRequestDates.endDate.toISO(),
       withSessions: true,
-      timelineStartDate: requestedTimelineStartDate.toISO(),
-      timelineEndDate: requestedTimelineEndDate.toISO(),
       withTimeline: true,
     },
-    pollInterval: 60000,
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-first",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const updatedRequestDates = getRequestDates();
+      refetch({
+        startDate: updatedRequestDates.startDate.toISO(),
+        endDate: updatedRequestDates.endDate.toISO(),
+      })
+        .then(() => console.debug("refetching completed"))
+        .catch((e) => console.error(e));
+    }, oneMinuteInMillis);
+    return () => clearInterval(timer);
+  }, [refetch]);
+
+  useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
@@ -92,6 +90,7 @@ export const TimelinesView: React.FunctionComponent = () => {
                 startDate: DateTime.fromISO(segment.startDate),
               })
             );
+
             return {
               ...market,
               sessions: preparedSessions,
@@ -102,6 +101,16 @@ export const TimelinesView: React.FunctionComponent = () => {
       : null;
     setMarkets(preparedMarkets);
   }, [data, selectedMarkets, marketSort]);
+
+  return { markets, loading, networkStatus, error };
+};
+
+export const TimelinesView: React.FunctionComponent = () => {
+  const [selectedMarkets] = useUserSetting<string[]>(
+    SettingKey.MarketSelection
+  );
+  const [marketSort] = useUserSetting(SettingKey.MarketSort);
+  const { markets } = useMarketsData(selectedMarkets, marketSort);
 
   return <TimelinesContainer markets={markets} />;
 };

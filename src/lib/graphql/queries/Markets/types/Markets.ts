@@ -59,10 +59,8 @@ export interface MarketsVariables {
   sort?: MarketSortingMethod | null;
   limit: number;
   page: number;
-  sessionStartDate: string;
-  sessionEndDate: string;
+  startDate: string;
+  endDate: string;
   withSessions?: boolean | null;
-  timelineStartDate: string;
-  timelineEndDate: string;
   withTimeline?: boolean | null;
 }

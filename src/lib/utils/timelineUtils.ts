@@ -1,12 +1,12 @@
 import { config } from "config";
 
-const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
+const { timelineTotalPeriod, timelineVisiblePeriod } = config;
 
 /**
  * get the size of the timeline in hours.
  */
 export const getTimelineSizeInHours = (): number => {
-  return (daysInFuture + daysInPast) * 24 + timelineVisiblePeriod;
+  return timelineTotalPeriod;
 };
 
 /**
@@ -26,20 +26,20 @@ export const getTimelineSizeInSeconds = (): number => {
 /**
  * get the visible size of the timeline in hours.
  */
-export const getTimelienVisibleSizeInHours = (): number => {
+export const getTimelineVisibleSizeInHours = (): number => {
   return timelineVisiblePeriod;
 };
 
 /**
  * get the visible size of the timeline in minutes.
  */
-export const getTimelienVisibleSizeInMinutes = (): number => {
-  return getTimelienVisibleSizeInHours() * 60;
+export const getTimelineVisibleSizeInMinutes = (): number => {
+  return getTimelineVisibleSizeInHours() * 60;
 };
 
 /**
  * get the visible size of the timeline in seconds.
  */
-export const getTimelienVisibleSizeInSeconds = (): number => {
-  return getTimelienVisibleSizeInMinutes() * 60;
+export const getTimelineVisibleSizeInSeconds = (): number => {
+  return getTimelineVisibleSizeInMinutes() * 60;
 };

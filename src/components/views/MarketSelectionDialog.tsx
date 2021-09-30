@@ -43,11 +43,9 @@ export const MarketSelectionDialog: React.FunctionComponent<Props> = ({
       sort: MarketSortingMethod.ALPHABETICALLY,
       page: 1,
       limit: PAGE_LIMIT,
-      sessionStartDate: "",
-      sessionEndDate: "",
+      startDate: "",
+      endDate: "",
       withSessions: false,
-      timelineStartDate: "",
-      timelineEndDate: "",
       withTimeline: false,
     },
   });

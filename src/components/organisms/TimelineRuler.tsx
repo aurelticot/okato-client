@@ -2,16 +2,19 @@ import React, { useEffect, useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Paper, useMediaQuery, useTheme } from "@material-ui/core";
-import { config } from "config";
 import { useFrequency } from "lib/hooks";
 import { oneMinuteInMillis } from "lib/constants";
 import { FluidText } from "components/atoms";
-import { getTimelineSizeInMinutes, getFluidTextValues } from "lib/utils";
+import {
+  getTimelineSizeInMinutes,
+  getTimelineSizeInHours,
+  getFluidTextValues,
+} from "lib/utils";
 import { TimelineRulerTime } from "components/organisms";
 import { useIntl } from "react-intl";
 
-const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
-const timelineSize = getTimelineSizeInMinutes();
+const timelineSizeInHours = getTimelineSizeInHours();
+const timelineSizeInMinutes = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles((theme) => ({
   rulerContainer: {
@@ -131,14 +134,12 @@ const resolveRulerSegments = (): DayRulerSegment[] => {
   const now = DateTime.local();
   const timelineStart = now
     .minus({
-      days: daysInPast,
-      hours: timelineVisiblePeriod / 2,
+      hours: timelineSizeInHours / 2,
     })
     .startOf("minute");
   const timelineEnd = now
     .plus({
-      days: daysInFuture,
-      hours: timelineVisiblePeriod / 2,
+      hours: timelineSizeInHours / 2,
     })
     .startOf("minute");
 
@@ -181,7 +182,9 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
               key={daySegment.start}
               className={classes.daySegment}
               style={{
-                width: `${(daySegment.duration * 100) / timelineSize}%`,
+                width: `${
+                  (daySegment.duration * 100) / timelineSizeInMinutes
+                }%`,
               }}
             >
               <FluidText
