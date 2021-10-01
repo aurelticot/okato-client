@@ -7,3 +7,4 @@ export const textDefault = {
   minREMSize: 1,
   maxREMSize: 2.5,
 };
+export const everyMinuteSchedule = "0 * * * * *";
