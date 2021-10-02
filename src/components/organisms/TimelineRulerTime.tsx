@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Badge, Box, Tooltip } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Badge, Box, Tooltip } from "@mui/material";
 import { AppDate, Clock, RealTimeClock } from "components/molecules";
 import { useIntl } from "react-intl";
 
@@ -67,7 +67,6 @@ export const TimelineRulerTime: React.FunctionComponent<Props> = (props) => {
         title={realtimeTooltip}
         aria-label={realtimeTooltip}
         arrow
-        interactive
         placement="top"
         disableFocusListener
       >

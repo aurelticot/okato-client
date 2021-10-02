@@ -1,7 +1,7 @@
 import React from "react";
 import { DateTime } from "luxon";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box, useTheme, useMediaQuery } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { Market, MarketStatus } from "lib/types";
 import { FluidText } from "components/atoms";
 import {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   timelineHeaderWrapper: {
     width: "100%",
-    padding: `0 ${theme.spacing(1)}px`,
+    padding: `0 ${theme.spacing(1)}`,
     position: "absolute",
     display: "flex",
     justifyContent: "space-between",
@@ -93,7 +93,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
     true
   );
   const theme = useTheme();
-  const downSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const downSM = useMediaQuery(theme.breakpoints.down("md"));
 
   const marketTitle = `${market.shortName}${downSM ? "" : ` - ${market.name}`}`;
 

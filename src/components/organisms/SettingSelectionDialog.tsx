@@ -5,7 +5,7 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useIntl } from "react-intl";
 import { SettingValue } from "lib/types";
 

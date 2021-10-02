@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { List } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { List } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { SettingDialogConfiguration } from "lib/types";
 import {
   SettingSelectionDialog,

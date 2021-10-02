@@ -6,9 +6,9 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Refresh as ResyncIcon } from "@material-ui/icons";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { Refresh as ResyncIcon } from "@mui/icons-material";
 import { DateTime } from "luxon";
 import { Market } from "lib/types";
 import {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { Box, Button, CircularProgress } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Box, Button, CircularProgress } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { SettingKey, MarketSortingMethod } from "lib/types";
 import { useUserSetting } from "lib/hooks";
 import { useQuery } from "@apollo/client";

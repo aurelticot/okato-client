@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/material";
 import {
   Brightness1 as FullCircle,
   TripOrigin as HollowedCircle,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { MarketStatus } from "lib/types";
 import { FluidText } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";

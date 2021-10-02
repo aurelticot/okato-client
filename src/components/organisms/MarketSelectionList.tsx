@@ -6,9 +6,9 @@ import {
   ListItem,
   ListItemSecondaryAction,
   Switch,
-} from "@material-ui/core";
-import { Room as LocationIcon } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { Room as LocationIcon } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles";
 import { Markets_markets_result as Market } from "lib/graphql/queries/Markets/types/Markets";
 
 const useStyles = makeStyles((theme) => ({

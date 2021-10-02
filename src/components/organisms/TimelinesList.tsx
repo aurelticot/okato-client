@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, CircularProgress, Link, List, ListItem } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { ClearAll as TimelinesIcon } from "@material-ui/icons";
+import { Box, CircularProgress, Link, List, ListItem } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { ClearAll as TimelinesIcon } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Market } from "lib/types";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { AppDialog } from "components/molecules";
 import { SettingsList } from "components/organisms";
 

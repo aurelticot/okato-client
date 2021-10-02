@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import {
   AppBar,
   Toolbar,
@@ -8,8 +8,8 @@ import {
   Typography,
   Menu,
   MenuItem,
-} from "@material-ui/core";
-import { MoreVert as MoreIcon } from "@material-ui/icons";
+} from "@mui/material";
+import { MoreVert as MoreIcon } from "@mui/icons-material";
 import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { routes } from "lib/constants";
@@ -74,6 +74,7 @@ export const TopBar: React.FunctionComponent = () => {
             aria-controls="appbar.menu-more"
             aria-haspopup="true"
             onClick={handleMenu}
+            size="large"
           >
             <MoreIcon />
           </IconButton>

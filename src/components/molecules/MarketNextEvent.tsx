@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles/";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "lib/types";

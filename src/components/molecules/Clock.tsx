@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { DateTime } from "luxon";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import { FluidText } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { InvertColors as InvertColorsIcon } from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { InvertColors as InvertColorsIcon } from "@mui/icons-material";
 import { useIntl } from "react-intl";
 import { SettingKey, SettingDialogConfiguration } from "lib/types";
 import { useUserSetting } from "lib/hooks";

@@ -1,7 +1,7 @@
-import { ThemeOptions } from "@material-ui/core/styles";
+import { ThemeOptions } from "@mui/material/styles";
 import { getFluidCSSLength } from "lib/utils";
 
-declare module "@material-ui/core/styles/createTheme" {
+declare module "@mui/material/styles/createTheme" {
   interface Theme {
     custom: {
       palette: {
@@ -40,19 +40,19 @@ declare module "@material-ui/core/styles/createTheme" {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
           close?: {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
           extended?: {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
         };
       };

@@ -6,8 +6,8 @@ import {
   DialogTitle,
   useMediaQuery,
   useTheme,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
@@ -33,7 +33,7 @@ export const AppDialog: React.FunctionComponent<Props> = ({
   children,
 }) => {
   const theme = useTheme();
-  const fullscreen = useMediaQuery(theme.breakpoints.down("xs"));
+  const fullscreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const classes = useStyles();
   return (

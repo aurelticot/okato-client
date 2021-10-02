@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { DateTime } from "luxon";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box, Paper, useMediaQuery, useTheme } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { useScheduleJob } from "lib/hooks";
 import { everyMinuteSchedule } from "lib/constants";
 import { FluidText } from "components/atoms";
@@ -18,7 +18,7 @@ const timelineSizeInMinutes = getTimelineSizeInMinutes();
 const useStyles = makeStyles((theme) => ({
   rulerContainer: {
     backgroundColor: theme.palette.background.default,
-    padding: `${theme.spacing(1)}px 0`,
+    padding: `${theme.spacing(1)} 0`,
   },
   rulerTimeContainer: {
     position: "absolute",

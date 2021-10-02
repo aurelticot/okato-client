@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { ThemeProvider, Theme } from "@material-ui/core/styles";
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  Theme,
+} from "@mui/material/styles";
 import { getTheme } from "lib/themes";
 import { useUserSetting } from "lib/hooks";
 import { SettingKey } from "lib/types";
+
+declare module "@mui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 const useSystemTheme = (): string => {
   const systemDarkThemeMatcher = window.matchMedia(
@@ -45,14 +54,16 @@ export const ThemesProvider: React.FunctionComponent = (props) => {
   }, [systemTheme, userTheme]);
 
   return (
-    <ThemeProvider theme={appliedTheme}>
-      <Helmet>
-        <meta
-          name="theme-color"
-          content={appliedTheme.palette.background.default}
-        />
-      </Helmet>
-      {props.children}
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={appliedTheme}>
+        <Helmet>
+          <meta
+            name="theme-color"
+            content={appliedTheme.palette.background.default}
+          />
+        </Helmet>
+        {props.children}
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };

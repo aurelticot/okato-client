@@ -6,8 +6,8 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/material";
 import { routes } from "lib/constants";
 import { sendPageView } from "lib/utils";
 import { TopBar } from "components/organisms";
@@ -19,7 +19,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: `0 ${theme.spacing(1)}px`,
+    padding: `0 ${theme.spacing(1)}`,
   },
   appContainer: theme.mixins.toolbar,
   dialogContent: {
