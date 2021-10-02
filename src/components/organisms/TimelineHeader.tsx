@@ -3,7 +3,6 @@ import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, useTheme, useMediaQuery } from "@material-ui/core";
 import { Market, MarketStatus } from "lib/types";
-import { useMarketStatus, useMarketNextEvent } from "lib/hooks";
 import { FluidText } from "components/atoms";
 import {
   Clock,
@@ -11,7 +10,11 @@ import {
   MarketTitle,
   MarketNextEvent,
 } from "components/molecules";
-import { getFluidTextValues } from "lib/utils";
+import {
+  getFluidTextValues,
+  getMarketNextEvent,
+  getMarketStatus,
+} from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 
@@ -79,12 +82,16 @@ interface Props {
 
 export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const { baseTime, market } = props;
-  const status = useMarketStatus(
+  const status = getMarketStatus(
+    baseTime ? DateTime.fromJSDate(baseTime) : DateTime.local(),
     market,
-    true,
-    baseTime ? DateTime.fromJSDate(baseTime) : undefined
+    true
   );
-  const nextEvent = useMarketNextEvent(market, true);
+  const nextEvent = getMarketNextEvent(
+    baseTime ? DateTime.fromJSDate(baseTime) : DateTime.local(),
+    market,
+    true
+  );
   const theme = useTheme();
   const downSM = useMediaQuery(theme.breakpoints.down("sm"));
 

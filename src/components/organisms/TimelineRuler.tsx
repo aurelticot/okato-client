@@ -1,9 +1,9 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Paper, useMediaQuery, useTheme } from "@material-ui/core";
-import { useFrequency } from "lib/hooks";
-import { oneMinuteInMillis } from "lib/constants";
+import { useScheduleJob } from "lib/hooks";
+import { everyMinuteSchedule } from "lib/constants";
 import { FluidText } from "components/atoms";
 import {
   getTimelineSizeInMinutes,
@@ -140,7 +140,6 @@ interface Props {
 
 export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   const { baseTime } = props;
-  const time = useFrequency(oneMinuteInMillis);
   const initialSegments = resolveRulerSegments();
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
 
@@ -149,9 +148,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
     setSegments(newSegments);
   }, []);
 
-  useEffect(() => {
-    updateSegment();
-  }, [updateSegment, time]);
+  useScheduleJob(everyMinuteSchedule, updateSegment, [updateSegment]);
 
   const theme = useTheme();
   const smUp = useMediaQuery(theme.breakpoints.up("sm"));

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "lib/types";
-import { oneMinuteInMillis } from "lib/constants";
 import { getFluidTextValues } from "lib/utils";
-import { useFrequency } from "lib/hooks";
 import { FluidText } from "components/atoms";
 
 const mainFluidText = getFluidTextValues(0.8);
@@ -16,27 +14,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useRelativeTime = (targetDate: DateTime): string | null => {
-  const time = useFrequency(oneMinuteInMillis);
-  const [relativeTime, setRelativeTime] = useState<string | null>(null);
-
-  useEffect(() => {
-    const now = DateTime.local();
-    if (now > targetDate) {
-      setRelativeTime(null);
+const getRelativeTime = (
+  targetTime: DateTime,
+  baseTime?: DateTime
+): string | null => {
+  const time = baseTime || DateTime.local();
+  if (time > targetTime) {
+    return null;
+  } else {
+    const interval = Interval.fromDateTimes(time, targetTime);
+    const hourCount = interval.length("hours");
+    if (hourCount > 1) {
+      return `${Math.floor(hourCount)}h`;
     } else {
-      const interval = Interval.fromDateTimes(now, targetDate);
-      const hourCount = interval.length("hours");
-      if (hourCount > 1) {
-        setRelativeTime(`${Math.floor(hourCount)}h`);
-      } else {
-        const minuteCount = interval.length("minutes");
-        setRelativeTime(`${Math.floor(minuteCount + 1)}m`);
-      }
+      const minuteCount = interval.length("minutes");
+      return `${Math.floor(minuteCount + 1)}m`;
     }
-  }, [time, targetDate]);
-
-  return relativeTime;
+  }
 };
 
 interface Props {
@@ -50,7 +44,7 @@ export const MarketNextEvent: React.FunctionComponent<Props> = ({
   const classes = useStyles();
   const i18n = useIntl();
 
-  const relativeTime = useRelativeTime(start);
+  const relativeTime = getRelativeTime(start);
 
   if ((!start && !mainStatus) || relativeTime === null) {
     return null;

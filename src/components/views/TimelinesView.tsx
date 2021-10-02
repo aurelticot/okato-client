@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
 import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
-import { oneMinuteInMillis } from "lib/constants";
-import { useUserSetting } from "lib/hooks";
+import { everyMinuteSchedule } from "lib/constants";
+import { useScheduleJob, useUserSetting } from "lib/hooks";
 import { TimelinesContainer } from "components/organisms";
 import { useQuery } from "@apollo/client";
 import { MARKETS } from "lib/graphql/queries";
@@ -34,18 +34,23 @@ const useMarketsData = (selectedMarkets: string[]) => {
     nextFetchPolicy: "cache-first",
   });
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  useScheduleJob(
+    everyMinuteSchedule,
+    () => {
       const updatedTimelineDates = getTimelineDates();
       refetch({
         startDate: updatedTimelineDates.total.start.toISO(),
         endDate: updatedTimelineDates.total.end.toISO(),
       })
-        .then(() => console.debug("refetching completed"))
-        .catch((e) => console.error(e));
-    }, oneMinuteInMillis);
-    return () => clearInterval(timer);
-  }, [refetch]);
+        .then(() => {
+          // Nothing to do here
+        })
+        .catch(() => {
+          // TODO deal with the error
+        });
+    },
+    [refetch]
+  );
 
   return { data, loading, networkStatus, error };
 };
