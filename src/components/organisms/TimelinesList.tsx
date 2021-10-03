@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, CircularProgress, Link, List, ListItem } from "@mui/material";
+import { Box, Link, List, ListItem } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ClearAll as TimelinesIcon } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Market } from "lib/types";
 import { FluidText } from "components/atoms";
+import { TimelineItemSkeleton } from "components/molecules";
 import { TimelineItem, TimelineRuler } from "components/organisms";
 import { getFluidTextValues } from "lib/utils";
 import { routes } from "lib/constants";
@@ -26,13 +27,6 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.custom.mixins.fluidLength(0.5)} 0`,
     position: "inherit",
     display: "block",
-  },
-  loadingContainer: {
-    position: "absolute",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    margin: `${theme.custom.mixins.fluidLength(1)} 0`,
   },
   noMarketContainer: {
     position: "absolute",
@@ -56,11 +50,13 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   markets: Market[] | null;
   baseTime: Date | null;
+  nbMarketsLoading: number;
 }
 
 export const TimelinesList: React.FunctionComponent<Props> = ({
   baseTime,
   markets,
+  nbMarketsLoading,
 }) => {
   const i18n = useIntl();
 
@@ -85,6 +81,17 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
         <ListItem key={`_ruler`} className={classes.timelineListItemRuler}>
           <TimelineRuler baseTime={baseTime} />
         </ListItem>
+        {!markets &&
+          [...Array(nbMarketsLoading || 3).keys()].map((index) => (
+            <>
+              <ListItem
+                key={`_skeleton_${index}`}
+                className={classes.timelineListItem}
+              >
+                <TimelineItemSkeleton />
+              </ListItem>
+            </>
+          ))}
         {markets?.map((market) => {
           return (
             <ListItem key={market.id} className={classes.timelineListItem}>
@@ -107,11 +114,6 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
           <FluidText {...mainFluidText} className={classes.noMarketContent}>
             {selectMarketsAfterLinkMessage}
           </FluidText>
-        </Box>
-      )}
-      {!markets && (
-        <Box className={classes.loadingContainer}>
-          <CircularProgress color="secondary" />
         </Box>
       )}
     </>

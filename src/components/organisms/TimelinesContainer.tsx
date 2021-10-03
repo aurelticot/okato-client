@@ -64,10 +64,12 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   markets: Market[] | null;
+  nbMarketsLoading: number;
 }
 
 export const TimelinesContainer: React.FunctionComponent<Props> = ({
   markets,
+  nbMarketsLoading,
 }) => {
   const [baseTime, setBaseTime] = useBaseTime();
 
@@ -182,7 +184,11 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
         {...{ ref: containerRef }}
       >
         <Box className={classes.innerContainer}>
-          <TimelinesList markets={markets} baseTime={baseTime} />
+          <TimelinesList
+            markets={markets}
+            baseTime={baseTime}
+            nbMarketsLoading={nbMarketsLoading}
+          />
         </Box>
       </Box>
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>

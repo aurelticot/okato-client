@@ -99,5 +99,10 @@ export const TimelinesView: React.FunctionComponent = () => {
     setMarkets(preparedMarkets);
   }, [data, selectedMarkets, marketSort]);
 
-  return <TimelinesContainer markets={markets} />;
+  return (
+    <TimelinesContainer
+      markets={markets}
+      nbMarketsLoading={selectedMarkets.length}
+    />
+  );
 };
