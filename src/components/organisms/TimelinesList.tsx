@@ -75,6 +75,7 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
   });
 
   const classes = useStyles();
+  const nbSkeletons = nbMarketsLoading ? Math.min(nbMarketsLoading, 5) : 5;
   return (
     <>
       <List className={classes.timelineList}>
@@ -82,13 +83,13 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
           <TimelineRuler baseTime={baseTime} />
         </ListItem>
         {!markets &&
-          [...Array(nbMarketsLoading || 3).keys()].map((index) => (
+          [...Array(nbSkeletons).keys()].reverse().map((index) => (
             <>
               <ListItem
                 key={`_skeleton_${index}`}
                 className={classes.timelineListItem}
               >
-                <TimelineItemSkeleton />
+                <TimelineItemSkeleton intensity={(index + 1) / nbSkeletons} />
               </ListItem>
             </>
           ))}

@@ -42,25 +42,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TimelineItemSkeleton: React.FunctionComponent = () => {
+interface Props {
+  intensity?: number;
+}
+
+const minIntensity = 0;
+const maxIntensity = 1;
+const maxAlpha = 0.12;
+
+export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
+  const { intensity = maxIntensity } = props;
   const classes = useStyles();
   const animation = "pulse";
+  const alpha =
+    maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
+  const skeletonColor = `rgba(255, 255, 255, ${alpha})`;
   return (
     <>
       <Box>
         <Box className={classes.headerContainer}>
           <Box className={classes.titleSkeletonWrapper}>
-            <Skeleton variant="text" animation={animation}>
+            <Skeleton
+              variant="text"
+              animation={animation}
+              sx={{ bgcolor: skeletonColor }}
+            >
               <FluidText {...fluidText}>London</FluidText>
             </Skeleton>
           </Box>
           <Box className={classes.clockSkeletonWrapper}>
-            <Skeleton variant="text" animation={animation}>
+            <Skeleton
+              variant="text"
+              animation={animation}
+              sx={{ bgcolor: skeletonColor }}
+            >
               <FluidText {...fluidText}>23:59</FluidText>
             </Skeleton>
           </Box>
           <Box className={classes.nextEventSkeletonWrapper}>
-            <Skeleton variant="text" animation={animation}>
+            <Skeleton
+              variant="text"
+              animation={animation}
+              sx={{ bgcolor: skeletonColor }}
+            >
               <FluidText {...fluidText}>open in 24h</FluidText>
             </Skeleton>
           </Box>
@@ -73,6 +97,7 @@ export const TimelineItemSkeleton: React.FunctionComponent = () => {
         <Skeleton
           variant="rectangular"
           animation={animation}
+          sx={{ bgcolor: skeletonColor }}
           width="100%"
           height="100%"
         />
