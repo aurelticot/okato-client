@@ -4,6 +4,7 @@ import { GraphqlProvider } from "./GraphqlContext";
 import { UserSettingsProvider } from "./UserSettingsContext";
 import { MessagesProvider } from "./MessagesContext";
 import { ThemesProvider } from "./ThemesContext";
+import { FeedbackProvider } from "./FeedbackContext";
 
 export const AppContextProvider: React.FunctionComponent = (props) => {
   return (
@@ -11,7 +12,9 @@ export const AppContextProvider: React.FunctionComponent = (props) => {
       <GraphqlProvider>
         <UserSettingsProvider>
           <MessagesProvider>
-            <ThemesProvider>{props.children}</ThemesProvider>
+            <ThemesProvider>
+              <FeedbackProvider>{props.children}</FeedbackProvider>
+            </ThemesProvider>
           </MessagesProvider>
         </UserSettingsProvider>
       </GraphqlProvider>
