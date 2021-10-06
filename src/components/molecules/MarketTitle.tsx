@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
 import {
   Brightness1 as FullCircle,
@@ -11,19 +10,6 @@ import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "baseline",
-    justifyContent: "flex-start",
-    whiteSpace: "nowrap",
-  },
-  statusIcon: {
-    fontSize: theme.custom.mixins.fluidLength(0.7),
-    marginRight: theme.spacing(0.5),
-  },
-}));
-
 interface Props {
   name: string;
   status: MarketStatus;
@@ -32,13 +18,29 @@ interface Props {
 export const MarketTitle: React.FunctionComponent<Props> = (props) => {
   const { name, status } = props;
 
-  const classes = useStyles(props);
   return (
-    <Box className={classes.root}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "baseline",
+        justifyContent: "flex-start",
+        whiteSpace: "nowrap",
+      }}
+    >
       {status === MarketStatus.OPEN ? (
-        <FullCircle className={classes.statusIcon} />
+        <FullCircle
+          sx={{
+            fontSize: (theme) => theme.custom.mixins.fluidLength(0.7),
+            mr: 0.5,
+          }}
+        />
       ) : (
-        <HollowedCircle className={classes.statusIcon} />
+        <HollowedCircle
+          sx={{
+            fontSize: (theme) => theme.custom.mixins.fluidLength(0.7),
+            mr: 0.5,
+          }}
+        />
       )}
       <FluidText {...mainFluidText}>{name}</FluidText>
     </Box>

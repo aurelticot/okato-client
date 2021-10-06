@@ -10,9 +10,6 @@ import {
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  dialogContent: {
-    padding: theme.spacing(1),
-  },
   dialogContainer: {
     backgroundColor: theme.palette.background.default,
   },
@@ -53,9 +50,7 @@ export const AppDialog: React.FunctionComponent<Props> = ({
       }
     >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent className={classes.dialogContent}>
-        {children}
-      </DialogContent>
+      <DialogContent sx={{ p: 0 }}>{children}</DialogContent>
       <DialogActions>{actions}</DialogActions>
     </Dialog>
   );

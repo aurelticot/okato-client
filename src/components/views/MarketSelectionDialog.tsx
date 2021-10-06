@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { Box, Button, CircularProgress } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { SettingKey, MarketSortingMethod } from "lib/types";
 import { useUserSetting } from "lib/hooks";
 import { useQuery } from "@apollo/client";
@@ -14,16 +13,6 @@ import { AppDialog } from "components/molecules";
 import { MarketSelectionList } from "components/organisms";
 
 const PAGE_LIMIT = 20;
-
-const useStyles = makeStyles(() => ({
-  progressWrapper: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
 
 interface Props {
   open: boolean;
@@ -90,8 +79,6 @@ export const MarketSelectionDialog: React.FunctionComponent<Props> = ({
     defaultMessage: "Select Markets",
   });
 
-  const classes = useStyles();
-
   return (
     <AppDialog
       title={marketSelectionModalTitle}
@@ -111,7 +98,15 @@ export const MarketSelectionDialog: React.FunctionComponent<Props> = ({
           onSelection={handleSelection}
         />
       ) : (
-        <Box className={classes.progressWrapper}>
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <CircularProgress color="secondary" />
         </Box>
       )}

@@ -16,23 +16,6 @@ import { useIntl } from "react-intl";
 const timelineSizeInMinutes = getTimelineSizeInMinutes();
 
 const useStyles = makeStyles((theme) => ({
-  rulerContainer: {
-    backgroundColor: theme.palette.background.default,
-    padding: `${theme.spacing(1)} 0`,
-  },
-  rulerTimeContainer: {
-    position: "absolute",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-  },
-  ruler: {
-    display: "flex",
-    color: theme.palette.text.disabled,
-  },
-  daySegment: {
-    borderLeft: `1px solid ${theme.palette.text.secondary}`,
-  },
   daySegmentContent: {
     paddingLeft: "0.25em",
     whiteSpace: "nowrap",
@@ -42,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.075,
     height: "1.075em",
     margin: "0.4em 0",
-  },
-  hourSegmentsContainer: {
-    display: "flex",
   },
   hourSegmentContent: {
     "paddingLeft": "0.25em",
@@ -156,17 +136,37 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   const i18n = useIntl();
   const classes = useStyles();
   return (
-    <Paper className={classes.rulerContainer} elevation={0}>
-      <Box className={classes.rulerTimeContainer}>
+    <Paper
+      sx={{
+        backgroundColor: "background.default",
+        py: 1,
+        px: 0,
+      }}
+      elevation={0}
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <TimelineRulerTime baseTime={baseTime} />
       </Box>
-      <Box className={classes.ruler}>
+      <Box
+        sx={{
+          display: "flex",
+          color: "text.disabled",
+        }}
+      >
         {segments.map((daySegment) => {
           return (
             <Box
               key={daySegment.start}
-              className={classes.daySegment}
-              style={{
+              sx={{
+                borderLeft: (theme) =>
+                  `1px solid ${theme.palette.text.secondary}`,
                 width: `${
                   (daySegment.duration * 100) / timelineSizeInMinutes
                 }%`,
@@ -179,7 +179,11 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                 {i18n.formatDate(daySegment.date, { weekday: "long" })}
               </FluidText>
 
-              <Box className={classes.hourSegmentsContainer}>
+              <Box
+                sx={{
+                  display: "flex",
+                }}
+              >
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
                     <FluidText

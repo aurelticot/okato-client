@@ -14,28 +14,6 @@ import { routes } from "lib/constants";
 const mainFluidText = getFluidTextValues(1.1);
 
 const useStyles = makeStyles((theme) => ({
-  timelineList: {
-    position: "inherit",
-    padding: "0",
-  },
-  timelineListItemRuler: {
-    padding: `0`,
-    position: "inherit",
-    display: "block",
-  },
-  timelineListItem: {
-    padding: `${theme.custom.mixins.fluidLength(0.5)} 0`,
-    position: "inherit",
-    display: "block",
-  },
-  noMarketContainer: {
-    position: "absolute",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    margin: `${theme.custom.mixins.fluidLength(1)} 0`,
-  },
   noMarketContent: {
     margin: "auto",
   },
@@ -78,8 +56,20 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
   const nbSkeletons = nbMarketsLoading ? Math.min(nbMarketsLoading, 5) : 5;
   return (
     <>
-      <List className={classes.timelineList}>
-        <ListItem key={`_ruler`} className={classes.timelineListItemRuler}>
+      <List
+        sx={{
+          position: "inherit",
+          p: 0,
+        }}
+      >
+        <ListItem
+          key={`_ruler`}
+          sx={{
+            p: 0,
+            position: "inherit",
+            display: "block",
+          }}
+        >
           <TimelineRuler baseTime={baseTime} />
         </ListItem>
         {!markets &&
@@ -87,7 +77,12 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
             <>
               <ListItem
                 key={`_skeleton_${index}`}
-                className={classes.timelineListItem}
+                sx={{
+                  py: (theme) => theme.custom.mixins.fluidLength(0.5),
+                  px: 0,
+                  position: "inherit",
+                  display: "block",
+                }}
               >
                 <TimelineItemSkeleton intensity={(index + 1) / nbSkeletons} />
               </ListItem>
@@ -95,14 +90,32 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
           ))}
         {markets?.map((market) => {
           return (
-            <ListItem key={market.id} className={classes.timelineListItem}>
+            <ListItem
+              key={market.id}
+              sx={{
+                py: (theme) => theme.custom.mixins.fluidLength(0.5),
+                px: 0,
+                position: "inherit",
+                display: "block",
+              }}
+            >
               <TimelineItem baseTime={baseTime} market={market} />
             </ListItem>
           );
         })}
       </List>
       {markets?.length === 0 && (
-        <Box className={classes.noMarketContainer}>
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            my: (theme) => theme.custom.mixins.fluidLength(1),
+            mx: 0,
+          }}
+        >
           <TimelinesIcon
             color="disabled"
             className={`${classes.noMarketContent} ${classes.noMarketIcon}`}

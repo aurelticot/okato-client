@@ -8,22 +8,7 @@ import {
   Switch,
 } from "@mui/material";
 import { Room as LocationIcon } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import { Markets_markets_result as Market } from "lib/graphql/queries/Markets/types/Markets";
-
-const useStyles = makeStyles((theme) => ({
-  list: {
-    padding: "0",
-  },
-  secondaryTextWrapper: {
-    display: "flex",
-    alignItems: "center",
-  },
-  secondaryTextIcon: {
-    fontSize: "0.875rem",
-    marginRight: theme.spacing(0.5),
-  },
-}));
 
 interface Props {
   markets: Market[] | null;
@@ -36,9 +21,8 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
   selection,
   onSelection,
 }) => {
-  const classes = useStyles();
   return (
-    <List className={classes.list}>
+    <List sx={{ p: 0 }}>
       {markets &&
         markets.map((market) => {
           const itemId = `switch-list-label-${market.id}`;
@@ -50,9 +34,17 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
                 secondary={
                   <Box
                     component={"span"}
-                    className={classes.secondaryTextWrapper}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                   >
-                    <LocationIcon className={classes.secondaryTextIcon} />
+                    <LocationIcon
+                      sx={{
+                        fontSize: "0.875rem",
+                        mr: 0.5,
+                      }}
+                    />
                     {` ${market.city}`}
                   </Box>
                 }

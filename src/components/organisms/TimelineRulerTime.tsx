@@ -1,40 +1,7 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import { Badge, Box, Tooltip } from "@mui/material";
 import { AppDate, Clock, RealTimeClock } from "components/molecules";
 import { useIntl } from "react-intl";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "stretch",
-  },
-  timeContainer: {
-    backgroundColor: theme.palette.background.default,
-    paddingRight: theme.custom.mixins.fluidLength(0.75),
-    paddingLeft: theme.custom.mixins.fluidLength(0.75),
-    paddingBottom: theme.spacing(0.5),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  refreshIconWrapper: {
-    height: "1.875em",
-    lineHeight: "1.875",
-  },
-  refreshIcon: {
-    fontSize: "inherit",
-  },
-  shadowBorder: {
-    width: theme.custom.mixins.fluidLength(1.5),
-  },
-  shadowBorderLeft: {
-    background: `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
-  },
-  shadowBorderRight: {
-    background: `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
-  },
-}));
 
 interface Props {
   baseTime: Date | null;
@@ -59,10 +26,20 @@ export const TimelineRulerTime: React.FunctionComponent<Props> = (props) => {
     ? backToRealtimeTooltipMessage
     : displayingRealtimeTooltipMessage;
 
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Box className={`${classes.shadowBorder} ${classes.shadowBorderLeft}`} />
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "stretch",
+      }}
+    >
+      <Box
+        sx={{
+          width: (theme) => theme.custom.mixins.fluidLength(1.5),
+          background: (theme) =>
+            `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
       <Tooltip
         title={realtimeTooltip}
         aria-label={realtimeTooltip}
@@ -70,7 +47,17 @@ export const TimelineRulerTime: React.FunctionComponent<Props> = (props) => {
         placement="top"
         disableFocusListener
       >
-        <Box className={classes.timeContainer}>
+        <Box
+          sx={{
+            backgroundColor: "background.default",
+            paddingRight: (theme) => theme.custom.mixins.fluidLength(0.75),
+            paddingLeft: (theme) => theme.custom.mixins.fluidLength(0.75),
+            pb: 0.5,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <AppDate time={baseTime} />
           {baseTime ? (
             <Badge
@@ -85,7 +72,13 @@ export const TimelineRulerTime: React.FunctionComponent<Props> = (props) => {
           )}
         </Box>
       </Tooltip>
-      <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
+      <Box
+        sx={{
+          width: (theme) => theme.custom.mixins.fluidLength(1.5),
+          background: (theme) =>
+            `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
     </Box>
   );
 };

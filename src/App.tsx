@@ -6,7 +6,7 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { routes } from "lib/constants";
 import { sendPageView } from "lib/utils";
@@ -17,18 +17,7 @@ import {
   TimelinesView,
 } from "components/views";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: `0 ${theme.spacing(1)}`,
-  },
-  appContainer: theme.mixins.toolbar,
-  dialogContent: {
-    padding: theme.spacing(1),
-  },
-  dialogContainer: {
-    backgroundColor: theme.palette.background.default,
-  },
-}));
+const TopBarOffset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 export const App: React.FunctionComponent = () => {
   const history = useHistory();
@@ -52,11 +41,10 @@ export const App: React.FunctionComponent = () => {
     );
   }, [settingsRouteMatch, marketSelectionRouteMatch]);
 
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <Box sx={{ px: 1 }}>
       <TopBar />
-      <Box className={classes.appContainer} />
+      <TopBarOffset />
       <Switch>
         <Route
           path={[routes.home, routes.settings, routes.marketSelection]}

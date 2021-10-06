@@ -6,39 +6,9 @@ import { getFluidTextValues } from "lib/utils";
 
 const fluidText = getFluidTextValues(1);
 
-const useStyles = makeStyles((theme) => ({
-  timelineSkeletonWrapper: {
-    height: `clamp(3rem, 8vmin, 8rem)`,
-  },
+const useStyles = makeStyles(() => ({
   headerPlaceholder: {
     visibility: "hidden",
-  },
-  headerContainer: {
-    width: "100%",
-    padding: `0 ${theme.spacing(1)}`,
-    position: "absolute",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    whiteSpace: "nowrap",
-  },
-  titleSkeletonWrapper: {
-    flexBasis: "25%",
-    maxWidth: "25%",
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-  clockSkeletonWrapper: {
-    flexBasis: "50%",
-    maxWidth: "50%",
-    display: "flex",
-    justifyContent: "center",
-  },
-  nextEventSkeletonWrapper: {
-    flexBasis: "25%",
-    maxWidth: "25%",
-    display: "flex",
-    justifyContent: "flex-end",
   },
 }));
 
@@ -58,10 +28,28 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
     maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
   const skeletonColor = `rgba(255, 255, 255, ${alpha})`;
   return (
-    <>
+    <Box>
       <Box>
-        <Box className={classes.headerContainer}>
-          <Box className={classes.titleSkeletonWrapper}>
+        <Box
+          sx={{
+            width: "100%",
+            px: 1,
+            py: 0,
+            position: "absolute",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <Box
+            sx={{
+              flexBasis: "25%",
+              maxWidth: "25%",
+              display: "flex",
+              justifyContent: "flex-start",
+            }}
+          >
             <Skeleton
               variant="text"
               animation={animation}
@@ -70,7 +58,14 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
               <FluidText {...fluidText}>London</FluidText>
             </Skeleton>
           </Box>
-          <Box className={classes.clockSkeletonWrapper}>
+          <Box
+            sx={{
+              flexBasis: "50%",
+              maxWidth: "50%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Skeleton
               variant="text"
               animation={animation}
@@ -79,7 +74,14 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
               <FluidText {...fluidText}>23:59</FluidText>
             </Skeleton>
           </Box>
-          <Box className={classes.nextEventSkeletonWrapper}>
+          <Box
+            sx={{
+              flexBasis: "25%",
+              maxWidth: "25%",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
             <Skeleton
               variant="text"
               animation={animation}
@@ -93,7 +95,11 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
           {"\u00A0"}
         </FluidText>
       </Box>
-      <Box className={classes.timelineSkeletonWrapper}>
+      <Box
+        sx={{
+          height: `clamp(3rem, 8vmin, 8rem)`,
+        }}
+      >
         <Skeleton
           variant="rectangular"
           animation={animation}
@@ -102,6 +108,6 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
           height="100%"
         />
       </Box>
-    </>
+    </Box>
   );
 };

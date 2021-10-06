@@ -7,7 +7,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { Refresh as ResyncIcon } from "@mui/icons-material";
 import { DateTime } from "luxon";
 import { Market } from "lib/types";
@@ -23,44 +22,6 @@ import { useIntl } from "react-intl";
 const timelineSizeInHours = getTimelineSizeInHours();
 const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
 const timelineVisibleSizeInHours = getTimelineVisibleSizeInHours();
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: "relative",
-  },
-  shadowBorder: {
-    width: theme.spacing(1),
-    position: "absolute",
-    minHeight: "100%",
-    zIndex: 100,
-  },
-  shadowBorderLeft: {
-    top: "0",
-    left: "0",
-    background: `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
-  },
-  shadowBorderRight: {
-    top: "0",
-    right: "0",
-    background: `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
-  },
-  container: {
-    width: "100%",
-    overflow: "auto",
-  },
-  innerContainer: {
-    width: `${(timelineSizeInHours * 100) / timelineVisibleSizeInHours}%`,
-  },
-  resyncFab: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(3),
-    zIndex: 100,
-  },
-  resyncFabExtendedText: {
-    marginLeft: theme.spacing(1),
-  },
-}));
 
 interface Props {
   markets: Market[] | null;
@@ -173,17 +134,51 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     defaultMessage: "Real-time",
   });
 
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Box className={`${classes.shadowBorder} ${classes.shadowBorderLeft}`} />
-      <Box className={`${classes.shadowBorder} ${classes.shadowBorderRight}`} />
+    <Box
+      sx={{
+        position: "relative",
+      }}
+    >
       <Box
-        className={classes.container}
+        sx={{
+          width: (theme) => theme.spacing(1),
+          position: "absolute",
+          minHeight: "100%",
+          zIndex: 100,
+          top: "0",
+          left: "0",
+          background: (theme) =>
+            `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
+      <Box
+        sx={{
+          width: (theme) => theme.spacing(1),
+          position: "absolute",
+          minHeight: "100%",
+          zIndex: 100,
+          top: "0",
+          right: "0",
+          background: (theme) =>
+            `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
+      <Box
+        sx={{
+          width: "100%",
+          overflow: "auto",
+        }}
         onScroll={handleScroll}
         {...{ ref: containerRef }}
       >
-        <Box className={classes.innerContainer}>
+        <Box
+          sx={{
+            width: `${
+              (timelineSizeInHours * 100) / timelineVisibleSizeInHours
+            }%`,
+          }}
+        >
           <TimelinesList
             markets={markets}
             baseTime={baseTime}
@@ -195,12 +190,21 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
         <Fab
           color="primary"
           variant={upMd ? "extended" : "circular"}
-          className={classes.resyncFab}
+          sx={{
+            position: "fixed",
+            bottom: (theme) => theme.spacing(2),
+            right: (theme) => theme.spacing(3),
+            zIndex: 100,
+          }}
           onClick={handleBackToRealTime}
         >
           <ResyncIcon />
           {upMd && (
-            <Typography className={classes.resyncFabExtendedText}>
+            <Typography
+              sx={{
+                ml: 1,
+              }}
+            >
               {resyncRealtimeButtonLabel}
             </Typography>
           )}

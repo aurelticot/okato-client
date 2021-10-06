@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import {
   AppBar,
   Toolbar,
@@ -13,16 +12,6 @@ import { MoreVert as MoreIcon } from "@mui/icons-material";
 import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { routes } from "lib/constants";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: theme.palette.background.default,
-    color: theme.palette.text.primary,
-  },
-  appTitle: {
-    flexGrow: 1,
-  },
-}));
 
 export const TopBar: React.FunctionComponent = () => {
   const history = useHistory();
@@ -61,11 +50,22 @@ export const TopBar: React.FunctionComponent = () => {
     defaultMessage: "Settings",
   });
 
-  const classes = useStyles();
   return (
-    <AppBar position="fixed" className={classes.appBar} elevation={0}>
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: `background.default`,
+        color: `text.primary`,
+      }}
+      elevation={0}
+    >
       <Toolbar>
-        <Typography variant="h6" className={classes.appTitle}>
+        <Typography
+          variant="h6"
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           {appTitle}
         </Typography>
         <Box>

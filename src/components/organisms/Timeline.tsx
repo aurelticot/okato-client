@@ -1,44 +1,10 @@
 import React from "react";
 import { Box, Divider } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { TimelineSegment as TimelineSegmentType } from "lib/types";
 import { getTimelineSizeInMinutes } from "lib/utils";
 import { TimelineSegment, TimelineSegmentDefault } from "components/atoms";
 
 const timelineSize = getTimelineSizeInMinutes();
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: `clamp(3rem, 8vmin, 8rem)`,
-  },
-  timelineWrapper: {
-    position: "relative",
-    height: "100%",
-  },
-  timeMarker: {
-    width: "2px",
-    opacity: "100%",
-    backgroundColor: theme.palette.grey[400],
-    boxShadow: theme.shadows[3],
-  },
-  baseTimeMarker: {
-    position: "absolute",
-    left: "calc(50% - 1px)",
-    zIndex: 10,
-    height: `clamp(3rem, 8vmin, 8rem)`,
-  },
-  nowTimeMarker: {
-    position: "absolute",
-    left: "calc(50% - 1px)",
-    zIndex: 10,
-    backgroundColor: theme.palette.primary.main,
-  },
-  timeline: {
-    display: "flex",
-    height: "100%",
-    boxShadow: theme.shadows[3],
-  },
-}));
 
 interface Props {
   segments: TimelineSegmentType[];
@@ -62,23 +28,54 @@ export const Timeline: React.FunctionComponent<Props> = (props) => {
     );
   });
 
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <Box
+      sx={{
+        height: `clamp(3rem, 8vmin, 8rem)`,
+      }}
+    >
       {!hideBaseTimeMarker && (
         <Divider
           orientation="vertical"
-          className={`${classes.timeMarker} ${classes.baseTimeMarker}`}
+          sx={{
+            height: `clamp(3rem, 8vmin, 8rem)`,
+            width: "2px",
+            opacity: "100%",
+            backgroundColor: (theme) => theme.palette.grey[400],
+            boxShadow: 3,
+            position: "absolute",
+            left: "calc(50% - 1px)",
+            zIndex: 10,
+          }}
         />
       )}
-      <Box className={classes.timelineWrapper}>
+      <Box
+        sx={{
+          position: "relative",
+          height: "100%",
+        }}
+      >
         {!hideNowTimeMarker && (
           <Divider
             orientation="vertical"
-            className={`${classes.timeMarker} ${classes.nowTimeMarker}`}
+            sx={{
+              width: "2px",
+              opacity: "100%",
+              backgroundColor: "primary.main",
+              boxShadow: 3,
+              position: "absolute",
+              left: "calc(50% - 1px)",
+              zIndex: 10,
+            }}
           />
         )}
-        <Box className={classes.timeline}>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            boxShadow: 3,
+          }}
+        >
           {timelineSegments.length > 0 ? (
             timelineSegments
           ) : (

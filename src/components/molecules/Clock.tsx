@@ -6,26 +6,6 @@ import { FluidText } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    display: "flex",
-    alignItems: "baseline",
-    whiteSpace: "nowrap",
-  },
-  timePrefix: {
-    flex: "1",
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  timeSuffix: {
-    flex: "1",
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-  time: {
-    display: "flex",
-    justifyContent: "center",
-  },
   timezone: {
     marginLeft: theme.custom.mixins.fluidLength(0.2),
     textTransform: "uppercase",
@@ -69,20 +49,27 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.timePrefix}>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "baseline",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <Box sx={{ flex: "1", display: "flex", justifyContent: "flex-end" }}>
         {displayDayDiff && displayedDayDiff && (
           <FluidText {...subFluidText} className={classes.dayDiff}>
             {displayedDayDiff}
           </FluidText>
         )}
       </Box>
-      <Box className={classes.time}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <FluidText {...mainFluidText}>{workingTime.toFormat("HH")}</FluidText>
         <FluidText {...mainFluidText}>:</FluidText>
         <FluidText {...mainFluidText}>{workingTime.toFormat("mm")}</FluidText>
       </Box>
-      <Box className={classes.timeSuffix}>
+      <Box sx={{ flex: "1", display: "flex", justifyContent: "flex-start" }}>
         {displaySeconds && <FluidText {...mainFluidText}>:</FluidText>}
         {displaySeconds && (
           <FluidText {...mainFluidText}>{workingTime.toFormat("ss")}</FluidText>

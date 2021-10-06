@@ -22,29 +22,6 @@ const useStyles = makeStyles((theme) => ({
   timelineHeaderPlaceholder: {
     visibility: "hidden",
   },
-  timelineHeaderWrapper: {
-    width: "100%",
-    padding: `0 ${theme.spacing(1)}`,
-    position: "absolute",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    whiteSpace: "nowrap",
-  },
-  componentTitle: {
-    flexBasis: "25%",
-    maxWidth: "25%",
-  },
-  componentClock: {
-    flexBasis: "50%",
-    maxWidth: "50%",
-  },
-  componentNextEvent: {
-    flexBasis: "25%",
-    maxWidth: "25%",
-    display: "flex",
-    justifyContent: "flex-end",
-  },
   marketOpen: {
     color: theme.custom.palette.marketStatus.open.main,
   },
@@ -101,11 +78,35 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const marketStatusClass = defineMarketStatusClass(status, classes);
   return (
     <Box>
-      <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
-        <Box className={classes.componentTitle}>
+      <Box
+        sx={{
+          width: "100%",
+          px: 1,
+          py: 0,
+          position: "absolute",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          whiteSpace: "nowrap",
+        }}
+        className={marketStatusClass}
+      >
+        <Box
+          sx={{
+            flexBasis: "25%",
+            maxWidth: "25%",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
           <MarketTitle name={marketTitle} status={status} />
         </Box>
-        <Box className={classes.componentClock}>
+        <Box
+          sx={{
+            flexBasis: "50%",
+            maxWidth: "50%",
+          }}
+        >
           {baseTime && (
             <Clock
               time={baseTime}
@@ -122,7 +123,14 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
             />
           )}
         </Box>
-        <Box className={classes.componentNextEvent}>
+        <Box
+          sx={{
+            flexBasis: "25%",
+            maxWidth: "25%",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           {nextEvent && !baseTime && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>

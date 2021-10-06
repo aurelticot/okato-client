@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { List } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { SettingDialogConfiguration } from "lib/types";
 import {
   SettingSelectionDialog,
@@ -8,12 +7,6 @@ import {
   MarketSortSettingItem,
   ThemeSettingItem,
 } from "components/organisms";
-
-const useStyles = makeStyles((_theme) => ({
-  list: {
-    padding: "0",
-  },
-}));
 
 const emptyDialogProps: SettingDialogConfiguration = {
   title: "",
@@ -39,10 +32,9 @@ export const SettingsList: React.FunctionComponent = () => {
     setDialogOpen(false);
   };
 
-  const classes = useStyles();
   return (
     <>
-      <List className={classes.list}>
+      <List sx={{ p: 0 }}>
         <ThemeSettingItem onClick={openDialog} />
         <LanguageSettingItem onClick={openDialog} />
         <MarketSortSettingItem onClick={openDialog} />
