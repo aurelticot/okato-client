@@ -6,5 +6,8 @@ export const dark = createTheme({
   palette: {
     ...baseOptions.palette,
     mode: "dark",
+    background: {
+      default: "#303030",
+    },
   },
 });
