@@ -1,41 +1,51 @@
 import React from "react";
-import { Box } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import {
   MarketStatus,
   TimelineSegment as TimelineSegmentType,
 } from "lib/types";
 
-const useMarketStatusStyles = makeStyles((theme) => ({
-  statusOpen: {
+const PREFIX = "TimelineSegment";
+
+const classes = {
+  statusOpen: `${PREFIX}-status-open`,
+  statusBreak: `${PREFIX}-status-break`,
+  statusClose: `${PREFIX}-status-close`,
+  statusCloseSpecial: `${PREFIX}-status-close-special`,
+  statusBeforeMarket: `${PREFIX}-status-before-market`,
+  statusAfterMarket: `${PREFIX}-status-after-market`,
+};
+
+const StyledSegment = styled("div")(({ theme }) => ({
+  [`&.${classes.statusOpen}`]: {
     background: theme.custom.palette.marketStatus.open.main,
     opacity: "100%",
   },
-  statusBreak: {
+  [`&.${classes.statusBreak}`]: {
     background: theme.custom.palette.marketStatus.open.main,
     opacity: "100%",
     backgroundImage:
       "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
-  statusClose: {
+  [`&.${classes.statusClose}`]: {
     background: theme.custom.palette.marketStatus.close.light,
     opacity: "25%",
     backgroundImage:
       "repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
-  statusCloseSpecial: {
+  [`&.${classes.statusCloseSpecial}`]: {
     background: theme.custom.palette.marketStatus.close.main,
     opacity: "100%",
     backgroundImage:
       "repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,.2) 5px, rgba(255,255,255,.2) 10px)",
   },
-  statusBeforeMarket: {
+  [`&.${classes.statusBeforeMarket}`]: {
     background: theme.custom.palette.marketStatus.extended.main,
     opacity: "80%",
     backgroundImage:
       "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
-  statusAfterMarket: {
+  [`&.${classes.statusAfterMarket}`]: {
     background: theme.custom.palette.marketStatus.extended.main,
     opacity: "80%",
     backgroundImage:
@@ -43,10 +53,7 @@ const useMarketStatusStyles = makeStyles((theme) => ({
   },
 }));
 
-const defineSegmentClass = (
-  status: MarketStatus,
-  classes: Record<string, string>
-): string => {
+const getSegmentClass = (status: MarketStatus): string => {
   switch (status) {
     case MarketStatus.OPEN:
       return classes.statusOpen;
@@ -75,12 +82,11 @@ export const TimelineSegment: React.FunctionComponent<Props> = ({
   timelineSize,
 }) => {
   const { duration, start, status } = segment;
-  const classes = useMarketStatusStyles();
-  const segmentClass = defineSegmentClass(status, classes);
+  const segmentClass = getSegmentClass(status);
   return (
-    <Box
-      className={`${segmentClass}`}
-      style={{
+    <StyledSegment
+      className={segmentClass}
+      sx={{
         width: `${(duration * 100) / timelineSize}%`,
         left: `${(start * 100) / timelineSize}%`,
       }}
@@ -89,6 +95,7 @@ export const TimelineSegment: React.FunctionComponent<Props> = ({
 };
 
 export const TimelineSegmentDefault: React.FunctionComponent = () => {
-  const classes = useMarketStatusStyles();
-  return <Box className={`${classes.statusClose}`} style={{ width: "100%" }} />;
+  return (
+    <StyledSegment className={classes.statusClose} sx={{ width: "100%" }} />
+  );
 };
