@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   JobCallback,
   scheduleJob,
@@ -6,43 +6,40 @@ import {
   RecurrenceSpecDateRange,
   RecurrenceSpecObjLit,
 } from "node-schedule";
-import { TimeContext } from "lib/contexts";
+import { everyMinuteSchedule } from "lib/constants";
 
-export const useRealTime = (): Date => {
-  return useContext(TimeContext);
-};
-
-export const useFrequency = (frequency = 500): Date => {
-  const [time, setTime] = useState<Date>(new Date());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, frequency);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [frequency]);
-
-  return time;
-};
+type FrequencyRule =
+  | string
+  | number
+  | Date
+  | RecurrenceRule
+  | RecurrenceSpecDateRange
+  | RecurrenceSpecObjLit;
 
 export const useScheduleJob = (
-  rule:
-    | string
-    | number
-    | Date
-    | RecurrenceRule
-    | RecurrenceSpecDateRange
-    | RecurrenceSpecObjLit,
+  frequencyRule: FrequencyRule,
   jobFunction: JobCallback,
   deps?: React.DependencyList
 ) => {
   useEffect(() => {
-    const job = scheduleJob(rule, jobFunction);
+    const job = scheduleJob(frequencyRule, jobFunction);
     return () => {
       job.cancel();
     };
-  }, [rule, jobFunction, deps]);
+  }, [frequencyRule, jobFunction, deps]);
   return;
+};
+
+export const useRealTime = (
+  frequencyRule: FrequencyRule = everyMinuteSchedule
+): Date => {
+  const [time, setTime] = useState<Date>(new Date());
+  useScheduleJob(
+    frequencyRule,
+    () => {
+      setTime(new Date());
+    },
+    []
+  );
+  return time;
 };
