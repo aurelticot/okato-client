@@ -11,4 +11,5 @@ export * from "./TimelineRuler";
 export * from "./TimelineRulerTime";
 export * from "./TimelinesContainer";
 export * from "./TimelinesList";
+export * from "./TimelinesListSkeleton";
 export * from "./TopBar";

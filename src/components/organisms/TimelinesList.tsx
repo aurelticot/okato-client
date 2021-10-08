@@ -5,8 +5,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Market } from "lib/types";
 import { FluidTypography } from "components/atoms";
-import { TimelineItemSkeleton } from "components/molecules";
-import { TimelineItem, TimelineRuler } from "components/organisms";
+import {
+  TimelineItem,
+  TimelineRuler,
+  TimelinesListSkeleton,
+} from "components/organisms";
 import { getFluidTextValues } from "lib/utils";
 import { routes } from "lib/constants";
 
@@ -39,7 +42,6 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
     defaultMessage: " to display their timelines",
   });
 
-  const nbSkeletons = nbMarketsLoading ? Math.min(nbMarketsLoading, 5) : 5;
   return (
     <>
       <List
@@ -58,22 +60,7 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
         >
           <TimelineRuler baseTime={baseTime} />
         </ListItem>
-        {!markets &&
-          [...Array(nbSkeletons).keys()].reverse().map((index) => (
-            <>
-              <ListItem
-                key={`_skeleton_${index}`}
-                sx={{
-                  py: (theme) => theme.custom.mixins.fluidLength(0.5),
-                  px: 0,
-                  position: "inherit",
-                  display: "block",
-                }}
-              >
-                <TimelineItemSkeleton intensity={(index + 1) / nbSkeletons} />
-              </ListItem>
-            </>
-          ))}
+        {!markets && <TimelinesListSkeleton nbItems={nbMarketsLoading} />}
         {markets?.map((market) => {
           return (
             <ListItem

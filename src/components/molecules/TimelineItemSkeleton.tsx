@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Skeleton } from "@mui/material";
+import { Box, ListItem, Skeleton } from "@mui/material";
 import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
@@ -15,12 +15,19 @@ const maxAlpha = 0.12;
 
 export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
   const { intensity = maxIntensity } = props;
-  const animation = "pulse";
   const alpha =
     maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
   const skeletonColor = `rgba(255, 255, 255, ${alpha})`;
+  const animation = "pulse";
   return (
-    <Box>
+    <ListItem
+      sx={{
+        py: (theme) => theme.custom.mixins.fluidLength(0.5),
+        px: 0,
+        position: "inherit",
+        display: "block",
+      }}
+    >
       <Box>
         <Box
           sx={{
@@ -105,6 +112,6 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
           height="100%"
         />
       </Box>
-    </Box>
+    </ListItem>
   );
 };
