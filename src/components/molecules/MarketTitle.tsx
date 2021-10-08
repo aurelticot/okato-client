@@ -5,7 +5,7 @@ import {
   TripOrigin as HollowedCircle,
 } from "@mui/icons-material";
 import { MarketStatus } from "lib/types";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
@@ -42,7 +42,7 @@ export const MarketTitle: React.FunctionComponent<Props> = (props) => {
           }}
         />
       )}
-      <FluidText {...mainFluidText}>{name}</FluidText>
+      <FluidTypography {...mainFluidText}>{name}</FluidTypography>
     </Box>
   );
 };

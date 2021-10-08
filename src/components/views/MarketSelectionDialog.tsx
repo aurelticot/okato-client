@@ -86,8 +86,12 @@ export const MarketSelectionDialog: React.FunctionComponent<Props> = ({
       onClose={onClose}
       actions={
         <>
-          <Button onClick={handleCancel}>{modalCancelButtonLabel}</Button>
-          <Button onClick={handleApplySelection}>{modalSaveButtonLabel}</Button>
+          <Button onClick={handleCancel} color="inherit">
+            {modalCancelButtonLabel}
+          </Button>
+          <Button onClick={handleApplySelection} color="inherit">
+            {modalSaveButtonLabel}
+          </Button>
         </>
       }
     >

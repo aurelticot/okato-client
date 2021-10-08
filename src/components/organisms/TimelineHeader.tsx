@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import { makeStyles } from "@mui/styles";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { Market, MarketStatus } from "lib/types";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import {
   Clock,
   RealTimeClock,
@@ -19,9 +19,6 @@ import {
 const mainFluidText = getFluidTextValues(1);
 
 const useStyles = makeStyles((theme) => ({
-  timelineHeaderPlaceholder: {
-    visibility: "hidden",
-  },
   marketOpen: {
     color: theme.custom.palette.marketStatus.open.main,
   },
@@ -134,12 +131,14 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
           {nextEvent && !baseTime && <MarketNextEvent nextEvent={nextEvent} />}
         </Box>
       </Box>
-      <FluidText
+      <FluidTypography
         {...mainFluidText}
-        className={classes.timelineHeaderPlaceholder}
+        sx={{
+          visibility: "hidden",
+        }}
       >
         {"\u00A0"}
-      </FluidText>
+      </FluidTypography>
     </Box>
   );
 };

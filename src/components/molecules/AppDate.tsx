@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useRealTime } from "lib/hooks";
 import { DateTime } from "luxon";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
 const mainFluidText = getFluidTextValues(1);
@@ -21,14 +21,14 @@ export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
   });
 
   if (!time) {
-    return <FluidText {...mainFluidText}>{labelToday}</FluidText>;
+    return <FluidTypography {...mainFluidText}>{labelToday}</FluidTypography>;
   }
 
   const realDateTime = DateTime.fromJSDate(realtime);
   const dateTime = DateTime.fromJSDate(time);
 
   if (dateTime.hasSame(realDateTime, "day")) {
-    return <FluidText {...mainFluidText}>{labelToday}</FluidText>;
+    return <FluidTypography {...mainFluidText}>{labelToday}</FluidTypography>;
   }
 
   const labelTomorrow = i18n.formatMessage({
@@ -41,12 +41,20 @@ export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
   });
 
   if (dateTime.hasSame(realDateTime.plus({ days: 1 }), "day")) {
-    return <FluidText {...mainFluidText}>{labelTomorrow}</FluidText>;
+    return (
+      <FluidTypography {...mainFluidText}>{labelTomorrow}</FluidTypography>
+    );
   }
 
   if (dateTime.hasSame(realDateTime.minus({ days: 1 }), "day")) {
-    return <FluidText {...mainFluidText}>{labelYesterday}</FluidText>;
+    return (
+      <FluidTypography {...mainFluidText}>{labelYesterday}</FluidTypography>
+    );
   }
 
-  return <FluidText {...mainFluidText}>{i18n.formatDate(time)}</FluidText>;
+  return (
+    <FluidTypography {...mainFluidText}>
+      {i18n.formatDate(time)}
+    </FluidTypography>
+  );
 };

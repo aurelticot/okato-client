@@ -1,29 +1,16 @@
 import React from "react";
 import { Box, Link, List, ListItem } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { ClearAll as TimelinesIcon } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Market } from "lib/types";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import { TimelineItemSkeleton } from "components/molecules";
 import { TimelineItem, TimelineRuler } from "components/organisms";
 import { getFluidTextValues } from "lib/utils";
 import { routes } from "lib/constants";
 
 const mainFluidText = getFluidTextValues(1.1);
-
-const useStyles = makeStyles((theme) => ({
-  noMarketContent: {
-    margin: "auto",
-  },
-  noMarketIcon: {
-    fontSize: theme.custom.mixins.fluidLength(5),
-  },
-  noMarketMessage: {
-    fontSize: theme.custom.mixins.fluidLength(1.1),
-  },
-}));
 
 interface Props {
   markets: Market[] | null;
@@ -52,7 +39,6 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
     defaultMessage: " to display their timelines",
   });
 
-  const classes = useStyles();
   const nbSkeletons = nbMarketsLoading ? Math.min(nbMarketsLoading, 5) : 5;
   return (
     <>
@@ -118,16 +104,31 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
         >
           <TimelinesIcon
             color="disabled"
-            className={`${classes.noMarketContent} ${classes.noMarketIcon}`}
+            sx={{
+              margin: "auto",
+              fontSize: (theme) => theme.custom.mixins.fluidLength(5),
+            }}
           />
-          <FluidText {...mainFluidText} className={classes.noMarketContent}>
+          <FluidTypography
+            {...mainFluidText}
+            sx={{
+              margin: "auto",
+              fontSize: (theme) => theme.custom.mixins.fluidLength(1.1),
+            }}
+          >
             <Link component={RouterLink} to={routes.marketSelection}>
               {selectMarketsLinkMessage}
             </Link>
-          </FluidText>
-          <FluidText {...mainFluidText} className={classes.noMarketContent}>
+          </FluidTypography>
+          <FluidTypography
+            {...mainFluidText}
+            sx={{
+              margin: "auto",
+              fontSize: (theme) => theme.custom.mixins.fluidLength(1.1),
+            }}
+          >
             {selectMarketsAfterLinkMessage}
-          </FluidText>
+          </FluidTypography>
         </Box>
       )}
     </>

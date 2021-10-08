@@ -1,2 +1,2 @@
-export * from "./FluidText";
+export * from "./FluidTypography";
 export * from "./TimelineSegment";

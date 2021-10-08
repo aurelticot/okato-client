@@ -1,16 +1,9 @@
 import React from "react";
 import { Box, Skeleton } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
 const fluidText = getFluidTextValues(1);
-
-const useStyles = makeStyles(() => ({
-  headerPlaceholder: {
-    visibility: "hidden",
-  },
-}));
 
 interface Props {
   intensity?: number;
@@ -22,7 +15,6 @@ const maxAlpha = 0.12;
 
 export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
   const { intensity = maxIntensity } = props;
-  const classes = useStyles();
   const animation = "pulse";
   const alpha =
     maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
@@ -55,7 +47,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
               animation={animation}
               sx={{ bgcolor: skeletonColor }}
             >
-              <FluidText {...fluidText}>London</FluidText>
+              <FluidTypography {...fluidText}>London</FluidTypography>
             </Skeleton>
           </Box>
           <Box
@@ -71,7 +63,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
               animation={animation}
               sx={{ bgcolor: skeletonColor }}
             >
-              <FluidText {...fluidText}>23:59</FluidText>
+              <FluidTypography {...fluidText}>23:59</FluidTypography>
             </Skeleton>
           </Box>
           <Box
@@ -87,13 +79,18 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
               animation={animation}
               sx={{ bgcolor: skeletonColor }}
             >
-              <FluidText {...fluidText}>open in 24h</FluidText>
+              <FluidTypography {...fluidText}>open in 24h</FluidTypography>
             </Skeleton>
           </Box>
         </Box>
-        <FluidText {...fluidText} className={classes.headerPlaceholder}>
+        <FluidTypography
+          {...fluidText}
+          sx={{
+            visibility: "hidden",
+          }}
+        >
           {"\u00A0"}
-        </FluidText>
+        </FluidTypography>
       </Box>
       <Box
         sx={{

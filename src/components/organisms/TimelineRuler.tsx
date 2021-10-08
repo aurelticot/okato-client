@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { DateTime } from "luxon";
-import { makeStyles } from "@mui/styles";
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { useScheduleJob } from "lib/hooks";
 import { everyMinuteSchedule } from "lib/constants";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import {
   getTimelineSizeInMinutes,
   getTimelineDates,
@@ -14,33 +13,6 @@ import { TimelineRulerTime } from "components/organisms";
 import { useIntl } from "react-intl";
 
 const timelineSizeInMinutes = getTimelineSizeInMinutes();
-
-const useStyles = makeStyles((theme) => ({
-  daySegmentContent: {
-    paddingLeft: "0.25em",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    textTransform: "capitalize",
-    lineHeight: 1.075,
-    height: "1.075em",
-    margin: "0.4em 0",
-  },
-  hourSegmentContent: {
-    "paddingLeft": "0.25em",
-    "whiteSpace": "nowrap",
-    "overflow": "hidden",
-    "textOverflow": "ellipsis",
-    "lineHeight": 1.075,
-    "height": "1.075em",
-    "margin": "0.4em 0",
-    "borderLeft": `1px solid ${theme.palette.text.secondary}`,
-    "&:first-child": {
-      borderLeft: "none",
-    },
-  },
-}));
-
 const dayFluidText = getFluidTextValues(0.8);
 const hourFluidText = getFluidTextValues(0.8);
 
@@ -134,7 +106,6 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
   const smUp = useMediaQuery(theme.breakpoints.up("sm"));
 
   const i18n = useIntl();
-  const classes = useStyles();
   return (
     <Paper
       sx={{
@@ -163,7 +134,7 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
         {segments.map((daySegment) => {
           return (
             <Box
-              key={daySegment.start}
+              key={daySegment.date.toISOString()}
               sx={{
                 borderLeft: (theme) =>
                   `1px solid ${theme.palette.text.secondary}`,
@@ -172,12 +143,23 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
                 }%`,
               }}
             >
-              <FluidText
+              <FluidTypography
                 {...dayFluidText}
-                className={classes.daySegmentContent}
+                sx={{
+                  paddingLeft: "0.25em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  textTransform: "capitalize",
+                  lineHeight: "1.075",
+                  height: "1.075em",
+                  margin: "0.4em 0",
+                }}
               >
-                {i18n.formatDate(daySegment.date, { weekday: "long" })}
-              </FluidText>
+                {i18n.formatDate(daySegment.date, {
+                  weekday: "long",
+                })}
+              </FluidTypography>
 
               <Box
                 sx={{
@@ -186,18 +168,28 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
               >
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
-                    <FluidText
-                      key={hourSegment.start}
+                    <FluidTypography
+                      key={hourSegment.time}
                       {...hourFluidText}
-                      className={classes.hourSegmentContent}
-                      style={{
-                        width: `${
+                      sx={{
+                        "width": `${
                           (hourSegment.duration * 100) / daySegment.duration
                         }%`,
+                        "paddingLeft": "0.25em",
+                        "whiteSpace": "nowrap",
+                        "overflow": "hidden",
+                        "textOverflow": "ellipsis",
+                        "lineHeight": "1.075",
+                        "height": "1.075em",
+                        "margin": "0.4em 0",
+                        "borderLeft": `1px solid ${theme.palette.text.secondary}`,
+                        "&:first-of-type": {
+                          borderLeft: "none",
+                        },
                       }}
                     >
                       {smUp ? hourSegment.time : "\u00A0"}
-                    </FluidText>
+                    </FluidTypography>
                   );
                 })}
               </Box>

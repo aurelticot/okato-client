@@ -1,20 +1,8 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import { DateTime } from "luxon";
 import { Box } from "@mui/material";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
-
-const useStyles = makeStyles((theme) => ({
-  timezone: {
-    marginLeft: theme.custom.mixins.fluidLength(0.2),
-    textTransform: "uppercase",
-  },
-  dayDiff: {
-    textTransform: "uppercase",
-    marginRight: theme.custom.mixins.fluidLength(0.2),
-  },
-}));
 
 const mainFluidText = getFluidTextValues(1);
 const subFluidText = getFluidTextValues(0.6);
@@ -46,8 +34,6 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
     displayedDayDiff = "+1";
   }
 
-  const classes = useStyles();
-
   return (
     <Box
       sx={{
@@ -59,26 +45,43 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
     >
       <Box sx={{ flex: "1", display: "flex", justifyContent: "flex-end" }}>
         {displayDayDiff && displayedDayDiff && (
-          <FluidText {...subFluidText} className={classes.dayDiff}>
+          <FluidTypography
+            {...subFluidText}
+            sx={{
+              textTransform: "uppercase",
+              mr: (theme) => theme.custom.mixins.fluidLength(0.2),
+            }}
+          >
             {displayedDayDiff}
-          </FluidText>
+          </FluidTypography>
         )}
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <FluidText {...mainFluidText}>{workingTime.toFormat("HH")}</FluidText>
-        <FluidText {...mainFluidText}>:</FluidText>
-        <FluidText {...mainFluidText}>{workingTime.toFormat("mm")}</FluidText>
+        <FluidTypography {...mainFluidText}>
+          {workingTime.toFormat("HH")}
+        </FluidTypography>
+        <FluidTypography {...mainFluidText}>:</FluidTypography>
+        <FluidTypography {...mainFluidText}>
+          {workingTime.toFormat("mm")}
+        </FluidTypography>
       </Box>
       <Box sx={{ flex: "1", display: "flex", justifyContent: "flex-start" }}>
-        {displaySeconds && <FluidText {...mainFluidText}>:</FluidText>}
         {displaySeconds && (
-          <FluidText {...mainFluidText}>{workingTime.toFormat("ss")}</FluidText>
+          <FluidTypography {...mainFluidText}>:</FluidTypography>
+        )}
+        {displaySeconds && (
+          <FluidTypography {...mainFluidText}>
+            {workingTime.toFormat("ss")}
+          </FluidTypography>
         )}
         {displayTimezone && (
-          <FluidText
+          <FluidTypography
             {...subFluidText}
-            className={classes.timezone}
-          >{`GMT${workingTime.toFormat("Z")}`}</FluidText>
+            sx={{
+              textTransform: "uppercase",
+              ml: (theme) => theme.custom.mixins.fluidLength(0.2),
+            }}
+          >{`GMT${workingTime.toFormat("Z")}`}</FluidTypography>
         )}
       </Box>
     </Box>

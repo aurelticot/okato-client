@@ -1,18 +1,11 @@
 import React from "react";
-import { makeStyles } from "@mui/styles/";
 import { DateTime, Interval } from "luxon";
 import { useIntl } from "react-intl";
 import { MarketSession } from "lib/types";
 import { getFluidTextValues } from "lib/utils";
-import { FluidText } from "components/atoms";
+import { FluidTypography } from "components/atoms";
 
 const mainFluidText = getFluidTextValues(0.8);
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    color: theme.palette.text.secondary,
-  },
-}));
 
 const getRelativeTime = (
   targetTime: DateTime,
@@ -41,7 +34,6 @@ export const MarketNextEvent: React.FunctionComponent<Props> = ({
   nextEvent,
 }) => {
   const { mainStatus, start } = nextEvent;
-  const classes = useStyles();
   const i18n = useIntl();
 
   const relativeTime = getRelativeTime(start);
@@ -51,7 +43,12 @@ export const MarketNextEvent: React.FunctionComponent<Props> = ({
   }
   const status = mainStatus;
   return (
-    <FluidText {...mainFluidText} className={classes.root}>
+    <FluidTypography
+      {...mainFluidText}
+      sx={{
+        color: `text.secondary`,
+      }}
+    >
       {i18n.formatMessage(
         {
           id: "NextMarketEvent",
@@ -61,6 +58,6 @@ export const MarketNextEvent: React.FunctionComponent<Props> = ({
         },
         { status, relativeTime }
       )}
-    </FluidText>
+    </FluidTypography>
   );
 };

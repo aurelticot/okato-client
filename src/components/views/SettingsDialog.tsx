@@ -32,7 +32,11 @@ export const SettingsDialog: React.FunctionComponent<Props> = ({
       title={settingsModalTitle}
       open={open}
       onClose={onClose}
-      actions={<Button onClick={onClose}>{modalCloseButtonLabel}</Button>}
+      actions={
+        <Button onClick={onClose} color="inherit">
+          {modalCloseButtonLabel}
+        </Button>
+      }
     >
       <SettingsList />
     </AppDialog>
