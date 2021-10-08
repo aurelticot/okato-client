@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 import { SettingKey, MarketSortingMethod } from "lib/types";
 import { useUserSetting } from "lib/hooks";
 import { useQuery } from "@apollo/client";
@@ -95,25 +95,11 @@ export const MarketSelectionDialog: React.FunctionComponent<Props> = ({
         </>
       }
     >
-      {markets ? (
-        <MarketSelectionList
-          markets={markets}
-          selection={selection}
-          onSelection={handleSelection}
-        />
-      ) : (
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <CircularProgress color="secondary" />
-        </Box>
-      )}
+      <MarketSelectionList
+        markets={markets}
+        selection={selection}
+        onSelection={handleSelection}
+      />
     </AppDialog>
   );
 };

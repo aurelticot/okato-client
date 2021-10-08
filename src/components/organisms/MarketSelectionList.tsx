@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Room as LocationIcon } from "@mui/icons-material";
 import { Markets_markets_result as Market } from "lib/graphql/queries/Markets/types/Markets";
+import { MarketSelectionListSkeleton } from "components/organisms";
 
 interface Props {
   markets: Market[] | null;
@@ -23,6 +24,7 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <List sx={{ p: 0 }}>
+      {!markets && <MarketSelectionListSkeleton />}
       {markets &&
         markets.map((market) => {
           const itemId = `switch-list-label-${market.id}`;
