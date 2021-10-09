@@ -28,6 +28,10 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
 }) => {
   const i18n = useIntl();
 
+  if (!markets) {
+    return <TimelinesListSkeleton nbItems={nbMarketsLoading} />;
+  }
+
   const selectMarketsLinkMessage = i18n.formatMessage({
     id: "TimelinesList.selectMarketsLinkMessage",
     description:
@@ -60,22 +64,19 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
         >
           <TimelineRuler baseTime={baseTime} />
         </ListItem>
-        {!markets && <TimelinesListSkeleton nbItems={nbMarketsLoading} />}
-        {markets?.map((market) => {
-          return (
-            <ListItem
-              key={market.id}
-              sx={{
-                py: (theme) => theme.custom.mixins.fluidLength(0.5),
-                px: 0,
-                position: "inherit",
-                display: "block",
-              }}
-            >
-              <TimelineItem baseTime={baseTime} market={market} />
-            </ListItem>
-          );
-        })}
+        {markets?.map((market) => (
+          <ListItem
+            key={market.id}
+            sx={{
+              py: (theme) => theme.custom.mixins.fluidLength(0.5),
+              px: 0,
+              position: "inherit",
+              display: "block",
+            }}
+          >
+            <TimelineItem baseTime={baseTime} market={market} />
+          </ListItem>
+        ))}
       </List>
       {markets?.length === 0 && (
         <Box

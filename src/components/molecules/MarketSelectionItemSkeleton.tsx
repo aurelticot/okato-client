@@ -1,5 +1,12 @@
 import React from "react";
-import { ListItemText, ListItem, Skeleton, Typography } from "@mui/material";
+import {
+  ListItemText,
+  ListItem,
+  Skeleton,
+  Typography,
+  useTheme,
+  alpha,
+} from "@mui/material";
 
 interface Props {
   intensity?: number;
@@ -13,9 +20,10 @@ export const MarketSelectionItemSkeleton: React.FunctionComponent<Props> = (
   props
 ) => {
   const { intensity = maxIntensity } = props;
-  const alpha =
+  const theme = useTheme();
+  const alphaValue =
     maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
-  const skeletonColor = `rgba(255, 255, 255, ${alpha})`;
+  const skeletonColor = alpha(theme.palette.text.primary, alphaValue);
   const animation = "pulse";
   return (
     <ListItem>
@@ -24,7 +32,7 @@ export const MarketSelectionItemSkeleton: React.FunctionComponent<Props> = (
           <Skeleton
             variant="text"
             animation={animation}
-            sx={{ bgcolor: skeletonColor }}
+            sx={{ backgroundColor: skeletonColor }}
           >
             <Typography>LSE - London Stock Exchange</Typography>
           </Skeleton>
@@ -33,7 +41,7 @@ export const MarketSelectionItemSkeleton: React.FunctionComponent<Props> = (
           <Skeleton
             variant="text"
             animation={animation}
-            sx={{ bgcolor: skeletonColor }}
+            sx={{ backgroundColor: skeletonColor }}
           >
             <Typography>London</Typography>
           </Skeleton>

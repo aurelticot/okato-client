@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, ListItem, Skeleton } from "@mui/material";
+import { Box, ListItem, Skeleton, useTheme, alpha } from "@mui/material";
 import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
 
@@ -15,9 +15,10 @@ const maxAlpha = 0.12;
 
 export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
   const { intensity = maxIntensity } = props;
-  const alpha =
+  const theme = useTheme();
+  const alphaValue =
     maxAlpha * Math.max(minIntensity, Math.min(intensity, maxIntensity));
-  const skeletonColor = `rgba(255, 255, 255, ${alpha})`;
+  const skeletonColor = alpha(theme.palette.text.primary, alphaValue);
   const animation = "pulse";
   return (
     <ListItem
@@ -52,7 +53,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
             <Skeleton
               variant="text"
               animation={animation}
-              sx={{ bgcolor: skeletonColor }}
+              sx={{ backgroundColor: skeletonColor }}
             >
               <FluidTypography {...fluidText}>London</FluidTypography>
             </Skeleton>
@@ -68,7 +69,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
             <Skeleton
               variant="text"
               animation={animation}
-              sx={{ bgcolor: skeletonColor }}
+              sx={{ backgroundColor: skeletonColor }}
             >
               <FluidTypography {...fluidText}>23:59</FluidTypography>
             </Skeleton>
@@ -84,7 +85,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
             <Skeleton
               variant="text"
               animation={animation}
-              sx={{ bgcolor: skeletonColor }}
+              sx={{ backgroundColor: skeletonColor }}
             >
               <FluidTypography {...fluidText}>open in 24h</FluidTypography>
             </Skeleton>
@@ -107,7 +108,7 @@ export const TimelineItemSkeleton: React.FunctionComponent<Props> = (props) => {
         <Skeleton
           variant="rectangular"
           animation={animation}
-          sx={{ bgcolor: skeletonColor }}
+          sx={{ backgroundColor: skeletonColor }}
           width="100%"
           height="100%"
         />
