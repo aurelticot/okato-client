@@ -128,5 +128,9 @@
   "MarketSelectionList.availableMarketsListSubheader": {
     "defaultMessage": "Available",
     "description": "Subheader of the list containing the availabe (non-selected) markets"
+  },
+  "MarketSelectionSearch.placeholder": {
+    "defaultMessage": "Search...",
+    "description": "Placeholder of the search input in the market selection dialog"
   }
 }

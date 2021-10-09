@@ -77,6 +77,12 @@
       "value": "Sélectionnés"
     }
   ],
+  "MarketSelectionSearch.placeholder": [
+    {
+      "type": 0,
+      "value": "Rechercher..."
+    }
+  ],
   "NextMarketEvent": [
     {
       "options": {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   List,
@@ -11,7 +11,22 @@ import {
 import { Room as LocationIcon } from "@mui/icons-material";
 import { useIntl } from "react-intl";
 import { Markets_markets_result as Market } from "lib/graphql/queries/Markets/types/Markets";
+import { MarketSelectionSearch } from "components/molecules";
 import { MarketSelectionListSkeleton } from "components/organisms";
+
+const filterMarket = (query = "", market: Market) => {
+  const queryLower = query.toLowerCase();
+  if (query.length < 2) {
+    return true;
+  }
+  const name = market.name.toLowerCase().includes(queryLower);
+  const shortName = market.shortName.toLowerCase().includes(queryLower);
+  const city = market.city.toLowerCase().includes(queryLower);
+  if (name || shortName || city) {
+    return true;
+  }
+  return false;
+};
 
 interface Props {
   markets: Market[] | null;
@@ -25,6 +40,7 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
   onSelection,
 }) => {
   const i18n = useIntl();
+  const [query, setQuery] = useState("");
 
   if (!markets) {
     return (
@@ -97,6 +113,7 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
     >
       {markets
         .filter((market) => selection.includes(market.id))
+        .filter((market) => filterMarket(query, market))
         .map((market) => getMarketItem(market))}
     </List>
   );
@@ -125,12 +142,14 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
     >
       {markets
         .filter((market) => !selection.includes(market.id))
+        .filter((market) => filterMarket(query, market))
         .map((market) => getMarketItem(market))}
     </List>
   );
 
   return (
     <>
+      <MarketSelectionSearch onSearch={setQuery} />
       {selectedMarkets}
       {availableMarkets}
     </>
