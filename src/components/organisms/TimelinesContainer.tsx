@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import {
+  alpha,
   Box,
   Fab,
   Slide,
@@ -149,7 +150,10 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
           top: "0",
           left: "0",
           background: (theme) =>
-            `linear-gradient(270deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+            `linear-gradient(270deg, ${alpha(
+              theme.palette.background.default,
+              0
+            )} 0%, ${theme.palette.background.default} 100%)`,
         }}
       />
       <Box
@@ -161,7 +165,10 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
           top: "0",
           right: "0",
           background: (theme) =>
-            `linear-gradient(90deg, ${theme.palette.background.default}00 0%, ${theme.palette.background.default} 100%)`,
+            `linear-gradient(90deg, ${alpha(
+              theme.palette.background.default,
+              0
+            )} 0%, ${theme.palette.background.default} 100%)`,
         }}
       />
       <Box
