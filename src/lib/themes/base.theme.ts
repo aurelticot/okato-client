@@ -1,3 +1,4 @@
+import { dialogClasses, menuClasses } from "@mui/material";
 import { ThemeOptions } from "@mui/material/styles";
 import { getFluidCSSLength } from "lib/utils";
 
@@ -103,6 +104,26 @@ export const baseOptions: ThemeOptions = {
       light: "#9e9e9e",
       dark: "#424242",
       contrastText: "#rgba(0, 0, 0, 0.87)",
+    },
+  },
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          [`& .${dialogClasses.paper}`]: {
+            backgroundImage: "none",
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        root: {
+          [`& .${menuClasses.paper}`]: {
+            backgroundImage: "none",
+          },
+        },
+      },
     },
   },
 };

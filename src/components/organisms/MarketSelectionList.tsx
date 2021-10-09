@@ -103,8 +103,6 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
         <ListSubheader
           sx={{
             backgroundColor: "background.paper",
-            backgroundImage:
-              "linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16))",
           }}
         >
           {selectedMarketsListSubheader}
@@ -132,8 +130,6 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
         <ListSubheader
           sx={{
             backgroundColor: "background.paper",
-            backgroundImage:
-              "linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16))",
           }}
         >
           {availableMarketsListSubheader}
