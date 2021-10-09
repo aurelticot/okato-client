@@ -57,36 +57,36 @@
     "defaultMessage": "Chronologically (reverse)"
   },
   "ApplicationBar.appTitle": {
-    "description": "Name/Title of the application",
-    "defaultMessage": "Market Timeline"
+    "defaultMessage": "Market Timeline",
+    "description": "Name/Title of the application"
   },
   "ApplicationBar.marketSelectionMenuItemLabel": {
-    "description": "Label of the menu item for the Market Selection view",
-    "defaultMessage": "Market selection"
+    "defaultMessage": "Market selection",
+    "description": "Label of the menu item for the Market Selection view"
   },
   "ApplicationBar.settingsMenuItemLabel": {
-    "description": "Label of the menu item for the Settings view",
-    "defaultMessage": "Settings"
+    "defaultMessage": "Settings",
+    "description": "Label of the menu item for the Settings view"
   },
   "App.modalDialog.closeButtonLabel": {
-    "description": "Label of the the 'Close' button in the main dialog",
-    "defaultMessage": "Close"
+    "defaultMessage": "Close",
+    "description": "Label of the the 'Close' button in the main dialog"
   },
   "App.modalDialog.cancelButtonLabel": {
-    "description": "Label of the the 'Cancel' button in the main dialog",
-    "defaultMessage": "Cancel"
+    "defaultMessage": "Cancel",
+    "description": "Label of the the 'Cancel' button in the main dialog"
   },
   "App.modalDialog.saveButtonLabel": {
-    "description": "Label of the the 'Save' button in the main dialog",
-    "defaultMessage": "Save"
+    "defaultMessage": "Save",
+    "description": "Label of the the 'Save' button in the main dialog"
   },
   "App.modalDialog.settingsTitle": {
-    "description": "Title of the Settings dialog",
-    "defaultMessage": "Settings"
+    "defaultMessage": "Settings",
+    "description": "Title of the Settings dialog"
   },
   "App.modalDialog.marketSelectionTitle": {
-    "description": "Title of the Market Selection dialog",
-    "defaultMessage": "Select Markets"
+    "defaultMessage": "Select Markets",
+    "description": "Title of the Market Selection dialog"
   },
   "AppDate.today": {
     "defaultMessage": "Today"
@@ -98,7 +98,7 @@
     "defaultMessage": "Yesterday"
   },
   "NextMarketEvent": {
-    "defaultMessage": "{status, select, OPEN {Open} CLOSE {Close}} in {relativeTime}",
+    "defaultMessage": "{status, select, OPEN {Open} CLOSE {Close} other {Next event}} in {relativeTime}",
     "description": "next market event"
   },
   "TimelineTime.backToRealtimeTooltip": {
@@ -110,15 +110,23 @@
     "description": "Tooltip message on the time displaying in realtime"
   },
   "TimelinesContainer.ResyncFABLabel": {
-    "description": "Label of the button to resync real-time the timelines",
-    "defaultMessage": "Real-time"
+    "defaultMessage": "Real-time",
+    "description": "Label of the button to resync real-time the timelines"
   },
   "TimelinesList.selectMarketsLinkMessage": {
-    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link",
-    "defaultMessage": "Select markets"
+    "defaultMessage": "Select markets",
+    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link"
   },
   "TimelinesList.selectMarketsAfterLinkMessage": {
-    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link",
-    "defaultMessage": " to display their timelines"
+    "defaultMessage": " to display their timelines",
+    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link"
+  },
+  "MarketSelectionList.selectedMarketsListSubheader": {
+    "defaultMessage": "Selected",
+    "description": "Subheader of the list containing the selected markets"
+  },
+  "MarketSelectionList.availableMarketsListSubheader": {
+    "defaultMessage": "Available",
+    "description": "Subheader of the list containing the availabe (non-selected) markets"
   }
 }

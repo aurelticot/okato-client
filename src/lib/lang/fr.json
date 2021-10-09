@@ -65,6 +65,18 @@
       "value": "Paramètres"
     }
   ],
+  "MarketSelectionList.availableMarketsListSubheader": [
+    {
+      "type": 0,
+      "value": "Disponibles"
+    }
+  ],
+  "MarketSelectionList.selectedMarketsListSubheader": [
+    {
+      "type": 0,
+      "value": "Sélectionnés"
+    }
+  ],
   "NextMarketEvent": [
     {
       "options": {
@@ -81,6 +93,14 @@
             {
               "type": 0,
               "value": "Ouvre"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Evénement suivant"
             }
           ]
         }
