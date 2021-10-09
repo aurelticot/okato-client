@@ -3,8 +3,8 @@ import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
 import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
 import { everyMinuteSchedule } from "lib/constants";
-import { useScheduleJob, useUserSetting } from "lib/hooks";
-import { TimelinesContainer } from "components/organisms";
+import { useBaseTime, useScheduleJob, useUserSetting } from "lib/hooks";
+import { TimelinesContainer, TimelinesList } from "components/organisms";
 import { useQuery } from "@apollo/client";
 import { MARKETS } from "lib/graphql/queries";
 import {
@@ -62,6 +62,7 @@ export const TimelinesView: React.FunctionComponent = () => {
   const [marketSort] = useUserSetting(SettingKey.MarketSort);
   const [markets, setMarkets] = useState<Market[] | null>(null);
   const { data } = useMarketsData(selectedMarkets);
+  const [baseTime, setBaseTime] = useBaseTime();
 
   useEffect(() => {
     const sortMethod = getMarketSortingFunction(marketSort);
@@ -100,9 +101,12 @@ export const TimelinesView: React.FunctionComponent = () => {
   }, [data, selectedMarkets, marketSort]);
 
   return (
-    <TimelinesContainer
-      markets={markets}
-      nbMarketsLoading={selectedMarkets.length}
-    />
+    <TimelinesContainer baseTime={baseTime} setBaseTime={setBaseTime}>
+      <TimelinesList
+        markets={markets}
+        baseTime={baseTime}
+        nbMarketsLoading={selectedMarkets.length}
+      />
+    </TimelinesContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useLayoutEffect, useRef } from "react";
 import {
   alpha,
   Box,
@@ -10,38 +10,34 @@ import {
 } from "@mui/material";
 import { Refresh as ResyncIcon } from "@mui/icons-material";
 import { DateTime } from "luxon";
-import { Market } from "lib/types";
+import { useIntl } from "react-intl";
 import {
   getTimelineSizeInHours,
   getTimelineSizeInSeconds,
   getTimelineVisibleSizeInHours,
 } from "lib/utils";
-import { useBaseTime, useWindowSize } from "lib/hooks";
-import { TimelinesList } from "components/organisms";
-import { useIntl } from "react-intl";
+import { useWindowSize } from "lib/hooks";
+import { TimelineRuler } from "components/organisms";
 
 const timelineSizeInHours = getTimelineSizeInHours();
 const timelineTotalSizeInSeconds = getTimelineSizeInSeconds();
 const timelineVisibleSizeInHours = getTimelineVisibleSizeInHours();
 
 interface Props {
-  markets: Market[] | null;
-  nbMarketsLoading: number;
+  baseTime: Date | null;
+  setBaseTime: (value: Date | null) => void;
 }
 
-export const TimelinesContainer: React.FunctionComponent<Props> = ({
-  markets,
-  nbMarketsLoading,
-}) => {
-  const [baseTime, setBaseTime] = useBaseTime();
+export const TimelinesContainer: React.FunctionComponent<Props> = (props) => {
+  const { baseTime, setBaseTime } = props;
 
   const { width } = useWindowSize();
-  const resizing = React.useRef(false);
-  const adjusting = React.useRef(false);
-  const scrollBasetimeAdjustmentTimer = React.useRef<NodeJS.Timeout>();
-  const containerRef = React.useRef<HTMLDivElement>();
+  const resizing = useRef(false);
+  const adjusting = useRef(false);
+  const scrollBasetimeAdjustmentTimer = useRef<NodeJS.Timeout>();
+  const containerRef = useRef<HTMLDivElement>();
 
-  const handleScroll = React.useCallback(() => {
+  const handleScroll = useCallback(() => {
     const containerElement = containerRef.current;
     if (!containerElement || resizing.current || adjusting.current) {
       return;
@@ -61,11 +57,11 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     setBaseTime(targetTime.toJSDate());
   }, [setBaseTime]);
 
-  const handleBackToRealTime = React.useCallback(() => {
+  const handleBackToRealTime = useCallback(() => {
     setBaseTime(null);
   }, [setBaseTime]);
 
-  const initialScroll = React.useRef(true);
+  const initialScroll = useRef(true);
 
   const resfreshPosition = useCallback(() => {
     const containerElement = containerRef.current;
@@ -86,7 +82,7 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
       middleTimeline + timeDiff - middleContainerViewport;
   }, [baseTime]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!initialScroll.current && baseTime) {
       return;
     }
@@ -95,7 +91,7 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseTime]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (baseTime) {
       scrollBasetimeAdjustmentTimer.current = setInterval(() => {
         adjusting.current = true;
@@ -114,7 +110,7 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
     };
   }, [baseTime, resfreshPosition]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     resizing.current = true;
     resfreshPosition();
     const timer = setTimeout(() => {
@@ -186,11 +182,8 @@ export const TimelinesContainer: React.FunctionComponent<Props> = ({
             }%`,
           }}
         >
-          <TimelinesList
-            markets={markets}
-            baseTime={baseTime}
-            nbMarketsLoading={nbMarketsLoading}
-          />
+          <TimelineRuler baseTime={baseTime} />
+          {props.children}
         </Box>
       </Box>
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>

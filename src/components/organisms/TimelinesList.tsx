@@ -5,11 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { Market } from "lib/types";
 import { FluidTypography } from "components/atoms";
-import {
-  TimelineItem,
-  TimelineRuler,
-  TimelinesListSkeleton,
-} from "components/organisms";
+import { TimelineItem, TimelinesListSkeleton } from "components/organisms";
 import { getFluidTextValues } from "lib/utils";
 import { routes } from "lib/constants";
 
@@ -54,16 +50,6 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
           p: 0,
         }}
       >
-        <ListItem
-          key={`_ruler`}
-          sx={{
-            p: 0,
-            position: "inherit",
-            display: "block",
-          }}
-        >
-          <TimelineRuler baseTime={baseTime} />
-        </ListItem>
         {markets?.map((market) => (
           <ListItem
             key={market.id}
