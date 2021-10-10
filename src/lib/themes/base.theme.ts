@@ -1,7 +1,8 @@
-import { ThemeOptions } from "@material-ui/core/styles";
+import { dialogClasses, menuClasses } from "@mui/material";
+import { ThemeOptions } from "@mui/material/styles";
 import { getFluidCSSLength } from "lib/utils";
 
-declare module "@material-ui/core/styles/createMuiTheme" {
+declare module "@mui/material/styles/createTheme" {
   interface Theme {
     custom: {
       palette: {
@@ -40,19 +41,19 @@ declare module "@material-ui/core/styles/createMuiTheme" {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
           close?: {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
           extended?: {
             main?: string;
             light?: string;
             dark?: string;
-            contrastText: string;
+            contrastText?: string;
           };
         };
       };
@@ -103,6 +104,26 @@ export const baseOptions: ThemeOptions = {
       light: "#9e9e9e",
       dark: "#424242",
       contrastText: "#rgba(0, 0, 0, 0.87)",
+    },
+  },
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          [`& .${dialogClasses.paper}`]: {
+            backgroundImage: "none",
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        root: {
+          [`& .${menuClasses.paper}`]: {
+            backgroundImage: "none",
+          },
+        },
+      },
     },
   },
 };

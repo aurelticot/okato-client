@@ -57,36 +57,36 @@
     "defaultMessage": "Chronologique (inverse)"
   },
   "ApplicationBar.appTitle": {
-    "description": "Name/Title of the application",
-    "defaultMessage": "Market Timeline"
+    "defaultMessage": "Market Timeline",
+    "description": "Name/Title of the application"
   },
   "ApplicationBar.marketSelectionMenuItemLabel": {
-    "description": "Label of the menu item for the Market Selection view",
-    "defaultMessage": "Sélection de marchés"
+    "defaultMessage": "Sélection de marchés",
+    "description": "Label of the menu item for the Market Selection view"
   },
   "ApplicationBar.settingsMenuItemLabel": {
-    "description": "Label of the menu item for the Settings view",
-    "defaultMessage": "Paramètres"
+    "defaultMessage": "Paramètres",
+    "description": "Label of the menu item for the Settings view"
   },
   "App.modalDialog.closeButtonLabel": {
-    "description": "Label of the the 'Close' button in the main dialog",
-    "defaultMessage": "Fermer"
+    "defaultMessage": "Fermer",
+    "description": "Label of the the 'Close' button in the main dialog"
   },
   "App.modalDialog.cancelButtonLabel": {
-    "description": "Label of the the 'Cancel' button in the main dialog",
-    "defaultMessage": "Annuler"
+    "defaultMessage": "Annuler",
+    "description": "Label of the the 'Cancel' button in the main dialog"
   },
   "App.modalDialog.saveButtonLabel": {
-    "description": "Label of the the 'Save' button in the main dialog",
-    "defaultMessage": "Sauvegarder"
+    "defaultMessage": "Sauvegarder",
+    "description": "Label of the the 'Save' button in the main dialog"
   },
   "App.modalDialog.settingsTitle": {
-    "description": "Title of the Settings dialog",
-    "defaultMessage": "Paramètres"
+    "defaultMessage": "Paramètres",
+    "description": "Title of the Settings dialog"
   },
   "App.modalDialog.marketSelectionTitle": {
-    "description": "Title of the Market Selection dialog",
-    "defaultMessage": "Sélectionnez les Marchés"
+    "defaultMessage": "Sélectionnez les Marchés",
+    "description": "Title of the Market Selection dialog"
   },
   "AppDate.today": {
     "defaultMessage": "Aujourd'hui"
@@ -98,7 +98,7 @@
     "defaultMessage": "Hier"
   },
   "NextMarketEvent": {
-    "defaultMessage": "{status, select, OPEN {Ouvre} CLOSE {Ferme}} dans {relativeTime}",
+    "defaultMessage": "{status, select, OPEN {Ouvre} CLOSE {Ferme} other {Evénement suivant}} dans {relativeTime}",
     "description": "next market event"
   },
   "TimelineTime.backToRealtimeTooltip": {
@@ -110,15 +110,27 @@
     "description": "Tooltip message on the time displaying in realtime"
   },
   "TimelinesContainer.ResyncFABLabel": {
-    "description": "Label of the button to resync real-time the timelines",
-    "defaultMessage": "Temps réel"
+    "defaultMessage": "Temps réel",
+    "description": "Label of the button to resync real-time the timelines"
   },
   "TimelinesList.selectMarketsLinkMessage": {
-    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link",
-    "defaultMessage": "Sélectionnez des marchés"
+    "defaultMessage": "Sélectionnez des marchés",
+    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link"
   },
   "TimelinesList.selectMarketsAfterLinkMessage": {
-    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link",
-    "defaultMessage": " pour afficher leur timelines"
+    "defaultMessage": " pour afficher leur timelines",
+    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link"
+  },
+  "MarketSelectionList.selectedMarketsListSubheader": {
+    "defaultMessage": "Sélectionnés",
+    "description": "Subheader of the list containing the selected markets"
+  },
+  "MarketSelectionList.availableMarketsListSubheader": {
+    "defaultMessage": "Disponibles",
+    "description": "Subheader of the list containing the availabe (non-selected) markets"
+  },
+  "MarketSelectionSearch.placeholder": {
+    "defaultMessage": "Rechercher...",
+    "description": "Placeholder of the search input in the market selection dialog"
   }
 }

@@ -1,10 +1,14 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 import { baseOptions } from "./base.theme";
 
-export const dark = createMuiTheme({
+export const dark = createTheme({
   ...baseOptions,
   palette: {
     ...baseOptions.palette,
-    type: "dark",
+    mode: "dark",
+    background: {
+      default: "#303030",
+      paper: "#424242",
+    },
   },
 });

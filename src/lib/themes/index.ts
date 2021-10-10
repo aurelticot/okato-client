@@ -1,4 +1,4 @@
-import { Theme } from "@material-ui/core/styles";
+import { Theme } from "@mui/material/styles";
 import { black } from "./black.theme";
 import { dark } from "./dark.theme";
 import { light } from "./light.theme";
@@ -9,11 +9,11 @@ export const themes = {
   light,
 };
 
-export const getDarkTheme = () => {
+export const getDarkTheme = (): Theme => {
   return themes.dark;
 };
 
-export const getLightTheme = () => {
+export const getLightTheme = (): Theme => {
   return themes.light;
 };
 

@@ -9,6 +9,7 @@ export const MARKETS = gql`
     $startDate: String!
     $endDate: String!
     $withSessions: Boolean = true
+    $withTimeline: Boolean = true
   ) {
     markets(selection: $selection, sort: $sort, limit: $limit, page: $page) {
       total
@@ -24,9 +25,16 @@ export const MARKETS = gql`
         capitalisation
         sessions(startDate: $startDate, endDate: $endDate)
           @include(if: $withSessions) {
-          date
-          startTime
-          endTime
+          start
+          end
+          mainStatus
+          status
+        }
+        timeline(startDate: $startDate, endDate: $endDate)
+          @include(if: $withTimeline) {
+          startDate
+          start
+          duration
           mainStatus
           status
         }

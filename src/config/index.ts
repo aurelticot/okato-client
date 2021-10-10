@@ -20,10 +20,7 @@ const enableCrashReporting = !!(
 );
 
 const timelineVisiblePeriod = 24;
-const daysInPast = 3;
-const daysRequestedInPast = daysInPast + 1;
-const daysInFuture = daysInPast;
-const daysRequestedInFuture = daysInFuture + 1;
+const timelineTotalPeriod = 7 * 24;
 
 const defaultUserSettings: UserSettings = {
   [SettingKey.Theme]: "system",
@@ -39,10 +36,7 @@ export const config = {
   environmentId,
   graphqlAPIEndpoint,
   timelineVisiblePeriod,
-  daysInPast,
-  daysRequestedInPast,
-  daysInFuture,
-  daysRequestedInFuture,
+  timelineTotalPeriod,
   settings,
   defaultUserSettings,
   raygunAPIKey,

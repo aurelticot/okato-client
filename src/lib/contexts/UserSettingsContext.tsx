@@ -6,12 +6,14 @@ const { defaultUserSettings, settings } = config;
 
 const userSettingsLocalStorageKey = "userSettings";
 
-const storedUserSettings: UserSettings = localStorage
-  ? JSON.parse(localStorage.getItem(userSettingsLocalStorageKey) as string)
+const storedUserSettings: UserSettings | null = localStorage
+  ? (JSON.parse(
+      localStorage.getItem(userSettingsLocalStorageKey) as string
+    ) as UserSettings)
   : null;
 
-const initialUserSettings = storedUserSettings
-  ? Object.assign(
+const initialUserSettings: UserSettings = storedUserSettings
+  ? (Object.assign(
       {},
       ...Object.entries(storedUserSettings).map(
         ([settingKey, userSettingValue]) => {
@@ -30,7 +32,7 @@ const initialUserSettings = storedUserSettings
           };
         }
       )
-    )
+    ) as UserSettings)
   : defaultUserSettings;
 
 export const UserSettingsContext = React.createContext({
@@ -39,9 +41,8 @@ export const UserSettingsContext = React.createContext({
 });
 
 export const UserSettingsProvider: React.FunctionComponent = (props) => {
-  const [userSettings, setUserSettings] = useState<UserSettings>(
-    initialUserSettings
-  );
+  const [userSettings, setUserSettings] =
+    useState<UserSettings>(initialUserSettings);
 
   useEffect(() => {
     if (!localStorage) {

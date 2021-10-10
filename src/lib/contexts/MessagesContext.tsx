@@ -1,6 +1,6 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
-import { MessageFormatElement } from "intl-messageformat-parser";
+import { MessageFormatElement } from "@formatjs/icu-messageformat-parser";
 import { messages } from "lib/lang";
 import { useUserSetting } from "lib/hooks";
 import { SettingKey } from "lib/types";
