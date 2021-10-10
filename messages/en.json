@@ -60,6 +60,14 @@
     "defaultMessage": "Market Timeline",
     "description": "Name/Title of the application"
   },
+  "NetworkHandler.notification.offlineMessage": {
+    "defaultMessage": "You are offline",
+    "description": "Message displayed in notification while offline"
+  },
+  "NetworkHandler.notification.onlineMessage": {
+    "defaultMessage": "You are back online",
+    "description": "Message displayed in notification while back online"
+  },
   "ApplicationBar.marketSelectionMenuItemLabel": {
     "defaultMessage": "Market selection",
     "description": "Label of the menu item for the Market Selection view"

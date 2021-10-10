@@ -83,6 +83,18 @@
       "value": "Search..."
     }
   ],
+  "NetworkHandler.notification.offlineMessage": [
+    {
+      "type": 0,
+      "value": "You are offline"
+    }
+  ],
+  "NetworkHandler.notification.onlineMessage": [
+    {
+      "type": 0,
+      "value": "You are back online"
+    }
+  ],
   "NextMarketEvent": [
     {
       "options": {
