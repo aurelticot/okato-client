@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef } from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import {
   alpha,
   Box,
@@ -120,6 +120,46 @@ export const TimelinesContainer: React.FunctionComponent<Props> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
+  const memoizedLeftEdgeBox = useMemo(() => {
+    return (
+      <Box
+        sx={{
+          width: (theme) => theme.spacing(1),
+          position: "absolute",
+          minHeight: "100%",
+          zIndex: 100,
+          top: "0",
+          left: "0",
+          background: (theme) =>
+            `linear-gradient(270deg, ${alpha(
+              theme.palette.background.default,
+              0
+            )} 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
+    );
+  }, []);
+
+  const memoizedRightEdgeBox = useMemo(() => {
+    return (
+      <Box
+        sx={{
+          width: (theme) => theme.spacing(1),
+          position: "absolute",
+          minHeight: "100%",
+          zIndex: 100,
+          top: "0",
+          right: "0",
+          background: (theme) =>
+            `linear-gradient(90deg, ${alpha(
+              theme.palette.background.default,
+              0
+            )} 0%, ${theme.palette.background.default} 100%)`,
+        }}
+      />
+    );
+  }, []);
+
   const theme = useTheme();
   const upMd = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -137,36 +177,8 @@ export const TimelinesContainer: React.FunctionComponent<Props> = (props) => {
         position: "relative",
       }}
     >
-      <Box
-        sx={{
-          width: (theme) => theme.spacing(1),
-          position: "absolute",
-          minHeight: "100%",
-          zIndex: 100,
-          top: "0",
-          left: "0",
-          background: (theme) =>
-            `linear-gradient(270deg, ${alpha(
-              theme.palette.background.default,
-              0
-            )} 0%, ${theme.palette.background.default} 100%)`,
-        }}
-      />
-      <Box
-        sx={{
-          width: (theme) => theme.spacing(1),
-          position: "absolute",
-          minHeight: "100%",
-          zIndex: 100,
-          top: "0",
-          right: "0",
-          background: (theme) =>
-            `linear-gradient(90deg, ${alpha(
-              theme.palette.background.default,
-              0
-            )} 0%, ${theme.palette.background.default} 100%)`,
-        }}
-      />
+      {memoizedLeftEdgeBox}
+      {memoizedRightEdgeBox}
       <Box
         sx={{
           width: "100%",

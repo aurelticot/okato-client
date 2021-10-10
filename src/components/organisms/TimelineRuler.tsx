@@ -90,7 +90,7 @@ interface Props {
   baseTime: Date | null;
 }
 
-export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
+const RawTimelineRuler: React.FunctionComponent<Props> = (props) => {
   const { baseTime } = props;
   const initialSegments = resolveRulerSegments();
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
@@ -200,3 +200,5 @@ export const TimelineRuler: React.FunctionComponent<Props> = (props) => {
     </Paper>
   );
 };
+
+export const TimelineRuler = React.memo(RawTimelineRuler);

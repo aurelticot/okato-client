@@ -11,7 +11,7 @@ interface Props {
   time: Date | null;
 }
 
-export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
+const RawAppDate: React.FunctionComponent<Props> = ({ time }) => {
   const realtime = useRealTime();
   const i18n = useIntl();
 
@@ -58,3 +58,5 @@ export const AppDate: React.FunctionComponent<Props> = ({ time }) => {
     </FluidTypography>
   );
 };
+
+export const AppDate = React.memo(RawAppDate);
