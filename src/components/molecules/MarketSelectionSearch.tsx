@@ -72,9 +72,11 @@ export const MarketSelectionSearch: React.FunctionComponent<Props> = ({
         inputProps={{ "aria-label": "search" }}
         fullWidth
         endAdornment={
-          <IconButton onClick={clearValue}>
-            <ClearIcon />
-          </IconButton>
+          value?.length > 0 ? (
+            <IconButton onClick={clearValue} color="default">
+              <ClearIcon />
+            </IconButton>
+          ) : undefined
         }
       />
     </Search>
