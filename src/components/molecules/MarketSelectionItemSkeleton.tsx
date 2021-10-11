@@ -3,7 +3,6 @@ import {
   ListItemText,
   ListItem,
   Skeleton,
-  Typography,
   useTheme,
   alpha,
 } from "@mui/material";
@@ -34,7 +33,7 @@ export const MarketSelectionItemSkeleton: React.FunctionComponent<Props> = (
             animation={animation}
             sx={{ backgroundColor: skeletonColor }}
           >
-            <Typography>LSE - London Stock Exchange</Typography>
+            <span>LSE - London Stock Exchange</span>
           </Skeleton>
         }
         secondary={
@@ -43,7 +42,7 @@ export const MarketSelectionItemSkeleton: React.FunctionComponent<Props> = (
             animation={animation}
             sx={{ backgroundColor: skeletonColor }}
           >
-            <Typography>London</Typography>
+            <span>London</span>
           </Skeleton>
         }
       />
