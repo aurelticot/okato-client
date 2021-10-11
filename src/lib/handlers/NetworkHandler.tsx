@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { useSnackbar, SnackbarKey } from "notistack";
 import { useIntl } from "react-intl";
+import { isOnline } from "lib/utils";
 
 export const NetworkHandler: React.FunctionComponent = () => {
   const snackbarKey = useRef<SnackbarKey | undefined>();
@@ -23,6 +24,9 @@ export const NetworkHandler: React.FunctionComponent = () => {
 
   useEffect(() => {
     window.addEventListener("offline", handleOfflineEvent);
+    if (!isOnline()) {
+      handleOfflineEvent();
+    }
     return () => {
       window.removeEventListener("offline", handleOfflineEvent);
     };
