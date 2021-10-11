@@ -68,6 +68,14 @@
     "defaultMessage": "You are back online",
     "description": "Message displayed in notification while back online"
   },
+  "ServiceWorkerHandler.notification.updateAvailableMessage": {
+    "defaultMessage": "New update available",
+    "description": "Message displayed in notification when a new update is available"
+  },
+  "ServiceWorkerHandler.notification.refreshButtonLabel": {
+    "defaultMessage": "Refresh",
+    "description": "Label of the 'Refresh' button in the notification"
+  },
   "ApplicationBar.marketSelectionMenuItemLabel": {
     "defaultMessage": "Market selection",
     "description": "Label of the menu item for the Market Selection view"

@@ -6,7 +6,6 @@ import { AppHandlers } from "lib/handlers";
 import { CssBaseline } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
 import { App } from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 initTelemetry();
 
@@ -22,5 +21,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-serviceWorkerRegistration.register();

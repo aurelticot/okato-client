@@ -135,6 +135,18 @@
       "value": "relativeTime"
     }
   ],
+  "ServiceWorkerHandler.notification.refreshButtonLabel": [
+    {
+      "type": 0,
+      "value": "Rafraîchir"
+    }
+  ],
+  "ServiceWorkerHandler.notification.updateAvailableMessage": [
+    {
+      "type": 0,
+      "value": "Mise à jour disponible"
+    }
+  ],
   "TimelineTime.backToRealtimeTooltip": [
     {
       "type": 0,
