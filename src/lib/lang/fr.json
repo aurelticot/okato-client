@@ -71,16 +71,46 @@
       "value": "Disponibles"
     }
   ],
+  "MarketSelectionList.noAvailableMarketMessage": [
+    {
+      "type": 0,
+      "value": "Aucun marché disponible"
+    }
+  ],
+  "MarketSelectionList.noSelectedMarketMessage": [
+    {
+      "type": 0,
+      "value": "Aucun marché sélectionné"
+    }
+  ],
   "MarketSelectionList.selectedMarketsListSubheader": [
     {
       "type": 0,
       "value": "Sélectionnés"
     }
   ],
+  "MarketSelectionSearch.clearButtonTooltip": [
+    {
+      "type": 0,
+      "value": "Effacer"
+    }
+  ],
   "MarketSelectionSearch.placeholder": [
     {
       "type": 0,
       "value": "Rechercher..."
+    }
+  ],
+  "NetworkHandler.notification.offlineMessage": [
+    {
+      "type": 0,
+      "value": "Vous êtes hors ligne"
+    }
+  ],
+  "NetworkHandler.notification.onlineMessage": [
+    {
+      "type": 0,
+      "value": "Vous êtes de nouveau en ligne"
     }
   ],
   "NextMarketEvent": [
@@ -123,6 +153,18 @@
       "value": "relativeTime"
     }
   ],
+  "ServiceWorkerHandler.notification.refreshButtonLabel": [
+    {
+      "type": 0,
+      "value": "Rafraîchir"
+    }
+  ],
+  "ServiceWorkerHandler.notification.updateAvailableMessage": [
+    {
+      "type": 0,
+      "value": "Mise à jour disponible"
+    }
+  ],
   "TimelineTime.backToRealtimeTooltip": [
     {
       "type": 0,
@@ -141,16 +183,16 @@
       "value": "Temps réel"
     }
   ],
-  "TimelinesList.selectMarketsAfterLinkMessage": [
+  "TimelinesList.goToMarketSelectionLinkMessage": [
     {
       "type": 0,
-      "value": " pour afficher leur timelines"
+      "value": "Ouvrir la sélection de marchés"
     }
   ],
-  "TimelinesList.selectMarketsLinkMessage": [
+  "TimelinesList.noMarketSelectedMessage": [
     {
       "type": 0,
-      "value": "Sélectionnez des marchés"
+      "value": "Aucun marché sélectionné"
     }
   ],
   "settings.language.label": [

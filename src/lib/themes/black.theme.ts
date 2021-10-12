@@ -23,4 +23,21 @@ export const black = createTheme({
       },
     },
   },
+  custom: {
+    ...baseOptions?.custom,
+    palette: {
+      ...baseOptions?.custom?.palette,
+      marketStatus: {
+        ...baseOptions?.custom?.palette?.marketStatus,
+        open: {
+          ...baseOptions?.custom?.palette?.marketStatus?.open,
+          main: "#53da58",
+        },
+        close: {
+          ...baseOptions?.custom?.palette?.marketStatus?.close,
+          main: "#ff665c",
+        },
+      },
+    },
+  },
 });

@@ -71,16 +71,46 @@
       "value": "Available"
     }
   ],
+  "MarketSelectionList.noAvailableMarketMessage": [
+    {
+      "type": 0,
+      "value": "No other market available"
+    }
+  ],
+  "MarketSelectionList.noSelectedMarketMessage": [
+    {
+      "type": 0,
+      "value": "No market selected yet"
+    }
+  ],
   "MarketSelectionList.selectedMarketsListSubheader": [
     {
       "type": 0,
       "value": "Selected"
     }
   ],
+  "MarketSelectionSearch.clearButtonTooltip": [
+    {
+      "type": 0,
+      "value": "Clear search"
+    }
+  ],
   "MarketSelectionSearch.placeholder": [
     {
       "type": 0,
       "value": "Search..."
+    }
+  ],
+  "NetworkHandler.notification.offlineMessage": [
+    {
+      "type": 0,
+      "value": "You are offline"
+    }
+  ],
+  "NetworkHandler.notification.onlineMessage": [
+    {
+      "type": 0,
+      "value": "You are back online"
     }
   ],
   "NextMarketEvent": [
@@ -123,6 +153,18 @@
       "value": "relativeTime"
     }
   ],
+  "ServiceWorkerHandler.notification.refreshButtonLabel": [
+    {
+      "type": 0,
+      "value": "Refresh"
+    }
+  ],
+  "ServiceWorkerHandler.notification.updateAvailableMessage": [
+    {
+      "type": 0,
+      "value": "New update available"
+    }
+  ],
   "TimelineTime.backToRealtimeTooltip": [
     {
       "type": 0,
@@ -141,16 +183,16 @@
       "value": "Real-time"
     }
   ],
-  "TimelinesList.selectMarketsAfterLinkMessage": [
+  "TimelinesList.goToMarketSelectionLinkMessage": [
     {
       "type": 0,
-      "value": " to display their timelines"
+      "value": "Go to Market Selection"
     }
   ],
-  "TimelinesList.selectMarketsLinkMessage": [
+  "TimelinesList.noMarketSelectedMessage": [
     {
       "type": 0,
-      "value": "Select markets"
+      "value": "No market selected"
     }
   ],
   "settings.language.label": [

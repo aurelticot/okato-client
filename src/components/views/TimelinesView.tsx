@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
 import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
@@ -34,23 +34,28 @@ const useMarketsData = (selectedMarkets: string[]) => {
     nextFetchPolicy: "cache-first",
   });
 
-  useScheduleJob(
-    everyMinuteSchedule,
-    () => {
-      const updatedTimelineDates = getTimelineDates();
-      refetch({
-        startDate: updatedTimelineDates.total.start.toISO(),
-        endDate: updatedTimelineDates.total.end.toISO(),
+  const updateMarkets = useCallback(() => {
+    const updatedTimelineDates = getTimelineDates();
+    refetch({
+      startDate: updatedTimelineDates.total.start.toISO(),
+      endDate: updatedTimelineDates.total.end.toISO(),
+    })
+      .then(() => {
+        // Nothing to do here
       })
-        .then(() => {
-          // Nothing to do here
-        })
-        .catch(() => {
-          // TODO deal with the error
-        });
-    },
-    [refetch]
-  );
+      .catch(() => {
+        // TODO deal with the error
+      });
+  }, [refetch]);
+
+  useScheduleJob(everyMinuteSchedule, updateMarkets, [updateMarkets]);
+
+  useEffect(() => {
+    window.addEventListener("online", updateMarkets);
+    return () => {
+      window.removeEventListener("online", updateMarkets);
+    };
+  }, [updateMarkets]);
 
   return { data, loading, networkStatus, error };
 };
@@ -68,6 +73,10 @@ export const TimelinesView: React.FunctionComponent = () => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
+          // TODO delete filter and find a way to not query for empty selection
+          .filter((market) => {
+            return selectedMarkets.includes(market.id) ? true : false;
+          })
           .map((market): Market => {
             const preparedSessions: MarketSession[] = market.sessions
               .map(

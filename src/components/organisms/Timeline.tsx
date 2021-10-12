@@ -41,7 +41,7 @@ export const Timeline: React.FunctionComponent<Props> = (props) => {
             height: `clamp(3rem, 8vmin, 8rem)`,
             width: "2px",
             opacity: "100%",
-            backgroundColor: (theme) => theme.palette.grey[400],
+            backgroundColor: "secondary.light",
             boxShadow: 3,
             position: "absolute",
             left: "calc(50% - 1px)",

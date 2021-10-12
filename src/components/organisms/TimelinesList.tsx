@@ -28,18 +28,18 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
     return <TimelinesListSkeleton nbItems={nbMarketsLoading} />;
   }
 
-  const selectMarketsLinkMessage = i18n.formatMessage({
-    id: "TimelinesList.selectMarketsLinkMessage",
+  const noMarketSelectedMessage = i18n.formatMessage({
+    id: "TimelinesList.noMarketSelectedMessage",
+    defaultMessage: "No market selected",
     description:
-      "Message encouraging user to select markets as none are selected, 1st part displayed in a link",
-    defaultMessage: "Select markets",
+      "Message in the timeline list that stating no market has been selected",
   });
 
-  const selectMarketsAfterLinkMessage = i18n.formatMessage({
-    id: "TimelinesList.selectMarketsAfterLinkMessage",
+  const goToMarketSelectionLinkMessage = i18n.formatMessage({
+    id: "TimelinesList.goToMarketSelectionLinkMessage",
+    defaultMessage: "Go to Market Selection",
     description:
-      "Message encouraging user to select markets as none are selected, 2nd part displayed after the link",
-    defaultMessage: " to display their timelines",
+      "Message encouraging user to go select markets displayed as a link",
   });
 
   return (
@@ -72,10 +72,22 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-            my: (theme) => theme.custom.mixins.fluidLength(1),
+            my: (theme) => theme.custom.mixins.fluidLength(2),
             mx: 0,
           }}
         >
+          <FluidTypography
+            {...mainFluidText}
+            variant="body2"
+            sx={{
+              color: "text.secondary",
+              fontStyle: "italic",
+              margin: "auto",
+              fontSize: (theme) => theme.custom.mixins.fluidLength(1.1),
+            }}
+          >
+            {noMarketSelectedMessage}
+          </FluidTypography>
           <TimelinesIcon
             color="disabled"
             sx={{
@@ -85,23 +97,17 @@ export const TimelinesList: React.FunctionComponent<Props> = ({
           />
           <FluidTypography
             {...mainFluidText}
+            variant="body2"
             sx={{
+              color: "text.secondary",
+              fontStyle: "italic",
               margin: "auto",
               fontSize: (theme) => theme.custom.mixins.fluidLength(1.1),
             }}
           >
             <Link component={RouterLink} to={routes.marketSelection}>
-              {selectMarketsLinkMessage}
+              {goToMarketSelectionLinkMessage}
             </Link>
-          </FluidTypography>
-          <FluidTypography
-            {...mainFluidText}
-            sx={{
-              margin: "auto",
-              fontSize: (theme) => theme.custom.mixins.fluidLength(1.1),
-            }}
-          >
-            {selectMarketsAfterLinkMessage}
           </FluidTypography>
         </Box>
       )}
