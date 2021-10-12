@@ -20,13 +20,13 @@ const mainFluidText = getFluidTextValues(1);
 
 const useStyles = makeStyles((theme) => ({
   marketOpen: {
-    color: theme.custom.palette.marketStatus.open.main,
+    color: theme.custom.palette.marketStatus.open.text,
   },
   marketClosed: {
-    color: theme.custom.palette.marketStatus.close.main,
+    color: theme.custom.palette.marketStatus.close.text,
   },
   marketAfterBeforeHour: {
-    color: theme.custom.palette.marketStatus.extended.main,
+    color: theme.custom.palette.marketStatus.other.text,
   },
 }));
 

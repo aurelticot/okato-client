@@ -16,10 +16,14 @@ export const light = createTheme({
         open: {
           ...baseOptions?.custom?.palette?.marketStatus?.open,
           main: "#098a0e",
+          text: "#098a0e",
+          contrastText: "rgba(0, 0, 0, 0.87)",
         },
         close: {
           ...baseOptions?.custom?.palette?.marketStatus?.close,
           main: "#e62112",
+          text: "#e62112",
+          contrastText: "#ffffff",
         },
       },
     },

@@ -9,20 +9,17 @@ declare module "@mui/material/styles/createTheme" {
         marketStatus: {
           open: {
             main: string;
-            light: string;
-            dark: string;
+            text: string;
             contrastText: string;
           };
           close: {
             main: string;
-            light: string;
-            dark: string;
+            text: string;
             contrastText: string;
           };
-          extended: {
+          other: {
             main: string;
-            light: string;
-            dark: string;
+            text: string;
             contrastText: string;
           };
         };
@@ -39,20 +36,17 @@ declare module "@mui/material/styles/createTheme" {
         marketStatus?: {
           open?: {
             main?: string;
-            light?: string;
-            dark?: string;
+            text?: string;
             contrastText?: string;
           };
           close?: {
             main?: string;
-            light?: string;
-            dark?: string;
+            text?: string;
             contrastText?: string;
           };
-          extended?: {
+          other?: {
             main?: string;
-            light?: string;
-            dark?: string;
+            text?: string;
             contrastText?: string;
           };
         };
@@ -70,21 +64,18 @@ export const baseOptions: ThemeOptions = {
       marketStatus: {
         open: {
           main: "#4caf50",
-          light: "#81c784",
-          dark: "#388e3c",
-          contrastText: "#rgba(0, 0, 0, 0.87)",
+          text: "#098a0e",
+          contrastText: "rgba(0, 0, 0, 0.87)",
         },
         close: {
-          main: "#f44336",
-          light: "#e57373",
-          dark: "#d32f2f",
-          contrastText: "#fff",
+          main: "#e62112",
+          text: "#e62112",
+          contrastText: "#ffffff",
         },
-        extended: {
+        other: {
           main: "#ff9800",
-          light: "#ffb74d",
-          dark: "#f57c00",
-          contrastText: "##rgba(0, 0, 0, 0.87)",
+          text: "#ff9800",
+          contrastText: "rgba(0, 0, 0, 0.87)",
         },
       },
     },
@@ -103,7 +94,7 @@ export const baseOptions: ThemeOptions = {
       main: "#616161",
       light: "#9e9e9e",
       dark: "#424242",
-      contrastText: "#rgba(0, 0, 0, 0.87)",
+      contrastText: "rgba(0, 0, 0, 0.87)",
     },
   },
   components: {

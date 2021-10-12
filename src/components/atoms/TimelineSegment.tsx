@@ -28,7 +28,7 @@ const StyledSegment = styled("div")(({ theme }) => ({
       "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   [`&.${classes.statusClose}`]: {
-    background: theme.custom.palette.marketStatus.close.light,
+    background: theme.custom.palette.marketStatus.close.main,
     opacity: "25%",
     backgroundImage:
       "repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
@@ -40,13 +40,13 @@ const StyledSegment = styled("div")(({ theme }) => ({
       "repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,.2) 5px, rgba(255,255,255,.2) 10px)",
   },
   [`&.${classes.statusBeforeMarket}`]: {
-    background: theme.custom.palette.marketStatus.extended.main,
+    background: theme.custom.palette.marketStatus.other.main,
     opacity: "80%",
     backgroundImage:
       "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",
   },
   [`&.${classes.statusAfterMarket}`]: {
-    background: theme.custom.palette.marketStatus.extended.main,
+    background: theme.custom.palette.marketStatus.other.main,
     opacity: "80%",
     backgroundImage:
       "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px)",

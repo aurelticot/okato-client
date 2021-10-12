@@ -32,10 +32,14 @@ export const black = createTheme({
         open: {
           ...baseOptions?.custom?.palette?.marketStatus?.open,
           main: "#53da58",
+          text: "#53da58",
+          contrastText: "rgba(0, 0, 0, 0.87)",
         },
         close: {
           ...baseOptions?.custom?.palette?.marketStatus?.close,
           main: "#ff665c",
+          text: "#ff665c",
+          contrastText: "rgba(0, 0, 0, 0.87)",
         },
       },
     },
