@@ -31,7 +31,7 @@ export const black = createTheme({
         ...baseOptions?.custom?.palette?.marketStatus,
         open: {
           ...baseOptions?.custom?.palette?.marketStatus?.open,
-          main: "#0fdc17",
+          main: "#53da58",
         },
         close: {
           ...baseOptions?.custom?.palette?.marketStatus?.close,
