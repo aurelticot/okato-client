@@ -148,5 +148,9 @@
   "MarketSelectionSearch.placeholder": {
     "defaultMessage": "Search...",
     "description": "Placeholder of the search input in the market selection dialog"
+  },
+  "MarketSelectionSearch.clearButtonTooltip": {
+    "defaultMessage": "Clear search",
+    "description": "Tooltip of the search clear button"
   }
 }

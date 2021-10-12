@@ -77,6 +77,12 @@
       "value": "Sélectionnés"
     }
   ],
+  "MarketSelectionSearch.clearButtonTooltip": [
+    {
+      "type": 0,
+      "value": "Effacer"
+    }
+  ],
   "MarketSelectionSearch.placeholder": [
     {
       "type": 0,

@@ -1,10 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { IconButton, InputBase } from "@mui/material";
+import { IconButton, InputBase, Tooltip } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import {
-  Search as SearchIcon,
-  HighlightOff as ClearIcon,
-} from "@mui/icons-material";
+import { Search as SearchIcon, Clear as ClearIcon } from "@mui/icons-material";
 import { useIntl } from "react-intl";
 
 const Search = styled("div")(({ theme }) => ({
@@ -58,6 +55,12 @@ export const MarketSelectionSearch: React.FunctionComponent<Props> = ({
       "Placeholder of the search input in the market selection dialog",
   });
 
+  const clearButtonTooltip = i18n.formatMessage({
+    id: "MarketSelectionSearch.clearButtonTooltip",
+    defaultMessage: "Clear search",
+    description: "Tooltip of the search clear button",
+  });
+
   return (
     <Search>
       <StyledInputBase
@@ -72,11 +75,13 @@ export const MarketSelectionSearch: React.FunctionComponent<Props> = ({
         inputProps={{ "aria-label": "search" }}
         fullWidth
         endAdornment={
-          value?.length > 0 ? (
-            <IconButton onClick={clearValue} color="default">
-              <ClearIcon />
-            </IconButton>
-          ) : undefined
+          !value || value.length <= 0 ? undefined : (
+            <Tooltip title={clearButtonTooltip}>
+              <IconButton onClick={clearValue} color="default">
+                <ClearIcon />
+              </IconButton>
+            </Tooltip>
+          )
         }
       />
     </Search>
