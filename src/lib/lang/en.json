@@ -71,6 +71,18 @@
       "value": "Available"
     }
   ],
+  "MarketSelectionList.noAvailableMarketMessage": [
+    {
+      "type": 0,
+      "value": "No other market available"
+    }
+  ],
+  "MarketSelectionList.noSelectedMarketMessage": [
+    {
+      "type": 0,
+      "value": "No market selected yet"
+    }
+  ],
   "MarketSelectionList.selectedMarketsListSubheader": [
     {
       "type": 0,
@@ -171,16 +183,16 @@
       "value": "Real-time"
     }
   ],
-  "TimelinesList.selectMarketsAfterLinkMessage": [
+  "TimelinesList.goToMarketSelectionLinkMessage": [
     {
       "type": 0,
-      "value": " to display their timelines"
+      "value": "Go to Market Selection"
     }
   ],
-  "TimelinesList.selectMarketsLinkMessage": [
+  "TimelinesList.noMarketSelectedMessage": [
     {
       "type": 0,
-      "value": "Select markets"
+      "value": "No market selected"
     }
   ],
   "settings.language.label": [

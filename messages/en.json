@@ -129,13 +129,13 @@
     "defaultMessage": "Real-time",
     "description": "Label of the button to resync real-time the timelines"
   },
-  "TimelinesList.selectMarketsLinkMessage": {
-    "defaultMessage": "Select markets",
-    "description": "Message encouraging user to select markets as none are selected, 1st part displayed in a link"
+  "TimelinesList.noMarketSelectedMessage": {
+    "defaultMessage": "No market selected",
+    "description": "Message in the timeline list that stating no market has been selected"
   },
-  "TimelinesList.selectMarketsAfterLinkMessage": {
-    "defaultMessage": " to display their timelines",
-    "description": "Message encouraging user to select markets as none are selected, 2nd part displayed after the link"
+  "TimelinesList.goToMarketSelectionLinkMessage": {
+    "defaultMessage": "Go to Market Selection",
+    "description": "Message encouraging user to go select markets displayed as a link"
   },
   "MarketSelectionList.selectedMarketsListSubheader": {
     "defaultMessage": "Selected",
@@ -144,6 +144,14 @@
   "MarketSelectionList.availableMarketsListSubheader": {
     "defaultMessage": "Available",
     "description": "Subheader of the list containing the availabe (non-selected) markets"
+  },
+  "MarketSelectionList.noSelectedMarketMessage": {
+    "defaultMessage": "No market selected yet",
+    "description": "Message appearing in market selection when the list of selected is empty"
+  },
+  "MarketSelectionList.noAvailableMarketMessage": {
+    "defaultMessage": "No other market available",
+    "description": "Message appearing in market selection when the list of available is empty"
   },
   "MarketSelectionSearch.placeholder": {
     "defaultMessage": "Search...",

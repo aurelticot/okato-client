@@ -7,6 +7,7 @@ import {
   ListItemSecondaryAction,
   ListSubheader,
   Switch,
+  Typography,
 } from "@mui/material";
 import { Room as LocationIcon } from "@mui/icons-material";
 import { useIntl } from "react-intl";
@@ -16,7 +17,7 @@ import { MarketSelectionListSkeleton } from "components/organisms";
 
 const filterMarket = (query = "", market: Market) => {
   const queryLower = query.toLowerCase();
-  if (query.length < 2) {
+  if (query.length < 1) {
     return true;
   }
   const name = market.name.toLowerCase().includes(queryLower);
@@ -50,6 +51,22 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
     );
   }
 
+  const getDefaultItem = (message: string, key: string) => (
+    <ListItem key={key} sx={{ display: "flex", justifyContent: "center" }}>
+      <Box>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            fontStyle: "italic",
+          }}
+        >
+          {message}
+        </Typography>
+      </Box>
+    </ListItem>
+  );
+
   const getMarketItem = (market: Market) => {
     const itemId = `switch-list-label-${market.id}`;
     return (
@@ -78,7 +95,7 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
         <ListItemSecondaryAction>
           <Switch
             edge="end"
-            color="default"
+            color="primary"
             onChange={() => onSelection(market.id)}
             checked={selection.includes(market.id)}
             inputProps={{
@@ -90,64 +107,90 @@ export const MarketSelectionList: React.FunctionComponent<Props> = ({
     );
   };
 
-  const selectedMarketsListSubheader = i18n.formatMessage({
-    id: "MarketSelectionList.selectedMarketsListSubheader",
-    description: "Subheader of the list containing the selected markets",
-    defaultMessage: "Selected",
-  });
+  const getSelectedMarkets = () => {
+    const selectedMarketsListSubheader = i18n.formatMessage({
+      id: "MarketSelectionList.selectedMarketsListSubheader",
+      defaultMessage: "Selected",
+      description: "Subheader of the list containing the selected markets",
+    });
 
-  const selectedMarkets = (
-    <List
-      sx={{ p: 0 }}
-      subheader={
-        <ListSubheader
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          {selectedMarketsListSubheader}
-        </ListSubheader>
-      }
-    >
-      {markets
-        .filter((market) => selection.includes(market.id))
-        .filter((market) => filterMarket(query, market))
-        .map((market) => getMarketItem(market))}
-    </List>
-  );
+    const noSelectedMarketMessage = i18n.formatMessage({
+      id: "MarketSelectionList.noSelectedMarketMessage",
+      defaultMessage: "No market selected yet",
+      description:
+        "Message appearing in market selection when the list of selected is empty",
+    });
 
-  const availableMarketsListSubheader = i18n.formatMessage({
-    id: "MarketSelectionList.availableMarketsListSubheader",
-    description:
-      "Subheader of the list containing the availabe (non-selected) markets",
-    defaultMessage: "Available",
-  });
+    const selectedMarkets = markets
+      .filter((market) => selection.includes(market.id))
+      .filter((market) => filterMarket(query, market))
+      .map((market) => getMarketItem(market));
 
-  const availableMarkets = (
-    <List
-      sx={{ p: 0 }}
-      subheader={
-        <ListSubheader
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          {availableMarketsListSubheader}
-        </ListSubheader>
-      }
-    >
-      {markets
-        .filter((market) => !selection.includes(market.id))
-        .filter((market) => filterMarket(query, market))
-        .map((market) => getMarketItem(market))}
-    </List>
-  );
+    return (
+      <List
+        sx={{ p: 0 }}
+        subheader={
+          <ListSubheader
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            {selectedMarketsListSubheader}
+          </ListSubheader>
+        }
+      >
+        {selectedMarkets.length === 0
+          ? getDefaultItem(noSelectedMarketMessage, "no-market-selected")
+          : selectedMarkets}
+      </List>
+    );
+  };
+
+  const getAvailableMarkets = () => {
+    const availableMarketsListSubheader = i18n.formatMessage({
+      id: "MarketSelectionList.availableMarketsListSubheader",
+      defaultMessage: "Available",
+      description:
+        "Subheader of the list containing the availabe (non-selected) markets",
+    });
+
+    const noAvailableMarketMessage = i18n.formatMessage({
+      id: "MarketSelectionList.noAvailableMarketMessage",
+      defaultMessage: "No other market available",
+      description:
+        "Message appearing in market selection when the list of available is empty",
+    });
+
+    const availableMarkets = markets
+      .filter((market) => !selection.includes(market.id))
+      .filter((market) => filterMarket(query, market))
+      .map((market) => getMarketItem(market));
+
+    return (
+      <List
+        sx={{ p: 0 }}
+        subheader={
+          <ListSubheader
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            {availableMarketsListSubheader}
+          </ListSubheader>
+        }
+      >
+        {availableMarkets.length === 0
+          ? getDefaultItem(noAvailableMarketMessage, "no-market-available")
+          : availableMarkets}
+      </List>
+    );
+  };
 
   return (
     <>
       <MarketSelectionSearch onSearch={setQuery} />
-      {selectedMarkets}
-      {availableMarkets}
+      {getSelectedMarkets()}
+      {getAvailableMarkets()}
     </>
   );
 };
