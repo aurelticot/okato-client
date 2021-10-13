@@ -20,13 +20,13 @@ const mainFluidText = getFluidTextValues(1);
 
 const useStyles = makeStyles((theme) => ({
   marketOpen: {
-    color: theme.custom.palette.marketStatus.open.main,
+    color: theme.custom.palette.marketStatus.open.text,
   },
   marketClosed: {
-    color: theme.custom.palette.marketStatus.close.main,
+    color: theme.custom.palette.marketStatus.close.text,
   },
   marketAfterBeforeHour: {
-    color: theme.custom.palette.marketStatus.extended.main,
+    color: theme.custom.palette.marketStatus.other.text,
   },
 }));
 
@@ -36,11 +36,11 @@ const defineMarketStatusClass = (
 ): string => {
   switch (status) {
     case MarketStatus.OPEN:
-    case MarketStatus.BREAK:
       return classes.marketOpen;
     case MarketStatus.CLOSE:
     case MarketStatus.CLOSE_SPECIAL:
       return classes.marketClosed;
+    case MarketStatus.BREAK:
     case MarketStatus.BEFORE_MARKET:
     case MarketStatus.AFTER_MARKET:
       return classes.marketAfterBeforeHour;
@@ -59,7 +59,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const status = getMarketStatus(
     baseTime ? DateTime.fromJSDate(baseTime) : DateTime.local(),
     market,
-    true
+    false
   );
   const nextEvent = getMarketNextEvent(
     baseTime ? DateTime.fromJSDate(baseTime) : DateTime.local(),

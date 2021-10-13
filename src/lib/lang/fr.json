@@ -308,5 +308,11 @@
       "type": 0,
       "value": "Préférence système"
     }
+  ],
+  "settings.theme.value.white.label": [
+    {
+      "type": 0,
+      "value": "Blanc"
+    }
   ]
 }
