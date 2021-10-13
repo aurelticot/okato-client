@@ -17,6 +17,9 @@
   "settings.theme.value.light.label": {
     "defaultMessage": "Clair"
   },
+  "settings.theme.value.white.label": {
+    "defaultMessage": "Blanc"
+  },
   "settings.language.label": {
     "defaultMessage": "Langue"
   },

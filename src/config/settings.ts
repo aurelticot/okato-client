@@ -9,6 +9,7 @@ export const settings: Settings = {
       { key: "black", localizedLabelKey: "settings.theme.value.black.label" },
       { key: "dark", localizedLabelKey: "settings.theme.value.dark.label" },
       { key: "light", localizedLabelKey: "settings.theme.value.light.label" },
+      { key: "white", localizedLabelKey: "settings.theme.value.white.label" },
     ],
   },
   [SettingKey.Language]: {

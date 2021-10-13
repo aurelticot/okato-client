@@ -11,14 +11,8 @@ export const black = createTheme(
         default: "#000000",
         paper: "#000000",
       },
-    },
-    components: {
-      MuiBackdrop: {
-        styleOverrides: {
-          root: {
-            backgroundColor: alpha("#FFFFFF", 0.1),
-          },
-        },
+      text: {
+        primary: "rgba(255, 255, 255, 0.80)",
       },
     },
     custom: {
@@ -27,12 +21,26 @@ export const black = createTheme(
           open: {
             main: "#53da58",
             text: "#53da58",
-            contrastText: "rgba(0, 0, 0, 0.87)",
+            contrastText: "rgba(0, 0, 0, 0.80)",
           },
           close: {
             main: "#ff665c",
             text: "#ff665c",
-            contrastText: "rgba(0, 0, 0, 0.87)",
+            contrastText: "rgba(255, 255, 255, 0.80)",
+          },
+          other: {
+            main: "#ff9800",
+            text: "#ffad35",
+            contrastText: "rgba(0, 0, 0, 0.80)",
+          },
+        },
+      },
+    },
+    components: {
+      MuiBackdrop: {
+        styleOverrides: {
+          root: {
+            backgroundColor: alpha("#FFFFFF", 0.1),
           },
         },
       },

@@ -60,25 +60,6 @@ declare module "@mui/material/styles/createTheme" {
 
 export const baseOptions: ThemeOptions = {
   custom: {
-    palette: {
-      marketStatus: {
-        open: {
-          main: "#4caf50",
-          text: "#098a0e",
-          contrastText: "rgba(0, 0, 0, 0.87)",
-        },
-        close: {
-          main: "#e62112",
-          text: "#e62112",
-          contrastText: "#ffffff",
-        },
-        other: {
-          main: "#ff9800",
-          text: "#ff9800",
-          contrastText: "rgba(0, 0, 0, 0.87)",
-        },
-      },
-    },
     mixins: {
       fluidLength: getFluidCSSLength,
     },
@@ -94,7 +75,7 @@ export const baseOptions: ThemeOptions = {
       main: "#616161",
       light: "#9e9e9e",
       dark: "#424242",
-      contrastText: "rgba(0, 0, 0, 0.87)",
+      contrastText: "rgba(0, 0, 0, 0.80)",
     },
   },
   components: {

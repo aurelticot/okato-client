@@ -2,13 +2,13 @@ import merge from "lodash.merge";
 import { createTheme } from "@mui/material/styles";
 import { baseOptions } from "./base.theme";
 
-export const light = createTheme(
+export const white = createTheme(
   merge({}, baseOptions, {
     palette: {
       mode: "light",
       background: {
-        default: "#f7f2e9",
-        paper: "#f7f2e9",
+        default: "#ffffff",
+        paper: "#ffffff",
       },
       text: {
         primary: "rgba(0, 0, 0, 0.80)",
@@ -18,18 +18,18 @@ export const light = createTheme(
       palette: {
         marketStatus: {
           open: {
-            main: "#50b995",
-            text: "#267e60",
-            contrastText: "rgba(0, 0, 0, 0.80)",
+            main: "#098a0e",
+            text: "#098a0e",
+            contrastText: "rgba(255, 255, 255, 0.80)",
           },
           close: {
-            main: "#f46b6a",
-            text: "#c04746",
-            contrastText: "rgba(0, 0, 0, 0.80)",
+            main: "#e62112",
+            text: "#e62112",
+            contrastText: "rgba(255, 255, 255, 0.80)",
           },
           other: {
-            main: "#f5a228",
-            text: "#966318",
+            main: "#ff9800",
+            text: "#aa6500",
             contrastText: "rgba(0, 0, 0, 0.80)",
           },
         },

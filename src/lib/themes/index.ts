@@ -2,11 +2,13 @@ import { Theme } from "@mui/material/styles";
 import { black } from "./black.theme";
 import { dark } from "./dark.theme";
 import { light } from "./light.theme";
+import { white } from "./white.theme";
 
 export const themes = {
   black,
   dark,
   light,
+  white,
 };
 
 export const getDarkTheme = (): Theme => {
@@ -25,6 +27,8 @@ export const getTheme = (theme: string): Theme => {
       return themes.black;
     case "dark":
       return themes.dark;
+    case "white":
+      return themes.white;
     default:
       return themes.light;
   }
