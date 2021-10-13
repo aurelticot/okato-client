@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Switch,
   Route,
+  Redirect,
   useRouteMatch,
   useHistory,
   useLocation,
@@ -51,6 +52,9 @@ export const App: React.FunctionComponent = () => {
           exact
         >
           <TimelinesView />
+        </Route>
+        <Route>
+          <Redirect to={routes.home} />
         </Route>
       </Switch>
       <MarketSelectionDialog
