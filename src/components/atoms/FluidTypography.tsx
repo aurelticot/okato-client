@@ -8,12 +8,24 @@ interface Props {
   maxSize?: string;
 }
 
+const cleanProps = (
+  props: Partial<Props> & TypographyProps
+): TypographyProps => {
+  const cleanedProps = { ...props };
+  delete cleanedProps.sizeRatio;
+  delete cleanedProps.ratioUnit;
+  delete cleanedProps.minSize;
+  delete cleanedProps.maxSize;
+  return cleanedProps;
+};
+
 export const FluidTypography: React.FunctionComponent<Props & TypographyProps> =
   (props) => {
     const { minSize = "1rem", sizeRatio, ratioUnit = "vmin", maxSize } = props;
+    const cleanedProps = cleanProps(props);
     return (
       <Typography
-        {...props}
+        {...cleanedProps}
         sx={{
           ...props.sx,
           fontSize: `clamp(${minSize}, ${sizeRatio}${ratioUnit}, ${
