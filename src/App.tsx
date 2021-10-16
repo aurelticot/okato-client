@@ -43,20 +43,29 @@ export const App: React.FunctionComponent = () => {
   }, [settingsRouteMatch, marketSelectionRouteMatch]);
 
   return (
-    <Box sx={{ px: 1 }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <TopBar />
       <TopBarOffset />
-      <Switch>
-        <Route
-          path={[routes.home, routes.settings, routes.marketSelection]}
-          exact
-        >
-          <TimelinesView />
-        </Route>
-        <Route>
-          <Redirect to={routes.home} />
-        </Route>
-      </Switch>
+      <Box sx={{ flexGrow: 1 }}>
+        <Switch>
+          <Route
+            path={[routes.home, routes.settings, routes.marketSelection]}
+            exact
+          >
+            <TimelinesView />
+          </Route>
+          <Route>
+            <Redirect to={routes.home} />
+          </Route>
+        </Switch>
+      </Box>
       <MarketSelectionDialog
         open={dialogOpen && !!marketSelectionRouteMatch?.isExact}
         onClose={closeDialog}
