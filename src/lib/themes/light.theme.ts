@@ -13,6 +13,36 @@ export const light = createTheme(
       text: {
         primary: "rgba(0, 0, 0, 0.80)",
       },
+      primary: {
+        main: "#2196f3",
+        light: "#64b5f6",
+        dark: "#1976d2",
+        contrastText: "rgba(255, 255, 255, 0.80)",
+      },
+      info: {
+        main: "#2196f3",
+        light: "#64b5f6",
+        dark: "#1976d2",
+        contrastText: "rgba(255, 255, 255, 0.80)",
+      },
+      success: {
+        main: "#50b995",
+        light: "#84ecc6",
+        dark: "#0f8867",
+        contrastText: "rgba(0, 0, 0, 0.80)",
+      },
+      warning: {
+        main: "#f5a228",
+        light: "#ffd35c",
+        dark: "#bd7300",
+        contrastText: "rgba(0, 0, 0, 0.80)",
+      },
+      error: {
+        main: "#f46b6a",
+        light: "#ff9d98",
+        dark: "#bc393f",
+        contrastText: "rgba(0, 0, 0, 0.80)",
+      },
     },
     custom: {
       palette: {
