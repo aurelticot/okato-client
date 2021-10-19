@@ -194,8 +194,12 @@ export const TimelinesContainer: React.FunctionComponent<Props> = (props) => {
             flexDirection: "column",
           }}
         >
-          <TimelineRuler baseTime={baseTime} />
-          <Box sx={{ flexGrow: 1 }}>{props.children}</Box>
+          <Box component="section">
+            <TimelineRuler baseTime={baseTime} />
+          </Box>
+          <Box component="section" sx={{ flexGrow: 1 }}>
+            {props.children}
+          </Box>
         </Box>
       </Box>
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>

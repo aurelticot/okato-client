@@ -74,7 +74,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
   const classes = useStyles(props);
   const marketStatusClass = defineMarketStatusClass(status, classes);
   return (
-    <Box>
+    <Box component="header">
       <Box
         sx={{
           width: "100%",

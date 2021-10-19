@@ -53,7 +53,7 @@ export const App: React.FunctionComponent = () => {
     >
       <TopBar />
       <TopBarOffset />
-      <Box sx={{ flexGrow: 1 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <Switch>
           <Route
             path={[routes.home, routes.settings, routes.marketSelection]}

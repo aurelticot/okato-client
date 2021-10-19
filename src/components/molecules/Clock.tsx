@@ -36,6 +36,8 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
 
   return (
     <Box
+      component="time"
+      dateTime={workingTime.toISO()}
       sx={{
         width: "100%",
         display: "flex",

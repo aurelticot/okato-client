@@ -81,13 +81,9 @@ export const baseOptions: ThemeOptions = {
   components: {
     MuiCssBaseline: {
       styleOverrides: `
-        body {
+        #root {
           height: 100vh;
           width: 100vw;
-        }
-        #root {
-          height: 100%;
-          width: 100%;
         }
       `,
     },
