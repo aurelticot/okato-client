@@ -65,6 +65,24 @@
       "value": "Paramètres"
     }
   ],
+  "DefaultErrorFallback.primaryMessage": [
+    {
+      "type": 0,
+      "value": "Oups, il s'est produit une erreur!"
+    }
+  ],
+  "DefaultErrorFallback.retryButtonLabel": [
+    {
+      "type": 0,
+      "value": "Réessayer"
+    }
+  ],
+  "DefaultErrorFallback.secondaryMessage": [
+    {
+      "type": 0,
+      "value": "Si l'erreur persiste, essayez de rafraîchir le navigateur et nettoyer ses données."
+    }
+  ],
   "MarketSelectionList.availableMarketsListSubheader": [
     {
       "type": 0,

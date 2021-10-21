@@ -65,6 +65,24 @@
       "value": "Settings"
     }
   ],
+  "DefaultErrorFallback.primaryMessage": [
+    {
+      "type": 0,
+      "value": "Oops, something went wrong!"
+    }
+  ],
+  "DefaultErrorFallback.retryButtonLabel": [
+    {
+      "type": 0,
+      "value": "Try again"
+    }
+  ],
+  "DefaultErrorFallback.secondaryMessage": [
+    {
+      "type": 0,
+      "value": "If the error persists, try refreshing your browser and cleaning your browser's data."
+    }
+  ],
   "MarketSelectionList.availableMarketsListSubheader": [
     {
       "type": 0,

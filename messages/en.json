@@ -1,4 +1,16 @@
 {
+  "DefaultErrorFallback.primaryMessage": {
+    "defaultMessage": "Oops, something went wrong!",
+    "description": "Error message on the default fallback displayed when something went wrong"
+  },
+  "DefaultErrorFallback.secondaryMessage": {
+    "defaultMessage": "If the error persists, try refreshing your browser and cleaning your browser's data.",
+    "description": "Message fn the default fallback inviting users to refresh their browser displayed when something went wrong"
+  },
+  "DefaultErrorFallback.retryButtonLabel": {
+    "defaultMessage": "Try again",
+    "description": "Label of the 'Try Again' button displayed on the default fallback when something went wrong"
+  },
   "settings.theme.label": {
     "defaultMessage": "Theme"
   },

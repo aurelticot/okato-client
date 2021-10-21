@@ -1,4 +1,16 @@
 {
+  "DefaultErrorFallback.primaryMessage": {
+    "defaultMessage": "Oups, il s'est produit une erreur!",
+    "description": "Error message on the default fallback displayed when something went wrong"
+  },
+  "DefaultErrorFallback.secondaryMessage": {
+    "defaultMessage": "Si l'erreur persiste, essayez de rafraîchir le navigateur et nettoyer ses données.",
+    "description": "Message fn the default fallback inviting users to refresh their browser displayed when something went wrong"
+  },
+  "DefaultErrorFallback.retryButtonLabel": {
+    "defaultMessage": "Réessayer",
+    "description": "Label of the 'Try Again' button displayed on the default fallback when something went wrong"
+  },
   "settings.theme.label": {
     "defaultMessage": "Thème"
   },
