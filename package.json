@@ -82,6 +82,7 @@
     "graphql": "^15.6.1",
     "lodash.merge": "^4.6.2",
     "luxon": "^2.0.2",
+    "nanoid": "^3.1.30",
     "node-schedule": "^2.0.0",
     "notistack": "^2.0.2",
     "prettier": "^2.4.1",

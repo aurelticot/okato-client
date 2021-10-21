@@ -10,7 +10,7 @@ import {
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { routes } from "lib/constants";
-import { sendPageView } from "lib/utils";
+import { sendTelemetryPageView } from "lib/utils";
 import { TopBar } from "components/organisms";
 import {
   MarketSelectionDialog,
@@ -33,7 +33,7 @@ export const App: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    sendPageView(location.pathname);
+    sendTelemetryPageView(location.pathname);
   }, [location]);
 
   useEffect(() => {
