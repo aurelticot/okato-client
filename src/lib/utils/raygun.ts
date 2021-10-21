@@ -16,6 +16,7 @@ export const initTelemetry = (customData?: any, tags?: string[]): void => {
     debugMode: config.nodeEnv === "development",
     ignore3rdPartyErrors: true,
     automaticPerformanceCustomTimings: true,
+    excludedHostnames: ["localhost"],
   });
   setTelemetryBreadcrumbLevel(
     config.nodeEnv === "development" ? "debug" : "info"
