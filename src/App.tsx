@@ -11,6 +11,7 @@ import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { routes } from "lib/constants";
 import { sendTelemetryPageView } from "lib/utils";
+import { ErrorHandler } from "lib/handlers";
 import { TopBar } from "components/organisms";
 import {
   MarketSelectionDialog,
@@ -54,17 +55,19 @@ export const App: React.FunctionComponent = () => {
       <TopBar />
       <TopBarOffset />
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <Switch>
-          <Route
-            path={[routes.home, routes.settings, routes.marketSelection]}
-            exact
-          >
-            <TimelinesView />
-          </Route>
-          <Route>
-            <Redirect to={routes.home} />
-          </Route>
-        </Switch>
+        <ErrorHandler>
+          <Switch>
+            <Route
+              path={[routes.home, routes.settings, routes.marketSelection]}
+              exact
+            >
+              <TimelinesView />
+            </Route>
+            <Route>
+              <Redirect to={routes.home} />
+            </Route>
+          </Switch>
+        </ErrorHandler>
       </Box>
       <MarketSelectionDialog
         open={dialogOpen && !!marketSelectionRouteMatch?.isExact}
