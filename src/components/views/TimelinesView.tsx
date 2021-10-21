@@ -78,10 +78,6 @@ export const TimelinesView: React.FunctionComponent = () => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
-          // TODO delete filter and find a way to not query for empty selection
-          .filter((market) => {
-            return selectedMarkets.includes(market.id) ? true : false;
-          })
           .map((market): Market => {
             const preparedSessions: MarketSession[] = market.sessions
               .map(
