@@ -1,3 +1,5 @@
+import { MessageDescriptor } from "react-intl";
+
 export enum SettingKey {
   Theme = "theme",
   Language = "language",
@@ -5,20 +7,14 @@ export enum SettingKey {
   MarketSelection = "marketSelection",
 }
 
-export interface LabelMessage {
-  id?: string;
-  defaultMessage: string;
-  description: string;
-}
-
 export interface SettingValue {
   key: string;
-  labelMessage: LabelMessage;
+  labelMessage: MessageDescriptor;
 }
 
 export interface Setting {
   key: string;
-  labelMessage: LabelMessage;
+  labelMessage: MessageDescriptor;
   values: SettingValue[];
 }
 

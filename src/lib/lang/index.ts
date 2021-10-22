@@ -1,17 +1,15 @@
-import { MessageFormatElement } from "@formatjs/icu-messageformat-parser";
 import { defineMessage } from "react-intl";
-import { SettingValue } from "lib/types";
-import en from "./en.json";
-import fr from "./fr.json";
+import { SettingValue, LocalizedMessages } from "lib/types";
 
-export const defaultLanguage = "en";
-
-export const messages = {
-  en: en as Record<string, string> | Record<string, MessageFormatElement[]>,
-  fr: fr as Record<string, string> | Record<string, MessageFormatElement[]>,
+export const getLocale = (languageUserSetting?: string): string => {
+  return languageUserSetting === undefined || languageUserSetting === "system"
+    ? navigator.language
+    : languageUserSetting;
 };
 
-export const supportedLanguageSettingsValues: SettingValue[] = [
+export const defaultLocale = "en";
+
+const supportedLocales = [
   {
     key: "en",
     labelMessage: defineMessage({
@@ -29,3 +27,35 @@ export const supportedLanguageSettingsValues: SettingValue[] = [
     }),
   },
 ];
+
+export const supportedLanguageSettingsValues: SettingValue[] =
+  supportedLocales.map((language) => ({
+    key: language.key,
+    labelMessage: language.labelMessage,
+  }));
+
+const loadMessagesData = async (
+  locale: string
+): Promise<LocalizedMessages | undefined> => {
+  switch (locale) {
+    case "fr":
+      return import("./fr.json") as unknown as Promise<LocalizedMessages>;
+    case "en":
+      return import("./en.json") as unknown as Promise<LocalizedMessages>;
+    default:
+      return Promise.resolve(undefined);
+  }
+};
+
+export const getMessages = async (
+  locale: string
+): Promise<LocalizedMessages> => {
+  let messages = await loadMessagesData(locale);
+  if (!messages) {
+    messages = await loadMessagesData(locale.split(/[-_]/)[0]);
+  }
+  if (!messages) {
+    messages = (await loadMessagesData(defaultLocale)) as LocalizedMessages;
+  }
+  return messages;
+};
