@@ -1,13 +1,12 @@
 import React from "react";
-import { IntlProvider } from "react-intl";
+import { IntlProvider as ReactIntlProvider } from "react-intl";
 import { MessageFormatElement } from "@formatjs/icu-messageformat-parser";
-import { messages } from "lib/lang";
+import { defaultLanguage, messages } from "lib/lang";
 import { useUserSetting } from "lib/hooks";
 import { SettingKey } from "lib/types";
+import { sendTelemetryError } from "lib/utils";
 
 const { en, fr } = messages;
-
-const defaultLanguage = "en";
 
 const resolveLanguageValue = (value: string | string[]): string => {
   const resolvedLanguage = Array.isArray(value) ? value[0] : value;
@@ -51,20 +50,21 @@ const getLocaleMessages = (
   }
 };
 
-export const MessagesProvider: React.FunctionComponent = (props) => {
+export const IntlProvider: React.FunctionComponent = (props) => {
   const browserLanguage = getBrowserLanguage();
   const [userLanguage] = useUserSetting(SettingKey.Language);
   const locale: string = resolveLanguageValue(userLanguage || browserLanguage);
   const messages = getLocaleMessages(locale);
 
   return (
-    <IntlProvider
+    <ReactIntlProvider
       key={locale}
       locale={locale}
       defaultLocale={defaultLanguage}
       messages={messages}
+      onError={(error) => sendTelemetryError(error)}
     >
       {props.children}
-    </IntlProvider>
+    </ReactIntlProvider>
   );
 };

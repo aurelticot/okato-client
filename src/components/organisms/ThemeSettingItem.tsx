@@ -25,7 +25,12 @@ export const ThemeSettingItem: React.FunctionComponent<Props> = ({
   )[0];
 
   const dialogConfiguration: SettingDialogConfiguration = {
-    title: i18n.formatMessage({ id: "settings.theme.selectionDialog.title" }),
+    title: i18n.formatMessage({
+      id: "settings.theme.selectionDialog.title",
+      defaultMessage: "Select a theme",
+      description:
+        "Title of the dialog listing the theme options to select from",
+    }),
     selectedValue: theme,
     values: themesSettingsDefinition.values,
     applyValue: setTheme,
@@ -37,12 +42,8 @@ export const ThemeSettingItem: React.FunctionComponent<Props> = ({
         <InvertColorsIcon />
       </ListItemIcon>
       <ListItemText
-        primary={i18n.formatMessage({
-          id: themesSettingsDefinition.localizedLabelKey,
-        })}
-        secondary={i18n.formatMessage({
-          id: selectedThemeDefinition.localizedLabelKey,
-        })}
+        primary={i18n.formatMessage(themesSettingsDefinition.labelMessage)}
+        secondary={i18n.formatMessage(selectedThemeDefinition.labelMessage)}
       />
     </ListItem>
   );

@@ -23,7 +23,7 @@
     "build:profiler": "react-scripts build --profile",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-scripts test --passWithNoTests",
-    "start:dev": "react-scripts start",
+    "start:dev": "npm run messages:compile && react-scripts start",
     "start:build": "npx serve -s build",
     "start": "npm run start:dev",
     "eject": "react-scripts eject"
@@ -45,6 +45,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@formatjs/cli": "^4.3.1",
+    "@formatjs/ts-transformer": "^3.5.1",
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
     "@mui/icons-material": "^5.0.3",

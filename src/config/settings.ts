@@ -1,59 +1,138 @@
+import { defineMessage } from "react-intl";
 import { SettingKey, Settings, MarketSortingMethod } from "lib/types";
+import { supportedLanguageSettingsValues } from "lib/lang";
 
 export const settings: Settings = {
   [SettingKey.Theme]: {
     key: SettingKey.Theme,
-    localizedLabelKey: "settings.theme.label",
+    labelMessage: defineMessage({
+      id: "settings.theme.label",
+      defaultMessage: "Theme",
+      description: "Label of the Setting 'theme'",
+    }),
     values: [
-      { key: "system", localizedLabelKey: "settings.theme.value.system.label" },
-      { key: "black", localizedLabelKey: "settings.theme.value.black.label" },
-      { key: "dark", localizedLabelKey: "settings.theme.value.dark.label" },
-      { key: "light", localizedLabelKey: "settings.theme.value.light.label" },
-      { key: "white", localizedLabelKey: "settings.theme.value.white.label" },
+      {
+        key: "system",
+        labelMessage: defineMessage({
+          id: "settings.theme.value.system.label",
+          defaultMessage: "System default",
+          description: "Label of the option 'system' for the Setting Theme",
+        }),
+      },
+      {
+        key: "black",
+        labelMessage: defineMessage({
+          id: "settings.theme.value.black.label",
+          defaultMessage: "Black",
+          description: "Label of the option 'black' for the Setting Theme",
+        }),
+      },
+      {
+        key: "dark",
+        labelMessage: defineMessage({
+          id: "settings.theme.value.dark.label",
+          defaultMessage: "Dark",
+          description: "Label of the option 'dark' for the Setting Theme",
+        }),
+      },
+      {
+        key: "light",
+        labelMessage: defineMessage({
+          id: "settings.theme.value.light.label",
+          defaultMessage: "Light",
+          description: "Label of the option 'light' for the Setting Theme",
+        }),
+      },
+      {
+        key: "white",
+        labelMessage: defineMessage({
+          id: "settings.theme.value.white.label",
+          defaultMessage: "White",
+          description: "Label of the option 'white' for the Setting Theme",
+        }),
+      },
     ],
   },
   [SettingKey.Language]: {
     key: SettingKey.Language,
-    localizedLabelKey: "settings.language.label",
+    labelMessage: defineMessage({
+      id: "settings.language.label",
+      defaultMessage: "Language",
+      description: "Label of the Setting 'language'",
+    }),
     values: [
       {
         key: "system",
-        localizedLabelKey: "settings.language.value.system.label",
+        labelMessage: defineMessage({
+          id: "settings.language.value.system.label",
+          defaultMessage: "System default",
+          description: "Label of the option 'system' for the Setting Language",
+        }),
       },
-      { key: "en", localizedLabelKey: "settings.language.value.en.label" },
-      { key: "fr", localizedLabelKey: "settings.language.value.fr.label" },
+      ...supportedLanguageSettingsValues,
     ],
   },
   [SettingKey.MarketSort]: {
     key: SettingKey.MarketSort,
-    localizedLabelKey: "settings.marketSort.label",
+    labelMessage: defineMessage({
+      id: "settings.marketSort.label",
+      defaultMessage: "Market sorting",
+      description: "Label of the Setting 'market sorting'",
+    }),
     values: [
       {
         key: MarketSortingMethod.CAPITALISATION,
-        localizedLabelKey: "settings.marketSort.value.capitalisation.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.capitalisation.label",
+          defaultMessage: "Capitalisation",
+          description:
+            "Label of the option 'capitalisation' for the Setting Market Sorting",
+        }),
       },
       {
         key: MarketSortingMethod.ALPHABETICALLY,
-        localizedLabelKey: "settings.marketSort.value.alphabetically.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.alphabetically.label",
+          defaultMessage: "Alphabetically",
+          description:
+            "Label of the option 'alphabetic' for the Setting Market Sorting",
+        }),
       },
       {
         key: MarketSortingMethod.CHRONOLOGICALLY,
-        localizedLabelKey: "settings.marketSort.value.chronologically.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.chronologically.label",
+          defaultMessage: "Chronologically",
+          description:
+            "Label of the option 'chronologic' for the Setting Market Sorting",
+        }),
       },
       {
         key: MarketSortingMethod.CAPITALISATION_REVERSE,
-        localizedLabelKey:
-          "settings.marketSort.value.capitalisationReverse.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.capitalisationReverse.label",
+          defaultMessage: "Capitalisation (reverse)",
+          description:
+            "Label of the option 'capitalisation reverse' for the Setting Market Sorting",
+        }),
       },
       {
         key: MarketSortingMethod.ALPHABETICALLY_REVERSE,
-        localizedLabelKey:
-          "settings.marketSort.value.alphabeticallyReverse.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.alphabeticallyReverse.label",
+          defaultMessage: "Alphabetically (reverse)",
+          description:
+            "Label of the option 'alphabetic reverse' for the Setting Market Sorting",
+        }),
       },
       {
         key: MarketSortingMethod.CHRONOLOGICALLY_REVERSE,
-        localizedLabelKey:
-          "settings.marketSort.value.chronologicallyReverse.label",
+        labelMessage: defineMessage({
+          id: "settings.marketSort.value.chronologicallyReverse.label",
+          defaultMessage: "Chronologically (reverse)",
+          description:
+            "Label of the option 'chronologic reverse' for the Setting Market Sorting",
+        }),
       },
     ],
   },

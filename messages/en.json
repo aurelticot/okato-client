@@ -12,64 +12,84 @@
     "description": "Label of the 'Try Again' button displayed on the default fallback when something went wrong"
   },
   "settings.theme.label": {
-    "defaultMessage": "Theme"
+    "defaultMessage": "Theme",
+    "description": "Label of the Setting 'theme'"
   },
   "settings.theme.selectionDialog.title": {
-    "defaultMessage": "Select a theme"
-  },
-  "settings.theme.value.system.label": {
-    "defaultMessage": "System default"
+    "defaultMessage": "Select a theme",
+    "description": "Title of the dialog listing the theme options to select from"
   },
   "settings.theme.value.black.label": {
-    "defaultMessage": "Black"
+    "defaultMessage": "Black",
+    "description": "Label of the option 'black' for the Setting Theme"
   },
   "settings.theme.value.dark.label": {
-    "defaultMessage": "Dark"
+    "defaultMessage": "Dark",
+    "description": "Label of the option 'dark' for the Setting Theme"
   },
   "settings.theme.value.light.label": {
-    "defaultMessage": "Light"
+    "defaultMessage": "Light",
+    "description": "Label of the option 'light' for the Setting Theme"
+  },
+  "settings.theme.value.system.label": {
+    "defaultMessage": "System default",
+    "description": "Label of the option 'system' for the Setting Theme"
   },
   "settings.theme.value.white.label": {
-    "defaultMessage": "White"
+    "defaultMessage": "White",
+    "description": "Label of the option 'white' for the Setting Theme"
   },
   "settings.language.label": {
-    "defaultMessage": "Language"
+    "defaultMessage": "Language",
+    "description": "Label of the Setting 'language'"
   },
   "settings.language.selectionDialog.title": {
-    "defaultMessage": "Select a language"
+    "defaultMessage": "Select a language",
+    "description": "Title of the dialog listing the language options to select from"
   },
   "settings.language.value.system.label": {
-    "defaultMessage": "System default"
+    "defaultMessage": "System default",
+    "description": "Label of the option 'system' for the Setting Language"
   },
   "settings.language.value.en.label": {
-    "defaultMessage": "English"
+    "defaultMessage": "English",
+    "description": "Label of the option 'en' for the Setting Language"
   },
   "settings.language.value.fr.label": {
-    "defaultMessage": "Français"
+    "defaultMessage": "Français",
+    "description": "Label of the option 'fr' for the Setting Language"
   },
   "settings.marketSort.label": {
-    "defaultMessage": "Market sorting"
+    "defaultMessage": "Market sorting",
+    "description": "Label of the Setting 'market sorting'"
   },
   "settings.marketSort.selectionDialog.title": {
-    "defaultMessage": "Select a sorting method"
+    "defaultMessage": "Select a sorting method",
+    "description": "Title of the dialog listing the sorting method options to select from"
   },
   "settings.marketSort.value.capitalisation.label": {
-    "defaultMessage": "Capitalisation"
+    "defaultMessage": "Capitalisation",
+    "description": "Label of the option 'capitalisation' for the Setting Market Sorting"
   },
   "settings.marketSort.value.alphabetically.label": {
-    "defaultMessage": "Alphabetically"
+    "defaultMessage": "Alphabetically",
+    "description": "Label of the option 'alphabetic' for the Setting Market Sorting"
   },
   "settings.marketSort.value.chronologically.label": {
-    "defaultMessage": "Chronologically"
+    "defaultMessage": "Chronologically",
+    "description": "Label of the option 'chronologic' for the Setting Market Sorting"
   },
   "settings.marketSort.value.capitalisationReverse.label": {
-    "defaultMessage": "Capitalisation (reverse)"
+    "defaultMessage": "Capitalisation (reverse)",
+    "description": "Label of the option 'capitalisation reverse' for the Setting Market Sorting"
   },
   "settings.marketSort.value.alphabeticallyReverse.label": {
-    "defaultMessage": "Alphabetically (reverse)"
+    "defaultMessage": "Alphabetically (reverse)",
+    "description": "Label of the option 'alphabetic reverse' for the Setting Market Sorting"
   },
   "settings.marketSort.value.chronologicallyReverse.label": {
-    "defaultMessage": "Chronologically (reverse)"
+    "defaultMessage": "Chronologically (reverse)",
+    "description": "Label of the option 'chronologic reverse' for the Setting Market Sorting"
   },
   "ApplicationBar.appTitle": {
     "defaultMessage": "Market Timeline",
@@ -120,13 +140,16 @@
     "description": "Title of the Market Selection dialog"
   },
   "AppDate.today": {
-    "defaultMessage": "Today"
+    "defaultMessage": "Today",
+    "description": "Message displayed when the date is today, the current date"
   },
   "AppDate.tomorrow": {
-    "defaultMessage": "Tomorrow"
+    "defaultMessage": "Tomorrow",
+    "description": "Message displayed when the date is tomorrow"
   },
   "AppDate.yesterday": {
-    "defaultMessage": "Yesterday"
+    "defaultMessage": "Yesterday",
+    "description": "Message displayed when the date is yesterday"
   },
   "NextMarketEvent": {
     "defaultMessage": "{status, select, OPEN {Open} CLOSE {Close} other {Next event}} in {relativeTime}",

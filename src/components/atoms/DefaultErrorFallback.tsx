@@ -1,29 +1,29 @@
 import React from "react";
 import { FallbackProps } from "react-error-boundary";
 import { Box, Button, Typography } from "@mui/material";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
-const primaryMessageDefinition = {
+const primaryMessageDefinition = defineMessage({
   id: "DefaultErrorFallback.primaryMessage",
   defaultMessage: "Oops, something went wrong!",
   description:
     "Error message on the default fallback displayed when something went wrong",
-};
+});
 
-const secondaryMessageDefinition = {
+const secondaryMessageDefinition = defineMessage({
   id: "DefaultErrorFallback.secondaryMessage",
   defaultMessage:
     "If the error persists, try refreshing your browser and cleaning your browser's data.",
   description:
     "Message fn the default fallback inviting users to refresh their browser displayed when something went wrong",
-};
+});
 
-const retryButtonLabelDefinition = {
+const retryButtonLabelDefinition = defineMessage({
   id: "DefaultErrorFallback.retryButtonLabel",
   defaultMessage: "Try again",
   description:
     "Label of the 'Try Again' button displayed on the default fallback when something went wrong",
-};
+});
 
 interface Props {
   primaryMessage?: string;

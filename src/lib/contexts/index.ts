@@ -1,6 +1,5 @@
 export * from "./AppContext";
 export * from "./GraphqlContext";
-export * from "./MessagesContext";
+export * from "./IntlContext";
 export * from "./ThemesContext";
-export * from "./TimeContext";
 export * from "./UserSettingsContext";

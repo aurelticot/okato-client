@@ -5,14 +5,20 @@ export enum SettingKey {
   MarketSelection = "marketSelection",
 }
 
+export interface LabelMessage {
+  id?: string;
+  defaultMessage: string;
+  description: string;
+}
+
 export interface SettingValue {
   key: string;
-  localizedLabelKey: string;
+  labelMessage: LabelMessage;
 }
 
 export interface Setting {
   key: string;
-  localizedLabelKey: string;
+  labelMessage: LabelMessage;
   values: SettingValue[];
 }
 
