@@ -39,9 +39,11 @@ export const MarketSortSettingItem: React.FunctionComponent<Props> = ({
       </ListItemIcon>
       <ListItemText
         primary={i18n.formatMessage(marketSortSettingsDefinition.labelMessage)}
-        secondary={i18n.formatMessage(
-          selectedMarketSortDefinition.labelMessage
-        )}
+        secondary={
+          typeof selectedMarketSortDefinition.labelMessage === "string"
+            ? selectedMarketSortDefinition.labelMessage
+            : i18n.formatMessage(selectedMarketSortDefinition.labelMessage)
+        }
       />
     </ListItem>
   );

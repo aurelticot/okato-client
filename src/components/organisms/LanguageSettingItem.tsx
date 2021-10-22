@@ -43,7 +43,11 @@ export const LanguageSettingItem: React.FunctionComponent<Props> = ({
       </ListItemIcon>
       <ListItemText
         primary={i18n.formatMessage(languagesSettingsDefinition.labelMessage)}
-        secondary={i18n.formatMessage(selectedLanguageDefinition.labelMessage)}
+        secondary={
+          typeof selectedLanguageDefinition.labelMessage === "string"
+            ? selectedLanguageDefinition.labelMessage
+            : i18n.formatMessage(selectedLanguageDefinition.labelMessage)
+        }
       />
     </ListItem>
   );

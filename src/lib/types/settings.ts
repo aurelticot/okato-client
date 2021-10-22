@@ -9,7 +9,7 @@ export enum SettingKey {
 
 export interface SettingValue {
   key: string;
-  labelMessage: MessageDescriptor;
+  labelMessage: string | MessageDescriptor;
 }
 
 export interface Setting {

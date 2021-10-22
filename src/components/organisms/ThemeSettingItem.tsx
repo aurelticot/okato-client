@@ -43,7 +43,11 @@ export const ThemeSettingItem: React.FunctionComponent<Props> = ({
       </ListItemIcon>
       <ListItemText
         primary={i18n.formatMessage(themesSettingsDefinition.labelMessage)}
-        secondary={i18n.formatMessage(selectedThemeDefinition.labelMessage)}
+        secondary={
+          typeof selectedThemeDefinition.labelMessage === "string"
+            ? selectedThemeDefinition.labelMessage
+            : i18n.formatMessage(selectedThemeDefinition.labelMessage)
+        }
       />
     </ListItem>
   );

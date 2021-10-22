@@ -41,7 +41,13 @@ export const SettingSelectionDialog: React.FunctionComponent<Props> = (
             onClick={() => handleListItemClick(value.key)}
             key={value.key}
           >
-            <ListItemText primary={i18n.formatMessage(value.labelMessage)} />
+            <ListItemText
+              primary={
+                typeof value.labelMessage === "string"
+                  ? value.labelMessage
+                  : i18n.formatMessage(value.labelMessage)
+              }
+            />
           </ListItem>
         ))}
       </List>
