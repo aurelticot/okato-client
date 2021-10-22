@@ -51,14 +51,6 @@
     "defaultMessage": "System default",
     "description": "Label of the option 'system' for the Setting Language"
   },
-  "settings.language.value.en.label": {
-    "defaultMessage": "English",
-    "description": "Label of the option 'en' for the Setting Language"
-  },
-  "settings.language.value.fr.label": {
-    "defaultMessage": "Français",
-    "description": "Label of the option 'fr' for the Setting Language"
-  },
   "settings.marketSort.label": {
     "defaultMessage": "Market sorting",
     "description": "Label of the Setting 'market sorting'"
