@@ -1,5 +1,10 @@
 import { defineMessage } from "react-intl";
-import { SettingKey, Settings, MarketSortingMethod } from "lib/types";
+import {
+  SettingKey,
+  Settings,
+  MarketSortingMethod,
+  TimeFormat,
+} from "lib/types";
 import { supportedLanguageSettingsValues } from "lib/lang";
 
 export const settings: Settings = {
@@ -70,6 +75,43 @@ export const settings: Settings = {
         }),
       },
       ...supportedLanguageSettingsValues,
+    ],
+  },
+  [SettingKey.TimeFormat]: {
+    key: SettingKey.TimeFormat,
+    labelMessage: defineMessage({
+      id: "settings.timeFormat.label",
+      defaultMessage: "Time format",
+      description: "Label of the Setting 'timeFormat'",
+    }),
+    values: [
+      {
+        key: TimeFormat.System,
+        labelMessage: defineMessage({
+          id: "settings.timeFormat.value.system.label",
+          defaultMessage: "System default",
+          description:
+            "Label of the option 'system' for the Setting Time format",
+        }),
+      },
+      {
+        key: TimeFormat.Hour12,
+        labelMessage: defineMessage({
+          id: "settings.timeFormat.value.hour12.label",
+          defaultMessage: "12-hour",
+          description:
+            "Label of the option 'hour12' for the Setting Time format",
+        }),
+      },
+      {
+        key: TimeFormat.Hour24,
+        labelMessage: defineMessage({
+          id: "settings.timeFormat.value.hour24.label",
+          defaultMessage: "24-hour",
+          description:
+            "Label of the option 'hour24' for the Setting Time format",
+        }),
+      },
     ],
   },
   [SettingKey.MarketSort]: {

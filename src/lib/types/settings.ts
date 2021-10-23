@@ -3,8 +3,15 @@ import { MessageDescriptor } from "react-intl";
 export enum SettingKey {
   Theme = "theme",
   Language = "language",
+  TimeFormat = "timeFormat",
   MarketSort = "marketSort",
   MarketSelection = "marketSelection",
+}
+
+export enum TimeFormat {
+  System = "system",
+  Hour12 = "12-hour",
+  Hour24 = "24-hour",
 }
 
 export interface SettingValue {

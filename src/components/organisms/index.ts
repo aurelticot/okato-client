@@ -5,6 +5,7 @@ export * from "./MarketSortSettingItem";
 export * from "./SettingSelectionDialog";
 export * from "./SettingsList";
 export * from "./ThemeSettingItem";
+export * from "./TimeFormatSettingItem";
 export * from "./Timeline";
 export * from "./TimelineHeader";
 export * from "./TimelineItem";

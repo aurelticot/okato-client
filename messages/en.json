@@ -51,6 +51,26 @@
     "defaultMessage": "System default",
     "description": "Label of the option 'system' for the Setting Language"
   },
+  "settings.timeFormat.label": {
+    "defaultMessage": "Time format",
+    "description": "Label of the Setting 'timeFormat'"
+  },
+  "settings.timeFormat.selectionDialog.title": {
+    "defaultMessage": "Select a time format",
+    "description": "Title of the dialog listing the time format options to select from"
+  },
+  "settings.timeFormat.value.system.label": {
+    "defaultMessage": "System default",
+    "description": "Label of the option 'system' for the Setting Time format"
+  },
+  "settings.timeFormat.value.hour12.label": {
+    "defaultMessage": "12-hour",
+    "description": "Label of the option 'hour12' for the Setting Time format"
+  },
+  "settings.timeFormat.value.hour24.label": {
+    "defaultMessage": "24-hour",
+    "description": "Label of the option 'hour24' for the Setting Time format"
+  },
   "settings.marketSort.label": {
     "defaultMessage": "Market sorting",
     "description": "Label of the Setting 'market sorting'"
