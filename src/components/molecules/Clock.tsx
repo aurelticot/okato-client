@@ -1,9 +1,11 @@
 import React from "react";
 import { DateTime } from "luxon";
 import { Box } from "@mui/material";
+import { useIntl } from "react-intl";
 import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
-import { useIntl } from "react-intl";
+import { useUserSetting } from "lib/hooks";
+import { SettingKey, TimeFormat } from "lib/types";
 
 const mainFluidText = getFluidTextValues(1);
 const subFluidText = getFluidTextValues(0.6);
@@ -27,6 +29,7 @@ export const Clock: React.FunctionComponent<ClockProps> = (props) => {
     displayDayPeriod,
   } = props;
   const i18n = useIntl();
+  const [timeFormat] = useUserSetting<TimeFormat>(SettingKey.TimeFormat);
 
   const workingTime = DateTime.fromJSDate(time, { zone: timezone || "local" });
   const localTime = DateTime.fromJSDate(time, { zone: "local" });
@@ -46,7 +49,12 @@ export const Clock: React.FunctionComponent<ClockProps> = (props) => {
   const timeParts = workingTime.setLocale(i18n.locale).toLocaleParts({
     hour: "2-digit",
     minute: "2-digit",
-    hour12: undefined,
+    hour12:
+      timeFormat === TimeFormat.System
+        ? undefined
+        : timeFormat === TimeFormat.Hour12
+        ? true
+        : false,
   });
   const formattedHours = timeParts.find((part) => part.type === "hour");
   const formattedMinutes = timeParts.find((part) => part.type === "minute");
