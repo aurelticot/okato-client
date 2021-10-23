@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { useScheduleJob } from "lib/hooks";
@@ -9,6 +9,7 @@ import {
   getTimelineDates,
   getFluidTextValues,
 } from "lib/utils";
+import { defaultLocale } from "lib/lang";
 import { TimelineRulerTime } from "components/organisms";
 import { useIntl } from "react-intl";
 
@@ -32,7 +33,8 @@ interface DayRulerSegment extends Segment {
 
 const resolveHourRulerSegment = (
   start: DateTime,
-  end: DateTime
+  end: DateTime,
+  locale: string
 ): HourRulerSegment[] => {
   const segments: HourRulerSegment[] = [];
 
@@ -42,11 +44,18 @@ const resolveHourRulerSegment = (
     const nextCursor = cursor.plus({ hours: 1 });
     const segmentStart = cursor < start ? start : cursor;
     const segmentEnd = nextCursor > end ? end : nextCursor;
+    const formattedHour = segmentStart
+      .setLocale(locale)
+      .toLocaleParts({
+        hour: "2-digit",
+        hour12: undefined,
+      })
+      .find((part) => part.type === "hour")?.value;
 
     segments.push({
       start: segmentStart.diff(start).as("minutes"),
       duration: segmentEnd.diff(segmentStart).as("minutes"),
-      time: segmentStart.toFormat("HH"),
+      time: formattedHour || segmentStart.toFormat("HH"),
     });
 
     cursor = nextCursor;
@@ -57,7 +66,8 @@ const resolveHourRulerSegment = (
 
 const resolveDayRulerSegments = (
   start: DateTime,
-  end: DateTime
+  end: DateTime,
+  locale: string
 ): DayRulerSegment[] => {
   const segments: DayRulerSegment[] = [];
 
@@ -72,7 +82,7 @@ const resolveDayRulerSegments = (
       start: segmentStart.diff(start).as("minutes"),
       duration: segmentEnd.diff(segmentStart).as("minutes"),
       date: segmentStart.toJSDate(),
-      hourSegments: resolveHourRulerSegment(segmentStart, segmentEnd),
+      hourSegments: resolveHourRulerSegment(segmentStart, segmentEnd, locale),
     });
 
     dayCursor = nextDayCursor;
@@ -81,9 +91,13 @@ const resolveDayRulerSegments = (
   return segments;
 };
 
-const resolveRulerSegments = (): DayRulerSegment[] => {
+const resolveRulerSegments = (locale: string): DayRulerSegment[] => {
   const { total: timelineDates } = getTimelineDates();
-  return resolveDayRulerSegments(timelineDates.start, timelineDates.end);
+  return resolveDayRulerSegments(
+    timelineDates.start,
+    timelineDates.end,
+    locale
+  );
 };
 
 interface Props {
@@ -92,14 +106,16 @@ interface Props {
 
 const RawTimelineRuler: React.FunctionComponent<Props> = (props) => {
   const { baseTime } = props;
-  const initialSegments = resolveRulerSegments();
+  const initialSegments = resolveRulerSegments(defaultLocale);
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
+  const { locale } = useIntl();
 
   const updateSegment = useCallback(() => {
-    const newSegments = resolveRulerSegments();
+    const newSegments = resolveRulerSegments(locale);
     setSegments(newSegments);
-  }, []);
+  }, [locale]);
 
+  useEffect(updateSegment, [updateSegment]);
   useScheduleJob(everyMinuteSchedule, updateSegment, [updateSegment]);
 
   const theme = useTheme();
@@ -169,7 +185,7 @@ const RawTimelineRuler: React.FunctionComponent<Props> = (props) => {
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
                     <FluidTypography
-                      key={hourSegment.time}
+                      key={hourSegment.start}
                       {...hourFluidText}
                       sx={{
                         "width": `${

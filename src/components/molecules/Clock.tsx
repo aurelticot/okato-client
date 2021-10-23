@@ -3,21 +3,30 @@ import { DateTime } from "luxon";
 import { Box } from "@mui/material";
 import { FluidTypography } from "components/atoms";
 import { getFluidTextValues } from "lib/utils";
+import { useIntl } from "react-intl";
 
 const mainFluidText = getFluidTextValues(1);
 const subFluidText = getFluidTextValues(0.6);
 
-interface Props {
+export interface ClockProps {
   time: Date;
   timezone?: string;
   displayTimezone?: boolean;
   displayDayDiff?: boolean;
   displaySeconds?: boolean;
+  displayDayPeriod?: boolean;
 }
 
-export const Clock: React.FunctionComponent<Props> = (props) => {
-  const { time, timezone, displayTimezone, displayDayDiff, displaySeconds } =
-    props;
+export const Clock: React.FunctionComponent<ClockProps> = (props) => {
+  const {
+    time,
+    timezone,
+    displayTimezone,
+    displayDayDiff,
+    displaySeconds,
+    displayDayPeriod,
+  } = props;
+  const i18n = useIntl();
 
   const workingTime = DateTime.fromJSDate(time, { zone: timezone || "local" });
   const localTime = DateTime.fromJSDate(time, { zone: "local" });
@@ -33,6 +42,18 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
   } else if (normalizedTime > localTime.startOf("day")) {
     displayedDayDiff = "+1";
   }
+
+  const timeParts = workingTime.setLocale(i18n.locale).toLocaleParts({
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: undefined,
+  });
+  const formattedHours = timeParts.find((part) => part.type === "hour");
+  const formattedMinutes = timeParts.find((part) => part.type === "minute");
+  const formattedSeconds = timeParts.find((part) => part.type === "second");
+  const formattedDayPeriod = timeParts.find(
+    (part) => part.type === "dayPeriod"
+  );
 
   return (
     <Box
@@ -60,20 +81,31 @@ export const Clock: React.FunctionComponent<Props> = (props) => {
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <FluidTypography {...mainFluidText}>
-          {workingTime.toFormat("HH")}
+          {formattedHours?.value}
         </FluidTypography>
         <FluidTypography {...mainFluidText}>:</FluidTypography>
         <FluidTypography {...mainFluidText}>
-          {workingTime.toFormat("mm")}
+          {formattedMinutes?.value}
         </FluidTypography>
       </Box>
       <Box sx={{ flex: "1", display: "flex", justifyContent: "flex-start" }}>
         {displaySeconds && (
-          <FluidTypography {...mainFluidText}>:</FluidTypography>
+          <>
+            <FluidTypography {...mainFluidText}>:</FluidTypography>
+            <FluidTypography {...mainFluidText}>
+              {formattedSeconds?.value}
+            </FluidTypography>
+          </>
         )}
-        {displaySeconds && (
-          <FluidTypography {...mainFluidText}>
-            {workingTime.toFormat("ss")}
+        {displayDayPeriod && formattedDayPeriod && (
+          <FluidTypography
+            {...subFluidText}
+            sx={{
+              textTransform: "lowercase",
+              ml: (theme) => theme.custom.mixins.fluidLength(0.2),
+            }}
+          >
+            {formattedDayPeriod.value}
           </FluidTypography>
         )}
         {displayTimezone && (

@@ -110,6 +110,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
               timezone={market.timezone}
               displayTimezone
               displayDayDiff
+              displayDayPeriod
             />
           )}
           {!baseTime && (
@@ -117,6 +118,7 @@ export const TimelineItemHeader: React.FunctionComponent<Props> = (props) => {
               timezone={market.timezone}
               displayTimezone
               displayDayDiff
+              displayDayPeriod
             />
           )}
         </Box>
