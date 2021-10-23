@@ -18,6 +18,7 @@ export const initTelemetry = (customData?: any, tags?: string[]): void => {
     automaticPerformanceCustomTimings: true,
     excludedHostnames: ["localhost"],
   });
+  window.rg4js("logContentsOfXhrCalls", true);
   setTelemetryBreadcrumbLevel(
     config.nodeEnv === "development" ? "debug" : "info"
   );
