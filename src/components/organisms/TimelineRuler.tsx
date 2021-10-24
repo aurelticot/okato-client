@@ -1,16 +1,18 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Box, Paper, useMediaQuery, useTheme } from "@mui/material";
-import { useScheduleJob } from "lib/hooks";
+import { useIntl } from "react-intl";
+import { SettingKey, TimeFormat } from "lib/types";
+import { useScheduleJob, useUserSetting } from "lib/hooks";
 import { everyMinuteSchedule } from "lib/constants";
-import { FluidTypography } from "components/atoms";
 import {
   getTimelineSizeInMinutes,
   getTimelineDates,
   getFluidTextValues,
 } from "lib/utils";
+import { defaultLocale } from "lib/lang";
+import { FluidTypography } from "components/atoms";
 import { TimelineRulerTime } from "components/organisms";
-import { useIntl } from "react-intl";
 
 const timelineSizeInMinutes = getTimelineSizeInMinutes();
 const dayFluidText = getFluidTextValues(0.8);
@@ -32,7 +34,9 @@ interface DayRulerSegment extends Segment {
 
 const resolveHourRulerSegment = (
   start: DateTime,
-  end: DateTime
+  end: DateTime,
+  locale: string,
+  timeFormat: TimeFormat
 ): HourRulerSegment[] => {
   const segments: HourRulerSegment[] = [];
 
@@ -42,11 +46,23 @@ const resolveHourRulerSegment = (
     const nextCursor = cursor.plus({ hours: 1 });
     const segmentStart = cursor < start ? start : cursor;
     const segmentEnd = nextCursor > end ? end : nextCursor;
+    const formattedHour = segmentStart
+      .setLocale(locale)
+      .toLocaleParts({
+        hour: "2-digit",
+        hour12:
+          timeFormat === TimeFormat.System
+            ? undefined
+            : timeFormat === TimeFormat.Hour12
+            ? true
+            : false,
+      })
+      .find((part) => part.type === "hour")?.value;
 
     segments.push({
       start: segmentStart.diff(start).as("minutes"),
       duration: segmentEnd.diff(segmentStart).as("minutes"),
-      time: segmentStart.toFormat("HH"),
+      time: formattedHour || segmentStart.toFormat("HH"),
     });
 
     cursor = nextCursor;
@@ -57,7 +73,9 @@ const resolveHourRulerSegment = (
 
 const resolveDayRulerSegments = (
   start: DateTime,
-  end: DateTime
+  end: DateTime,
+  locale: string,
+  timeFormat: TimeFormat
 ): DayRulerSegment[] => {
   const segments: DayRulerSegment[] = [];
 
@@ -72,7 +90,12 @@ const resolveDayRulerSegments = (
       start: segmentStart.diff(start).as("minutes"),
       duration: segmentEnd.diff(segmentStart).as("minutes"),
       date: segmentStart.toJSDate(),
-      hourSegments: resolveHourRulerSegment(segmentStart, segmentEnd),
+      hourSegments: resolveHourRulerSegment(
+        segmentStart,
+        segmentEnd,
+        locale,
+        timeFormat
+      ),
     });
 
     dayCursor = nextDayCursor;
@@ -81,9 +104,17 @@ const resolveDayRulerSegments = (
   return segments;
 };
 
-const resolveRulerSegments = (): DayRulerSegment[] => {
+const resolveRulerSegments = (
+  locale: string,
+  timeFormat: TimeFormat
+): DayRulerSegment[] => {
   const { total: timelineDates } = getTimelineDates();
-  return resolveDayRulerSegments(timelineDates.start, timelineDates.end);
+  return resolveDayRulerSegments(
+    timelineDates.start,
+    timelineDates.end,
+    locale,
+    timeFormat
+  );
 };
 
 interface Props {
@@ -92,14 +123,20 @@ interface Props {
 
 const RawTimelineRuler: React.FunctionComponent<Props> = (props) => {
   const { baseTime } = props;
-  const initialSegments = resolveRulerSegments();
+  const initialSegments = resolveRulerSegments(
+    defaultLocale,
+    TimeFormat.System
+  );
   const [segments, setSegments] = useState<DayRulerSegment[]>(initialSegments);
+  const { locale } = useIntl();
+  const [timeFormat] = useUserSetting<TimeFormat>(SettingKey.TimeFormat);
 
   const updateSegment = useCallback(() => {
-    const newSegments = resolveRulerSegments();
+    const newSegments = resolveRulerSegments(locale, timeFormat);
     setSegments(newSegments);
-  }, []);
+  }, [locale, timeFormat]);
 
+  useEffect(updateSegment, [updateSegment]);
   useScheduleJob(everyMinuteSchedule, updateSegment, [updateSegment]);
 
   const theme = useTheme();
@@ -169,7 +206,7 @@ const RawTimelineRuler: React.FunctionComponent<Props> = (props) => {
                 {daySegment.hourSegments.map((hourSegment) => {
                   return (
                     <FluidTypography
-                      key={hourSegment.time}
+                      key={hourSegment.start}
                       {...hourFluidText}
                       sx={{
                         "width": `${

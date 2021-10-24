@@ -10,7 +10,8 @@ import {
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { routes } from "lib/constants";
-import { sendPageView } from "lib/utils";
+import { sendTelemetryPageView } from "lib/utils";
+import { ErrorHandler } from "lib/handlers";
 import { TopBar } from "components/organisms";
 import {
   MarketSelectionDialog,
@@ -33,7 +34,7 @@ export const App: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    sendPageView(location.pathname);
+    sendTelemetryPageView(location.pathname);
   }, [location]);
 
   useEffect(() => {
@@ -43,20 +44,31 @@ export const App: React.FunctionComponent = () => {
   }, [settingsRouteMatch, marketSelectionRouteMatch]);
 
   return (
-    <Box sx={{ px: 1 }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <TopBar />
       <TopBarOffset />
-      <Switch>
-        <Route
-          path={[routes.home, routes.settings, routes.marketSelection]}
-          exact
-        >
-          <TimelinesView />
-        </Route>
-        <Route>
-          <Redirect to={routes.home} />
-        </Route>
-      </Switch>
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <ErrorHandler>
+          <Switch>
+            <Route
+              path={[routes.home, routes.settings, routes.marketSelection]}
+              exact
+            >
+              <TimelinesView />
+            </Route>
+            <Route>
+              <Redirect to={routes.home} />
+            </Route>
+          </Switch>
+        </ErrorHandler>
+      </Box>
       <MarketSelectionDialog
         open={dialogOpen && !!marketSelectionRouteMatch?.isExact}
         onClose={closeDialog}

@@ -172,30 +172,34 @@ export const TimelinesContainer: React.FunctionComponent<Props> = (props) => {
   });
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-      }}
-    >
+    <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
       {memoizedLeftEdgeBox}
       {memoizedRightEdgeBox}
       <Box
         sx={{
+          height: "100%",
           width: "100%",
-          overflow: "auto",
+          overflowX: "auto",
         }}
         onScroll={handleScroll}
         {...{ ref: containerRef }}
       >
         <Box
           sx={{
+            height: "100%",
             width: `${
               (timelineSizeInHours * 100) / timelineVisibleSizeInHours
             }%`,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          <TimelineRuler baseTime={baseTime} />
-          {props.children}
+          <Box component="section">
+            <TimelineRuler baseTime={baseTime} />
+          </Box>
+          <Box component="section" sx={{ flexGrow: 1 }}>
+            {props.children}
+          </Box>
         </Box>
       </Box>
       <Slide direction="left" in={!!baseTime} mountOnEnter unmountOnExit>

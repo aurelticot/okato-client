@@ -66,8 +66,8 @@ export const baseOptions: ThemeOptions = {
   },
   palette: {
     primary: {
-      light: "#64b5f6",
       main: "#2196f3",
+      light: "#64b5f6",
       dark: "#1976d2",
       contrastText: "#fff",
     },
@@ -79,6 +79,14 @@ export const baseOptions: ThemeOptions = {
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        #root {
+          height: 100vh;
+          width: 100vw;
+        }
+      `,
+    },
     MuiDialog: {
       styleOverrides: {
         root: {

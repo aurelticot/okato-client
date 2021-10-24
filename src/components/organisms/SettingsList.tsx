@@ -6,6 +6,7 @@ import {
   LanguageSettingItem,
   MarketSortSettingItem,
   ThemeSettingItem,
+  TimeFormatSettingItem,
 } from "components/organisms";
 
 const emptyDialogProps: SettingDialogConfiguration = {
@@ -37,6 +38,7 @@ export const SettingsList: React.FunctionComponent = () => {
       <List sx={{ p: 0 }}>
         <ThemeSettingItem onClick={openDialog} />
         <LanguageSettingItem onClick={openDialog} />
+        <TimeFormatSettingItem onClick={openDialog} />
         <MarketSortSettingItem onClick={openDialog} />
       </List>
       <SettingSelectionDialog

@@ -18,6 +18,7 @@ const RawAppDate: React.FunctionComponent<Props> = ({ time }) => {
   const labelToday = i18n.formatMessage({
     id: "AppDate.today",
     defaultMessage: "Today",
+    description: "Message displayed when the date is today, the current date",
   });
 
   if (!time) {
@@ -34,10 +35,12 @@ const RawAppDate: React.FunctionComponent<Props> = ({ time }) => {
   const labelTomorrow = i18n.formatMessage({
     id: "AppDate.tomorrow",
     defaultMessage: "Tomorrow",
+    description: "Message displayed when the date is tomorrow",
   });
   const labelYesterday = i18n.formatMessage({
     id: "AppDate.yesterday",
     defaultMessage: "Yesterday",
+    description: "Message displayed when the date is yesterday",
   });
 
   if (dateTime.hasSame(realDateTime.plus({ days: 1 }), "day")) {

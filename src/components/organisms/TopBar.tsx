@@ -61,6 +61,7 @@ export const TopBar: React.FunctionComponent = () => {
     >
       <Toolbar>
         <Typography
+          component="h1"
           variant="h6"
           sx={{
             flexGrow: 1,

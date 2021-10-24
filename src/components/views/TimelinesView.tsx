@@ -1,11 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
-import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
+import {
+  getMarketSortingFunction,
+  getTimelineDates,
+  sendTelemetryError,
+} from "lib/utils";
 import { everyMinuteSchedule } from "lib/constants";
 import { useBaseTime, useScheduleJob, useUserSetting } from "lib/hooks";
 import { TimelinesContainer, TimelinesList } from "components/organisms";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { MARKETS } from "lib/graphql/queries";
 import {
   Markets as MarketsData,
@@ -17,7 +21,7 @@ const initialTimelineDates = getTimelineDates();
 const PAGE_LIMIT = 20;
 
 const useMarketsData = (selectedMarkets: string[]) => {
-  const { data, loading, networkStatus, error, refetch } = useQuery<
+  const [getData, { data, loading, error, refetch }] = useLazyQuery<
     MarketsData,
     MarketsVariables
   >(MARKETS, {
@@ -30,23 +34,30 @@ const useMarketsData = (selectedMarkets: string[]) => {
       withSessions: true,
       withTimeline: true,
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-first",
   });
 
   const updateMarkets = useCallback(() => {
+    if (selectedMarkets.length < 1) {
+      return;
+    }
     const updatedTimelineDates = getTimelineDates();
-    refetch({
-      startDate: updatedTimelineDates.total.start.toISO(),
-      endDate: updatedTimelineDates.total.end.toISO(),
-    })
-      .then(() => {
-        // Nothing to do here
+    refetch &&
+      refetch({
+        startDate: updatedTimelineDates.total.start.toISO(),
+        endDate: updatedTimelineDates.total.end.toISO(),
       })
-      .catch(() => {
-        // TODO deal with the error
-      });
-  }, [refetch]);
+        .then()
+        .catch((error) => sendTelemetryError(error, ["graphql"]));
+  }, [refetch, selectedMarkets]);
+
+  useEffect(() => {
+    if (selectedMarkets.length < 1) {
+      return;
+    }
+    getData();
+  }, [getData, selectedMarkets]);
 
   useScheduleJob(everyMinuteSchedule, updateMarkets, [updateMarkets]);
 
@@ -57,7 +68,7 @@ const useMarketsData = (selectedMarkets: string[]) => {
     };
   }, [updateMarkets]);
 
-  return { data, loading, networkStatus, error };
+  return { data, loading, error };
 };
 
 export const TimelinesView: React.FunctionComponent = () => {
@@ -73,10 +84,6 @@ export const TimelinesView: React.FunctionComponent = () => {
     const sortMethod = getMarketSortingFunction(marketSort);
     const preparedMarkets: Market[] | null = data
       ? data.markets.result
-          // TODO delete filter and find a way to not query for empty selection
-          .filter((market) => {
-            return selectedMarkets.includes(market.id) ? true : false;
-          })
           .map((market): Market => {
             const preparedSessions: MarketSession[] = market.sessions
               .map(
@@ -112,7 +119,7 @@ export const TimelinesView: React.FunctionComponent = () => {
   return (
     <TimelinesContainer baseTime={baseTime} setBaseTime={setBaseTime}>
       <TimelinesList
-        markets={markets}
+        markets={selectedMarkets.length === 0 ? [] : markets}
         baseTime={baseTime}
         nbMarketsLoading={selectedMarkets.length}
       />

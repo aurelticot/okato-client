@@ -13,7 +13,7 @@ export const TimelineItem: React.FunctionComponent<Props> = ({
   baseTime,
 }) => {
   return (
-    <Box>
+    <Box component="article">
       <TimelineItemHeader baseTime={baseTime} market={market} />
       <Timeline segments={market.timeline} />
     </Box>

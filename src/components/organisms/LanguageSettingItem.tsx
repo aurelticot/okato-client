@@ -27,6 +27,9 @@ export const LanguageSettingItem: React.FunctionComponent<Props> = ({
   const dialogConfiguration: SettingDialogConfiguration = {
     title: i18n.formatMessage({
       id: "settings.language.selectionDialog.title",
+      defaultMessage: "Select a language",
+      description:
+        "Title of the dialog listing the language options to select from",
     }),
     selectedValue: language,
     values: languagesSettingsDefinition.values,
@@ -39,12 +42,12 @@ export const LanguageSettingItem: React.FunctionComponent<Props> = ({
         <LanguageIcon />
       </ListItemIcon>
       <ListItemText
-        primary={i18n.formatMessage({
-          id: languagesSettingsDefinition.localizedLabelKey,
-        })}
-        secondary={i18n.formatMessage({
-          id: selectedLanguageDefinition.localizedLabelKey,
-        })}
+        primary={i18n.formatMessage(languagesSettingsDefinition.labelMessage)}
+        secondary={
+          typeof selectedLanguageDefinition.labelMessage === "string"
+            ? selectedLanguageDefinition.labelMessage
+            : i18n.formatMessage(selectedLanguageDefinition.labelMessage)
+        }
       />
     </ListItem>
   );

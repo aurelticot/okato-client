@@ -23,6 +23,9 @@ export const MarketSortSettingItem: React.FunctionComponent<Props> = ({
   const dialogConfiguration: SettingDialogConfiguration = {
     title: i18n.formatMessage({
       id: "settings.marketSort.selectionDialog.title",
+      defaultMessage: "Select a sorting method",
+      description:
+        "Title of the dialog listing the sorting method options to select from",
     }),
     selectedValue: marketSort,
     values: marketSortSettingsDefinition.values,
@@ -35,12 +38,12 @@ export const MarketSortSettingItem: React.FunctionComponent<Props> = ({
         <SortByAlphaIcon />
       </ListItemIcon>
       <ListItemText
-        primary={i18n.formatMessage({
-          id: marketSortSettingsDefinition.localizedLabelKey,
-        })}
-        secondary={i18n.formatMessage({
-          id: selectedMarketSortDefinition.localizedLabelKey,
-        })}
+        primary={i18n.formatMessage(marketSortSettingsDefinition.labelMessage)}
+        secondary={
+          typeof selectedMarketSortDefinition.labelMessage === "string"
+            ? selectedMarketSortDefinition.labelMessage
+            : i18n.formatMessage(selectedMarketSortDefinition.labelMessage)
+        }
       />
     </ListItem>
   );

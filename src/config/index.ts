@@ -25,6 +25,7 @@ const timelineTotalPeriod = 7 * 24;
 const defaultUserSettings: UserSettings = {
   [SettingKey.Theme]: "system",
   [SettingKey.Language]: "system",
+  [SettingKey.TimeFormat]: "system",
   [SettingKey.MarketSelection]: ["XNYS", "XNAS", "XLON", "XJPX", "XAMS"],
   [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
 };

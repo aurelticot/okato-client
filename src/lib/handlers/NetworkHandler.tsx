@@ -14,6 +14,12 @@ export const NetworkHandler: React.FunctionComponent = () => {
     defaultMessage: "You are offline",
   });
 
+  const onlineMessage = i18n.formatMessage({
+    id: "NetworkHandler.notification.onlineMessage",
+    description: "Message displayed in notification while back online",
+    defaultMessage: "You are back online",
+  });
+
   const handleOfflineEvent = useCallback(() => {
     snackbarKey.current = enqueueSnackbar(offlineMessage, {
       key: "offline",
@@ -21,22 +27,6 @@ export const NetworkHandler: React.FunctionComponent = () => {
       persist: true,
     });
   }, [enqueueSnackbar, offlineMessage]);
-
-  useEffect(() => {
-    window.addEventListener("offline", handleOfflineEvent);
-    if (!isOnline()) {
-      handleOfflineEvent();
-    }
-    return () => {
-      window.removeEventListener("offline", handleOfflineEvent);
-    };
-  }, [handleOfflineEvent]);
-
-  const onlineMessage = i18n.formatMessage({
-    id: "NetworkHandler.notification.onlineMessage",
-    description: "Message displayed in notification while back online",
-    defaultMessage: "You are back online",
-  });
 
   const handleOnlineEvent = useCallback(() => {
     if (snackbarKey.current) {
@@ -49,11 +39,16 @@ export const NetworkHandler: React.FunctionComponent = () => {
   }, [enqueueSnackbar, closeSnackbar, onlineMessage]);
 
   useEffect(() => {
+    window.addEventListener("offline", handleOfflineEvent);
     window.addEventListener("online", handleOnlineEvent);
+    if (!isOnline()) {
+      handleOfflineEvent();
+    }
     return () => {
+      window.removeEventListener("offline", handleOfflineEvent);
       window.removeEventListener("online", handleOnlineEvent);
     };
-  }, [handleOnlineEvent]);
+  }, [handleOfflineEvent, handleOnlineEvent]);
 
   return null;
 };

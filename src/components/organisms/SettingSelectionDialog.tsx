@@ -42,7 +42,11 @@ export const SettingSelectionDialog: React.FunctionComponent<Props> = (
             key={value.key}
           >
             <ListItemText
-              primary={i18n.formatMessage({ id: value.localizedLabelKey })}
+              primary={
+                typeof value.labelMessage === "string"
+                  ? value.labelMessage
+                  : i18n.formatMessage(value.labelMessage)
+              }
             />
           </ListItem>
         ))}
