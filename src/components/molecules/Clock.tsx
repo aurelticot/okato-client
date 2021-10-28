@@ -49,12 +49,12 @@ export const Clock: React.FunctionComponent<ClockProps> = (props) => {
   const timeParts = workingTime.setLocale(i18n.locale).toLocaleParts({
     hour: "2-digit",
     minute: "2-digit",
-    hour12:
+    hourCycle:
       timeFormat === TimeFormat.System
         ? undefined
         : timeFormat === TimeFormat.Hour12
-        ? true
-        : false,
+        ? "h12"
+        : "h23",
   });
   const formattedHours = timeParts.find((part) => part.type === "hour");
   const formattedMinutes = timeParts.find((part) => part.type === "minute");

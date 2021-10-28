@@ -50,12 +50,12 @@ const resolveHourRulerSegment = (
       .setLocale(locale)
       .toLocaleParts({
         hour: "2-digit",
-        hour12:
+        hourCycle:
           timeFormat === TimeFormat.System
             ? undefined
             : timeFormat === TimeFormat.Hour12
-            ? true
-            : false,
+            ? "h12"
+            : "h23",
       })
       .find((part) => part.type === "hour")?.value;
 
