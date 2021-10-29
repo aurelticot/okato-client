@@ -1,20 +1,18 @@
 import { SettingKey, UserSettings, MarketSortingMethod } from "lib/types";
+import { name, version } from "../../package.json";
 import { settings } from "./settings";
 
-const appName = process.env.npm_package_name;
-
-const appVersion = process.env.npm_package_version;
+const appName = name;
+const appVersion = version;
 
 const nodeEnv: string = process.env.NODE_ENV || "production";
-
-const environmentId: string = process.env.REACT_APP_ENVIRONMENT_ID || "unknown";
+const envType: string = process.env.REACT_APP_ENV_TYPE || "unknown";
+const envId: string = process.env.REACT_APP_ENV_ID || "unknown";
 
 const graphqlAPIEndpoint = process.env.REACT_APP_GRAPHQL_API_ENDPOINT;
 
 const raygunAPIKey = process.env.REACT_APP_RAYGUN_API_KEY;
-
 const enableMonitoring = !!(process.env.REACT_APP_ENABLE_MONITORING === "true");
-
 const enableCrashReporting = !!(
   process.env.REACT_APP_ENABLE_CRASH_REPORTING === "true"
 );
@@ -34,7 +32,8 @@ export const config = {
   appName,
   appVersion,
   nodeEnv,
-  environmentId,
+  envType,
+  envId,
   graphqlAPIEndpoint,
   timelineVisiblePeriod,
   timelineTotalPeriod,
