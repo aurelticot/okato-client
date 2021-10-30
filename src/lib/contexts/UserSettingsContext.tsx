@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { config } from "config";
 import { UserSettings } from "lib/types";
+import { recordTelemetryBreadcrumb } from "lib/utils";
 
 const { defaultUserSettings, settings } = config;
 
@@ -57,6 +58,10 @@ export const UserSettingsProvider: React.FunctionComponent = (props) => {
   const contextValue = useMemo(() => {
     const setter = (key: string, value: string | string[]) => {
       setUserSettings({ ...userSettings, [key]: value });
+      recordTelemetryBreadcrumb("info", "Changed User Setting", "", {
+        setting: key,
+        newValue: value,
+      });
     };
     return {
       userSettings,
