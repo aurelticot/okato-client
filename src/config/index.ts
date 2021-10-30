@@ -1,6 +1,5 @@
-import { SettingKey, UserSettings, MarketSortingMethod } from "lib/types";
 import { name, version } from "../../package.json";
-import { settings } from "./settings";
+import { defaultUserSettings, settings } from "./settings";
 
 const appName = name;
 const appVersion = version;
@@ -19,14 +18,6 @@ const enableCrashReporting = !!(
 
 const timelineVisiblePeriod = 24;
 const timelineTotalPeriod = 7 * 24;
-
-const defaultUserSettings: UserSettings = {
-  [SettingKey.Theme]: "system",
-  [SettingKey.Language]: "system",
-  [SettingKey.TimeFormat]: "system",
-  [SettingKey.MarketSelection]: ["XNYS", "XNAS", "XLON", "XJPX", "XAMS"],
-  [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
-};
 
 export const config = {
   appName,
