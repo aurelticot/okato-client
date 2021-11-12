@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { config } from "config";
 import { UserSettings } from "lib/types";
-import { recordTelemetryBreadcrumb } from "lib/utils";
+import { recordTelemetryBreadcrumb, getLogger } from "lib/utils";
+const logger = getLogger("UserSettings");
 
 const { defaultUserSettings, settings } = config;
 
@@ -46,6 +47,7 @@ export const UserSettingsProvider: React.FunctionComponent = (props) => {
     useState<UserSettings>(initialUserSettings);
 
   useEffect(() => {
+    logger.info(`User Settings set`, userSettings);
     if (!localStorage) {
       return;
     }
@@ -59,6 +61,10 @@ export const UserSettingsProvider: React.FunctionComponent = (props) => {
     const setter = (key: string, value: string | string[]) => {
       setUserSettings({ ...userSettings, [key]: value });
       recordTelemetryBreadcrumb("info", "Changed User Setting", "", {
+        setting: key,
+        newValue: value,
+      });
+      logger.info("User Settings changed", {
         setting: key,
         newValue: value,
       });
