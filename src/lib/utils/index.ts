@@ -1,3 +1,4 @@
+export * from "./logger";
 export * from "./marketUtils";
 export * from "./networkUtils";
 export * from "./timelineUtils";
