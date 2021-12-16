@@ -5,7 +5,8 @@ import { IntlErrorCode, OnErrorFn } from "@formatjs/intl";
 import { defaultLocale, getMessages, getLocale } from "lib/lang";
 import { useUserSetting } from "lib/hooks";
 import { SettingKey, LocalizedMessages } from "lib/types";
-import { sendTelemetryError } from "lib/utils";
+import { sendTelemetryError, getLogger } from "lib/utils";
+const logger = getLogger("i18n");
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 const sendTelemetryErrorDebounced: typeof sendTelemetryError = debounce(
@@ -23,12 +24,14 @@ export const IntlProvider: React.FunctionComponent = (props) => {
   const locale = getLocale(userLanguage);
 
   useEffect(() => {
+    logger.info(`Session locale set`, { locale });
     const loadMessages = async () => {
       try {
         const messages = await getMessages(locale);
         setMessages(messages);
         firstRender.current = false;
       } catch (error) {
+        logger.error("Failed to load localised messages", { error, locale });
         sendTelemetryError(
           new Error("Failed to load localised messages"),
           ["i18n"],
@@ -55,6 +58,7 @@ export const IntlProvider: React.FunctionComponent = (props) => {
           }
         );
       } else {
+        logger.error(error.message, { errorCode: error.code, locale });
         sendTelemetryError(error, ["i18n"], { locale });
       }
     },

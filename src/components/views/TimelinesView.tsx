@@ -56,7 +56,7 @@ const useMarketsData = (selectedMarkets: string[]) => {
     if (selectedMarkets.length < 1) {
       return;
     }
-    getData();
+    void getData();
   }, [getData, selectedMarkets]);
 
   useScheduleJob(everyMinuteSchedule, updateMarkets, [updateMarkets]);

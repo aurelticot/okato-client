@@ -2,10 +2,19 @@ import { defineMessage } from "react-intl";
 import {
   SettingKey,
   Settings,
+  UserSettings,
   MarketSortingMethod,
   TimeFormat,
 } from "lib/types";
 import { supportedLanguageSettingsValues } from "lib/lang";
+
+export const defaultUserSettings: UserSettings = {
+  [SettingKey.Theme]: "system",
+  [SettingKey.Language]: "system",
+  [SettingKey.TimeFormat]: TimeFormat.System,
+  [SettingKey.MarketSelection]: ["XNYS", "XNAS", "XLON", "XJPX", "XAMS"],
+  [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
+};
 
 export const settings: Settings = {
   [SettingKey.Theme]: {

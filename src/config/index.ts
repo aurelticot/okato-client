@@ -1,40 +1,37 @@
-import { SettingKey, UserSettings, MarketSortingMethod } from "lib/types";
-import { settings } from "./settings";
+import { name, version } from "../../package.json";
+import { defaultUserSettings, settings } from "./settings";
 
-const appName = process.env.npm_package_name;
+const appName = name;
+const appVersion = version;
 
-const appVersion = process.env.npm_package_version;
+const nodeEnv = process.env.NODE_ENV || "development";
+const envType: string = process.env.REACT_APP_ENV_TYPE || "unknown";
+const envId: string = process.env.REACT_APP_ENV_ID || "unknown";
 
-const nodeEnv: string = process.env.NODE_ENV || "production";
-
-const environmentId: string = process.env.REACT_APP_ENVIRONMENT_ID || "unknown";
+const logLevel =
+  process.env.REACT_APP_LOG_LEVEL ||
+  (nodeEnv === "production" ? "info" : "debug");
 
 const graphqlAPIEndpoint = process.env.REACT_APP_GRAPHQL_API_ENDPOINT;
 
 const raygunAPIKey = process.env.REACT_APP_RAYGUN_API_KEY;
-
 const enableMonitoring = !!(process.env.REACT_APP_ENABLE_MONITORING === "true");
-
 const enableCrashReporting = !!(
   process.env.REACT_APP_ENABLE_CRASH_REPORTING === "true"
 );
 
+const logtailSourceToken = process.env.REACT_APP_LOGTAIL_SOURCE_TOKEN;
+
 const timelineVisiblePeriod = 24;
 const timelineTotalPeriod = 7 * 24;
-
-const defaultUserSettings: UserSettings = {
-  [SettingKey.Theme]: "system",
-  [SettingKey.Language]: "system",
-  [SettingKey.TimeFormat]: "system",
-  [SettingKey.MarketSelection]: ["XNYS", "XNAS", "XLON", "XJPX", "XAMS"],
-  [SettingKey.MarketSort]: MarketSortingMethod.CHRONOLOGICALLY,
-};
 
 export const config = {
   appName,
   appVersion,
   nodeEnv,
-  environmentId,
+  envType,
+  envId,
+  logLevel,
   graphqlAPIEndpoint,
   timelineVisiblePeriod,
   timelineTotalPeriod,
@@ -43,4 +40,5 @@ export const config = {
   raygunAPIKey,
   enableMonitoring,
   enableCrashReporting,
+  logtailSourceToken,
 };

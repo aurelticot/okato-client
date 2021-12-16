@@ -104,7 +104,7 @@
     "description": "Label of the option 'chronologic reverse' for the Setting Market Sorting"
   },
   "ApplicationBar.appTitle": {
-    "defaultMessage": "Market Timeline",
+    "defaultMessage": "Market Timelines",
     "description": "Name/Title of the application"
   },
   "NetworkHandler.notification.offlineMessage": {

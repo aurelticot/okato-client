@@ -19,21 +19,22 @@ const cleanProps = (
   return cleanedProps;
 };
 
-export const FluidTypography: React.FunctionComponent<Props & TypographyProps> =
-  (props) => {
-    const { minSize = "1rem", sizeRatio, ratioUnit = "vmin", maxSize } = props;
-    const cleanedProps = cleanProps(props);
-    return (
-      <Typography
-        {...cleanedProps}
-        sx={{
-          ...props.sx,
-          fontSize: `clamp(${minSize}, ${sizeRatio}${ratioUnit}, ${
-            maxSize ? maxSize : sizeRatio
-          })`,
-        }}
-      >
-        {props.children}
-      </Typography>
-    );
-  };
+export const FluidTypography: React.FunctionComponent<
+  Props & TypographyProps
+> = (props) => {
+  const { minSize = "1rem", sizeRatio, ratioUnit = "vmin", maxSize } = props;
+  const cleanedProps = cleanProps(props);
+  return (
+    <Typography
+      {...cleanedProps}
+      sx={{
+        ...props.sx,
+        fontSize: `clamp(${minSize}, ${sizeRatio}${ratioUnit}, ${
+          maxSize ? maxSize : sizeRatio
+        })`,
+      }}
+    >
+      {props.children}
+    </Typography>
+  );
+};

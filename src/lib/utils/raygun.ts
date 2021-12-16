@@ -1,27 +1,40 @@
 import { BreadcrumbLevel } from "raygun4js";
 import { nanoid } from "nanoid/non-secure";
-import { config } from "config";
-const { raygunAPIKey, enableCrashReporting, enableMonitoring } = config;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const initTelemetry = (customData?: any, tags?: string[]): void => {
-  window.rg4js("apiKey", raygunAPIKey || "local_dev");
+interface TelemetryOptions {
+  raygunAPIKey?: string;
+  enableCrashReporting?: boolean;
+  enableMonitoring?: boolean;
+  appVersion?: string;
+  debugMode?: boolean;
+  breadcrumbLevel?: BreadcrumbLevel;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  customData?: any;
+  tags?: string[];
+}
+
+export const initTelemetry = ({
+  raygunAPIKey = "local_dev",
+  enableCrashReporting = false,
+  enableMonitoring = false,
+  appVersion,
+  debugMode = false,
+  breadcrumbLevel = "info",
+  customData,
+  tags,
+}: TelemetryOptions): void => {
+  window.rg4js("apiKey", raygunAPIKey);
   window.rg4js("enableCrashReporting", enableCrashReporting);
   window.rg4js("enablePulse", enableMonitoring);
   window.rg4js("saveIfOffline", true);
-  if (config.appVersion) {
-    window.rg4js("setVersion", config.appVersion);
-  }
   window.rg4js("options", {
-    debugMode: config.nodeEnv === "development",
+    debugMode,
     ignore3rdPartyErrors: true,
     automaticPerformanceCustomTimings: true,
-    excludedHostnames: ["localhost"],
   });
   window.rg4js("logContentsOfXhrCalls", true);
-  setTelemetryBreadcrumbLevel(
-    config.nodeEnv === "development" ? "debug" : "info"
-  );
+  setTelemetryBreadcrumbLevel(breadcrumbLevel);
+  appVersion && window.rg4js("setVersion", appVersion);
   tags && window.rg4js("withTags", tags);
   customData && window.rg4js("withCustomData", customData);
 };
