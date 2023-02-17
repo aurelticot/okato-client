@@ -5,12 +5,10 @@ import {
   Redirect,
   useRouteMatch,
   useHistory,
-  useLocation,
 } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { routes } from "lib/constants";
-import { sendTelemetryPageView } from "lib/utils";
 import { ErrorHandler } from "lib/handlers";
 import { TopBar } from "components/organisms";
 import {
@@ -23,7 +21,6 @@ const TopBarOffset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 export const App: React.FunctionComponent = () => {
   const history = useHistory();
-  const location = useLocation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const settingsRouteMatch = useRouteMatch(routes.settings);
   const marketSelectionRouteMatch = useRouteMatch(routes.marketSelection);
@@ -32,10 +29,6 @@ export const App: React.FunctionComponent = () => {
     setDialogOpen(false);
     history.push(routes.home);
   };
-
-  useEffect(() => {
-    sendTelemetryPageView(location.pathname);
-  }, [location]);
 
   useEffect(() => {
     setDialogOpen(
