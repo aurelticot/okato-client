@@ -1,11 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { Market, MarketSession, TimelineSegment, SettingKey } from "lib/types";
-import {
-  getMarketSortingFunction,
-  getTimelineDates,
-  sendTelemetryError,
-} from "lib/utils";
+import { getMarketSortingFunction, getTimelineDates } from "lib/utils";
 import { everyMinuteSchedule } from "lib/constants";
 import { useBaseTime, useScheduleJob, useUserSetting } from "lib/hooks";
 import { TimelinesContainer, TimelinesList } from "components/organisms";
@@ -49,7 +45,9 @@ const useMarketsData = (selectedMarkets: string[]) => {
         endDate: updatedTimelineDates.total.end.toISO(),
       })
         .then()
-        .catch((error) => sendTelemetryError(error, ["graphql"]));
+        .catch((error) => {
+          // TODO: Handle error
+        });
   }, [refetch, selectedMarkets]);
 
   useEffect(() => {

@@ -5,7 +5,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 const client = new ApolloClient({
   uri: config.graphqlAPIEndpoint,
   cache: new InMemoryCache(),
-  name: config.envId,
   version: config.appVersion,
 });
 
